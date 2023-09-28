@@ -1,0 +1,39 @@
+.App {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  min-height: 100%;
+  color: whitesmoke;
+  box-sizing: border-box;
+
+  .App--background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: url(./resources/images/fantasy_ba_1.png) no-repeat;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+  }
+
+  main, nav {
+    overflow: hidden auto;
+
+    h1 {
+      text-align: center;
+    }
+  }
+
+  nav {
+    height: 100vh;
+    background-color: #232a35;
+  }
+
+  main {
+    height: 100vh;
+  }
+}
