@@ -1,6 +1,7 @@
 body {
   margin: 0;
   font-family: 'Lato', sans-serif;
+  box-sizing: border-box;
 }
 
 img {
@@ -12,6 +13,27 @@ img {
     cursor: pointer;
     &:hover {
       opacity: 80%;
+    }
+  }
+}
+
+a {
+  all: unset;
+  display: block;
+  cursor: pointer;
+  padding: 5px;
+  width: 100%;
+  box-sizing: border-box;
+
+  &:hover {
+    background-color: #3e4a5e;
+  }
+
+  &.active {
+    color: #72f57d;
+    .icon {
+      border: #72f57d 2px solid;
+      box-sizing: border-box;
     }
   }
 }

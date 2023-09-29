@@ -1,20 +1,28 @@
-import { RouterProvider, createBrowserRouter, Navigate } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
 import MainContent from './components/main-content/MainContent';
+import AdventurersTab from './components/adventurers-tab/AdventurersTab';
+import App from './App';
 
 export default function Router(props) {
-    const {setIsDrawerOpen} = props;
 
     const router = createBrowserRouter([
         {
-            path: "/",
-            element: <MainContent setIsDrawerOpen={setIsDrawerOpen} />,
+            element: <App />,
             children: [
-
-            ],
-        },
-        {
-            path: "*",
-            element: <Navigate to="/" />
+                {
+                    element: <MainContent />,
+                    children: [
+                        {
+                            path: "/adventurers",
+                            element: <AdventurersTab />,
+                        },
+                    ],
+                },
+                {
+                    path: "*",
+                    element: <Navigate to="/adventurers" />
+                }
+            ]
         }
     ])
 

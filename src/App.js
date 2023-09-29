@@ -1,8 +1,8 @@
 import './App.scss';
-import NavDrawer from './components/nav-drawer/NavDrawer';
 import WindowManager from './utils/WindowManager';
-import Router from './Router';
+import NavDrawer from './components/nav-drawer/NavDrawer';
 import GlobalStates from './utils/GlobalStates';
+import { Outlet } from 'react-router-dom';
 
 function App() {
   return (
@@ -10,8 +10,8 @@ function App() {
       <WindowManager>
         <div className="App">
           <div className='App--background' />
-          <NavDrawer></NavDrawer>
-          <Router />
+          <NavDrawer />
+          <Outlet />
         </div>
       </WindowManager>
     </GlobalStates>
