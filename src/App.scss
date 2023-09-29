@@ -1,11 +1,11 @@
 .App {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 1fr;
   position: fixed;
   top: 0;
   width: 100%;
   min-height: 100%;
-  color: whitesmoke;
+  color: white;
   box-sizing: border-box;
 
   .App--background {
@@ -27,13 +27,8 @@
       text-align: center;
     }
   }
+}
 
-  nav {
-    height: 100vh;
-    background-color: #232a35;
-  }
-
-  main {
-    height: 100vh;
-  }
+.desktop .App {
+  grid-template-columns: 200px 1fr;
 }

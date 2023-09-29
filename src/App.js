@@ -1,16 +1,20 @@
 import './App.scss';
+import NavDrawer from './components/nav-drawer/NavDrawer';
+import WindowManager from './utils/WindowManager';
+import Router from './Router';
+import GlobalStates from './utils/GlobalStates';
 
 function App() {
   return (
-    <div className="App">
-      <div className='App--background'></div>
-      <nav>
-        <h1>Nav</h1>
-      </nav>
-      <main>
-        <h1>Main content</h1>
-      </main>
-    </div>
+    <GlobalStates>
+      <WindowManager>
+        <div className="App">
+          <div className='App--background' />
+          <NavDrawer></NavDrawer>
+          <Router />
+        </div>
+      </WindowManager>
+    </GlobalStates>
   );
 }
 
