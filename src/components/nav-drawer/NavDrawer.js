@@ -6,6 +6,7 @@ import PlaceholderImg from '../../resources/images/placeholder.jpg';
 import { GlobalStatesContext } from '../../utils/GlobalStates';
 import { routes } from '../../utils/Routes';
 import { Link, useLocation } from 'react-router-dom';
+import { firstLetterToUpperCase } from '../../utils/HelperFunctions';
 
 export default function NavDrawer(props) {
     const window = useContext(WindowContext);
@@ -21,7 +22,7 @@ export default function NavDrawer(props) {
                 onClick={close}
             >
                 <img alt='' src={route.icon ? route.icon : PlaceholderImg} className='icon'></img>
-                {route.key[0].toUpperCase()}{route.key.slice(1)}
+                {firstLetterToUpperCase(route.key)}
             </Link>
         )
     });
@@ -42,7 +43,7 @@ export default function NavDrawer(props) {
 
     return (
         <nav id='nav-drawer'>
-            { !window.isDesktop && <img alt='' src={CloseSvg} onClick={close} className='icon interactable' /> }
+            { !window.isDesktop && <img alt='' src={CloseSvg} onClick={close} className='icon interactable push-right' /> }
             <h1>LOGO PLACEHOLDER</h1>
             { navElements }
         </nav>
