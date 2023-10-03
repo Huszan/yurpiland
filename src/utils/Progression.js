@@ -1,12 +1,26 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { purchasable } from '../utils/Functionals';
 
 const adventurersInitial = [
     {
         key: 'novice adventurer',
         icon: undefined,
-        purchasableOptions: purchasable(0, 50, (curr) => { return parseInt(curr * 0.01 + 10) }),
-        increase: 1,
+        purchasableOptions: purchasable(0, 50, (curr) => { return parseInt(curr * 0.03 + 10) }),
+        increase: 5,
+        multiplier: 1,
+    },
+    {
+        key: 'grave digger',
+        icon: undefined,
+        purchasableOptions: purchasable(0, 500, (curr) => { return parseInt(curr * 0.03 + 100) }),
+        increase: 50,
+        multiplier: 1,
+    },
+    {
+        key: 'cutthroat',
+        icon: undefined,
+        purchasableOptions: purchasable(0, 2500, (curr) => { return parseInt(curr * 0.05 + 300) }),
+        increase: 250,
         multiplier: 1,
     },
 ]
@@ -23,35 +37,19 @@ export default function Progression(props) {
     const [yurpis, setYurpis] = useState(50);
     const [adventurers, setAdventurers] = useState(adventurersInitial);
 
-    function yurpisPerTick() {
-        let amount = 0;
-        for (let adventurer of adventurers) {
-            amount += getAdventurerIncome(adventurer)
-        }
-        return amount;
-    }
-
-    function getAdventurerIncome(adventurer) {
-        return adventurer.purchasableOptions.getCount() 
-            * adventurer.increase 
-            * adventurer.multiplier 
-            * globalModifiers.adventurersMultiplier 
-            * globalModifiers.yurpiMultiplier;
-    }
-
-
     return (
         <ProgressionContext.Provider
             value = {{
                 get: {
                     yurpis: yurpis,
-                    adventurers: adventurers
+                    adventurers: adventurers,
+                    globalModifiers: globalModifiers,
                 },
                 set: {
                     yurpis: setYurpis,
                     adventurers: setAdventurers,
+                    globalModifiers: setGlboalModifiers,
                 },
-                getAdventurerIncome,
             }}
         >
             { children }
