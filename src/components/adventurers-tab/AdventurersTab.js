@@ -5,8 +5,9 @@ import { useContext } from 'react';
 
 export default function AdventurersTab() {
     const progress = useContext(ProgressionContext);
+    const [adventurers, setAdventurers] = progress.adventurers.state;
 
-    const adventurerComponents = progress.get.adventurers.map((adventurer, i) => {
+    const adventurerComponents = adventurers.map((adventurer, i) => {
         return <AdventurerBlock 
             key={ adventurer.key } 
             adventurer={ adventurer } 
