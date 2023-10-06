@@ -1,9 +1,6 @@
-import { createContext } from "react";
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from "react";
 
-export const WindowContext = createContext();
-
-export default function WindowManager(props) {
+const useWindowInfo = () => {
     const [isDesktop, setIsDesktop] = useState(window.innerWidth > 600);
 
     function init() {
@@ -26,13 +23,9 @@ export default function WindowManager(props) {
       }
     })
 
-    return (
-        <WindowContext.Provider
-            value = {{
-                isDesktop
-            }}
-        >
-            { props.children }
-        </WindowContext.Provider>
-    )
+    return {
+        isDesktop,
+    }
 }
+
+export { useWindowInfo };

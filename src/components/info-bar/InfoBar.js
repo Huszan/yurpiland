@@ -1,12 +1,12 @@
 import './InfoBar.scss';
 import MenuSvg from '../../resources/icons/menu.svg';
 import { useContext } from 'react';
-import { WindowContext } from '../../utils/WindowManager';
-import { GlobalStatesContext } from '../../utils/GlobalStates';
-import { ProgressionContext } from '../../utils/Progression'
+import { GlobalStatesContext } from '../../context/GlobalStates';
+import { ProgressionContext } from '../../context/Progression';
+import { useWindowInfo } from '../../hooks/UseWindowInfo';
 
 export default function InfoBar(props) {
-    const window = useContext(WindowContext);
+    const window = useWindowInfo();
     const progress = useContext(ProgressionContext);
     const {setIsNavDrawerOpen} = useContext(GlobalStatesContext);
 

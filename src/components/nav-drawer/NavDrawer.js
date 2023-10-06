@@ -1,15 +1,17 @@
 import { useContext, useEffect } from 'react';
-import { WindowContext } from '../../utils/WindowManager';
+import { Link, useLocation } from 'react-router-dom';
 import './NavDrawer.scss';
+
 import CloseSvg from '../../resources/icons/close.svg';
 import PlaceholderImg from '../../resources/images/placeholder.jpg';
-import { GlobalStatesContext } from '../../utils/GlobalStates';
+
+import { GlobalStatesContext } from '../../context/GlobalStates';
+import { useWindowInfo } from '../../hooks/UseWindowInfo';
 import { routes } from '../../utils/Routes';
-import { Link, useLocation } from 'react-router-dom';
 import { firstLetterToUpperCase } from '../../utils/HelperFunctions';
 
 export default function NavDrawer(props) {
-    const window = useContext(WindowContext);
+    const window = useWindowInfo();
     const location = useLocation();
     const { isNavDrawerOpen, setIsNavDrawerOpen } = useContext(GlobalStatesContext);
 
