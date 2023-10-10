@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import { useAdventurers } from "../hooks/UseAdventurers";
 
 export const ProgressionContext = createContext();
