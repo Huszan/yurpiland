@@ -8,10 +8,14 @@ export default function AdventurersTab() {
     const adventurers = progress.adventurers;
 
     const adventurerComponents = adventurers.map((adventurer) => {
-        return <AdventurerBlock 
-            key={ adventurer.key } 
-            adventurer={ adventurer } 
-        />
+        if (adventurer.isUnlocked) {
+            return (
+                <AdventurerBlock 
+                    key={ adventurer.key } 
+                    adventurer={ adventurer } 
+                />
+            )
+        }
     });
 
     return (

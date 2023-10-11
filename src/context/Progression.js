@@ -10,7 +10,7 @@ export default function Progression(props) {
         yurpiMultiplier: 1,
         adventurersMultiplier: 1,
     })
-    const [yurpis, setYurpis] = useState(50);
+    const [yurpis, setYurpis] = useState(100);
     const adventurers = useAdventurers(globalModifiers, [yurpis, setYurpis]);
 
     return (

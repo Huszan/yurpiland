@@ -7,4 +7,17 @@
     margin: 10px;
     padding: 10px;
     box-sizing: content-box;
+
+    .tags-wrapper {
+        margin: 0 0 10px 0;
+        padding: unset;
+        
+        .tag {
+            display: inline-block;
+            margin-left: 5px;
+            padding: 3px 5px 5px 5px;
+            border-radius: 15px;
+            box-sizing: content-box;
+        }
+    }
 }

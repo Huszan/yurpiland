@@ -13,6 +13,10 @@ export default function Router(props) {
                     element: <MainContent />,
                     children: [
                         {
+                            path: "/map",
+                            element: <h1>Not implemented yet</h1>,
+                        },
+                        {
                             path: "/adventurers",
                             element: <AdventurersTab />,
                         },
@@ -21,18 +25,26 @@ export default function Router(props) {
                             element: <h1>Not implemented yet</h1>,
                         },
                         {
+                            path: "/staff",
+                            element: <h1>Not implemented yet</h1>,
+                        },
+                        {
+                            path: "/alchemy",
+                            element: <h1>Not implemented yet</h1>,
+                        },
+                        {
                             path: "/achievements",
                             element: <h1>Not implemented yet</h1>,
                         },
                         {
-                            path: "/info",
+                            path: "/settings",
                             element: <h1>Not implemented yet</h1>,
                         },
                     ],
                 },
                 {
                     path: "*",
-                    element: <Navigate to="/adventurers" />
+                    element: <Navigate to="/map" />
                 }
             ]
         }
