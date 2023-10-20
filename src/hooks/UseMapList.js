@@ -1,6 +1,6 @@
 import { UseMap } from "./UseMap"
-import CastlePng from "../resources/images/castle.png"
-import CastleSelectedPng from "../resources/images/castle_selected.png"
+import CastlePng from "../resources/images/castle2.png"
+import CastleSelectedPng from "../resources/images/castle2_selected.png"
 import { useState } from "react"
 
 const mapsInitial = [

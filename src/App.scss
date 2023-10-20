@@ -1,3 +1,5 @@
+@import './styles/theme.scss';
+
 .App {
   display: grid;
   grid-template-columns: 1fr;
@@ -43,6 +45,34 @@
     background-color: unset;
     border: unset;
     cursor: pointer;
+    transition: all .1s ease-in-out;
+
+    &.basic {
+      padding: 5px;
+      margin: 5px;
+      background-color: $accent-color-1;
+      color: $accent-color-1-text;
+    }
+
+    &.secondary {
+      padding: 5px;
+      margin: 5px;
+      background-color: $accent-color-2;
+      color: $accent-color-2-text;
+    }
+
+    &.basic, &.secondary {
+      &:not(:disabled) {
+        &:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 2px 1px 1px rgba($color: #ffffff, $alpha: .9);
+        }
+      }
+    }
+
+    &:disabled {
+      opacity: 50%;
+    }
   }
 }
 

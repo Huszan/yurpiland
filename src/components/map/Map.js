@@ -88,7 +88,8 @@ export default function Map(props) {
         previousTouch = touch;
     }
 
-    const MapElements = maps.data.map(map => {
+    const mapElements = maps.data.map(map => {
+        const isSelected = maps.get.selected === map.key;
         return (
             <button 
                 key={ map.key } 
@@ -96,7 +97,7 @@ export default function Map(props) {
                 style={{left: map.position[0], top: map.position[1]}}
                 onClick={() => maps.set.selected(map.key)}
             >
-                <img src={ maps.get.selected === map.key ? map.iconSelected : map.icon } />
+                <img className={isSelected ? 'selected' : ''} src={ isSelected ? map.iconSelected : map.icon } />
             </button>
         )
     })
@@ -111,7 +112,7 @@ export default function Map(props) {
                 className='map-content'
                 ref={mapContentRef}
             >
-                { MapElements }
+                { mapElements }
             </div>
         </section>
     )

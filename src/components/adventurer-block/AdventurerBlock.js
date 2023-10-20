@@ -28,10 +28,10 @@ export default function AdventurerBlock(props) {
             <span>Level { adventurer.level }</span>
             <span>Cost: { adventurer.getCost() }</span>
             <span>Income: { adventurer.getAdventureIncome() } ({ incPerSec }/s)</span>
-            <button onClick={ () => adventurer.buy() } disabled={ !canAfford }>BUY</button>
+            <button className='basic' onClick={ () => adventurer.buy() } disabled={ !canAfford }>BUY</button>
             {
                 0 < adventurer.level && !adventurer.hasSendAuto &&
-                <button onClick={ () => { adventurer.sendOnAdventure() }}>SEND ON ADVENTURE</button>
+                <button className='secondary' onClick={ () => { adventurer.sendOnAdventure() }}>SEND ON ADVENTURE</button>
             }
             <IntervalBar 
                 timer={ adventurer.currentAdventureStartTime } 

@@ -4,6 +4,7 @@ import { useContext } from 'react';
 import { GlobalStatesContext } from '../../context/GlobalStates';
 import { ProgressionContext } from '../../context/Progression';
 import { useWindowInfo } from '../../hooks/UseWindowInfo';
+import YurpiPng from '../../resources/images/yurpi.png';
 
 export default function InfoBar(props) {
     const window = useWindowInfo();
@@ -18,8 +19,8 @@ export default function InfoBar(props) {
         <div id='info-bar'>
             { !window.isDesktop && <img alt='' src={MenuSvg} onClick={toggleDrawer} className='icon interactable push-right' /> }
             <span className='display-block'>
-                <img alt='' className='icon' />
-                { progress.get.yurpis}
+                <img src={YurpiPng} alt='' className='icon' />
+                { progress.get.yurpis }
             </span>
         </div>
     )

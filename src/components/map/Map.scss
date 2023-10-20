@@ -24,6 +24,10 @@
             img {
                 transition: scale .1s ease-in;
                 width: 100%;
+
+                &.selected {
+                    scale: 110%;
+                }
             }
 
             &:hover {
