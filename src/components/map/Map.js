@@ -2,6 +2,8 @@ import { useContext, useEffect, useRef } from 'react'
 import { ProgressionContext } from '../../context/Progression'
 import { useMapController } from '../../hooks/UseMapController'
 import './Map.scss'
+import ZoomInSvg from '../../resources/icons/zoom_in.svg';
+import ZoomOutSvg from '../../resources/icons/zoom_out.svg';
 
 export default function Map(props) {
     const mapRef = useRef();
@@ -108,6 +110,14 @@ export default function Map(props) {
             onWheel={(e) => onMapScroll(e)}
             ref={mapRef}
         >
+            <div className='zoom-controls'>
+                <button onClick={() => controller.zoomOut()}>
+                    <img className='icon-l' src={ZoomOutSvg} />
+                </button>
+                <button onClick={() => controller.zoomIn()}>
+                    <img className='icon-l' src={ZoomInSvg} />
+                </button>
+            </div>
             <div 
                 className='map-content'
                 ref={mapContentRef}
