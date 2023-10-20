@@ -26,10 +26,23 @@
   main, nav {
     height: 100%;
     overflow: hidden auto;
+    display: flex;
+    flex-direction: column;
 
     h1 {
       text-align: center;
     }
+
+    .scroller {
+      overflow: auto;
+      flex-grow: 1;
+    }
+  }
+
+  button {
+    background-color: unset;
+    border: unset;
+    cursor: pointer;
   }
 }
 

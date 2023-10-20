@@ -115,5 +115,14 @@ const adventurersInitial = [
 export const useAdventurers = (globalModifiers, yurpisState) => {
     const adventurers = adventurersInitial.map(el => UseAdventurer(el, globalModifiers, yurpisState));
 
-    return adventurers;
+    function getCumulatedAP() {
+        return adventurers.reduce(adventurer => {
+            return adventurer.getAP();
+        })
+    }
+
+    return {
+        data: adventurers,
+        getCumulatedAP,
+    };
 }

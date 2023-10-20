@@ -2,6 +2,7 @@ import { RouterProvider, createBrowserRouter, Navigate } from 'react-router-dom'
 import MainContent from './components/main-content/MainContent';
 import AdventurersTab from './components/adventurers-tab/AdventurersTab';
 import App from './App';
+import MapTab from './components/map-tab/MapTab';
 
 export default function Router(props) {
 
@@ -14,7 +15,7 @@ export default function Router(props) {
                     children: [
                         {
                             path: "/map",
-                            element: <h1>Not implemented yet</h1>,
+                            element: <MapTab />,
                         },
                         {
                             path: "/adventurers",

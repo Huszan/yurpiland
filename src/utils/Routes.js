@@ -1,9 +1,10 @@
+import ParchmentPng from '../resources/images/parchment.png'
 
 const routes = [
     {
         key: "Map",
         path: "/map",
-        icon: undefined,
+        icon: ParchmentPng,
     },
     {
         key: "adventurers",

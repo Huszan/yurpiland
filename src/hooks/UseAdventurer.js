@@ -16,12 +16,12 @@ export const UseAdventurer = (initial, globalModifiers, [yurpis, setYurpis]) => 
         * adventurer.incPerSecPerLevel 
         * adventurer.duration
         * adventurer.multiplier 
-        * globalModifiers.adventurersMultiplier 
-        * globalModifiers.yurpiMultiplier
+        * globalModifiers.multiplier.adventurer
+        * globalModifiers.multiplier.yurpi
     }
 
     function getAdventureDurationWithModifiers() {
-        return adventurer.duration * adventurer.acceleration * globalModifiers.timeAcceleration * 1000;
+        return adventurer.duration * adventurer.acceleration * globalModifiers.accelerator.time * 1000;
     }
 
     function getAdventureProgress() {
