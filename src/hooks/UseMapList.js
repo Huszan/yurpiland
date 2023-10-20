@@ -1,6 +1,8 @@
 import { UseMap } from "./UseMap"
 import CastlePng from "../resources/images/castle2.png"
 import CastleSelectedPng from "../resources/images/castle2_selected.png"
+import ForestPng from "../resources/images/forest.png"
+import ForestSelectedPng from "../resources/images/forest_selected.png"
 import { useState } from "react"
 
 const mapsInitial = [
@@ -20,7 +22,7 @@ const mapsInitial = [
         ],
         multiplier: 1,
         acceleration: 1,
-        position: ['50%', '50%'],
+        position: ['17%', '27%'],
         hasAutoSendBought: false,
         hasAutoSendOn: false,
         icon: CastlePng,
@@ -42,11 +44,11 @@ const mapsInitial = [
         ],
         multiplier: 1,
         acceleration: 1,
-        position: ['20%', '20%'],
+        position: ['50%', '50%'],
         hasAutoSendBought: false,
         hasAutoSendOn: false,
-        icon: CastlePng,
-        iconSelected: CastleSelectedPng,
+        icon: ForestPng,
+        iconSelected: ForestSelectedPng,
     },
 ]
 
