@@ -12,6 +12,26 @@
         z-index: 1;
     }
 
+    .pos-controls {
+        position: absolute;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        grid-template-areas: 
+        '. up .'
+        'left center right'
+        '. down .';
+        bottom: 0;
+        right: 0;
+        z-index: 1;
+
+        .up { grid-area: up; }
+        .down { grid-area: down; }
+        .left { grid-area: left; }
+        .right { grid-area: right; }
+        .center { grid-area: center; }
+    }
+
     .map-content {
         position: absolute;
         overflow: hidden;

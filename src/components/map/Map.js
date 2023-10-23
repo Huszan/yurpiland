@@ -4,6 +4,11 @@ import { useMapController } from '../../hooks/UseMapController'
 import './Map.scss'
 import ZoomInSvg from '../../resources/icons/zoom_in.svg';
 import ZoomOutSvg from '../../resources/icons/zoom_out.svg';
+import ArrowUpSvg from '../../resources/icons/arrow_up.svg';
+import ArrowDownSvg from '../../resources/icons/arrow_down.svg';
+import ArrowLeftSvg from '../../resources/icons/arrow_left.svg';
+import ArrowRightSvg from '../../resources/icons/arrow_right.svg';
+import AdjustSvg from '../../resources/icons/adjust.svg';
 
 export default function Map(props) {
     const mapRef = useRef();
@@ -137,6 +142,23 @@ export default function Map(props) {
                 </button>
                 <button onClick={() => controller.zoomIn()}>
                     <img className='icon-l' src={ZoomInSvg} />
+                </button>
+            </div>
+            <div className='pos-controls'>
+                <button className='up' onClick={() => controller.drag([0, 100])}>
+                    <img className='icon-l' src={ArrowUpSvg} />
+                </button>
+                <button className='down' onClick={() => controller.drag([0, -100])}>
+                    <img className='icon-l' src={ArrowDownSvg} />
+                </button>
+                <button className='left' onClick={() => controller.drag([100, 0])}>
+                    <img className='icon-l' src={ArrowLeftSvg} />
+                </button>
+                <button className='right' onClick={() => controller.drag([-100, 0])}>
+                    <img className='icon-l' src={ArrowRightSvg} />
+                </button>
+                <button className='center' onClick={() => controller.center()}>
+                    <img className='icon-l' src={AdjustSvg} />
                 </button>
             </div>
             <div 
