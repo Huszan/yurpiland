@@ -1,6 +1,6 @@
 #map {
     position: relative;
-    height: 50%;
+    height: 100%;
     width: 100%;
     margin: 0 auto;
     overflow: hidden;
@@ -14,17 +14,16 @@
 
     .map-content {
         position: absolute;
-        width: 1080px;
-        height: 1080px;
         overflow: hidden;
-        background: url(../../resources/images/yurpiland_map.png);
+        background: url(../../resources/images/yurpiland_map.png) no-repeat;
+        background-size: cover;
         -webkit-transform-origin-x: 0;
         -webkit-transform-origin-y: 0;
 
         .map-element {
             position: absolute;
             display: inline-block;
-            width: 200px;
+            width: 15%;
             transform: translate(-50%, -50%);
 
             img {

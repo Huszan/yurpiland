@@ -7,6 +7,10 @@ const initialControlsTemp = {
 }
 
 const initialSettingsTemp = {
+    initialContentSize: {
+        x: 1080,
+        y: 1080,
+    },
     zoomSpeed: 0.1,
     zoomLimit: [0.8, 1.5],
 }
@@ -26,6 +30,7 @@ export const useMapController = (
 
     function getMapSize() {
         const map = refs.mapRef.current;
+
         return {
             x: map.offsetWidth,
             y: map.offsetHeight,
@@ -34,30 +39,43 @@ export const useMapController = (
 
     function getMapContentSize() {
         const content = refs.mapContentRef.current;
+        const settingsRef = stateRef.current.settings;
         const controlsRef = stateRef.current.controls;
 
         return {
-            x: content.offsetWidth * controlsRef.zoom,
-            y: content.offsetHeight * controlsRef.zoom,
+            x: settingsRef.initialContentSize.x * controlsRef.zoom,
+            y: settingsRef.initialContentSize.y * controlsRef.zoom,
         }
     }
 
     function getDragLimit() {
         let mapSize = getMapSize();
         let contentSize = getMapContentSize();
-
+        let diff = {
+            x: -(contentSize.x - mapSize.x),
+            y: -(contentSize.y - mapSize.y),
+        }
+        
         return {
-            x: Math.max((contentSize.x - mapSize.x), 0) + 200,
-            y: Math.max((contentSize.y - mapSize.y), 0) + 200,
+            x: {
+                min: (diff.x < 0 ? diff.x : 0) - (contentSize.x / 2),
+                max: (diff.x > 0 ? diff.x : 0) + (contentSize.x / 2),
+            },
+            y: {
+                min: (diff.y < 0 ? diff.y : 0) - (contentSize.y / 2),
+                max: (diff.y > 0 ? diff.y : 0) + (contentSize.y / 2),
+            },
         }
     }
 
     function clampedPosition(pos) {
         const lim = getDragLimit();
-        return [
-            clamp(pos[0], -lim.x, 100),
-            clamp(pos[1], -lim.y, 100),
-        ]
+        const clampedPos = [
+            clamp(pos[0], lim.x.min, lim.x.max),
+            clamp(pos[1], lim.y.min, lim.y.max),
+        ];
+
+        return clampedPos;
     }
 
     function zoomIn() {
@@ -106,5 +124,6 @@ export const useMapController = (
         zoomIn,
         zoomOut,
         drag,
+        getMapContentSize,
     }
 }

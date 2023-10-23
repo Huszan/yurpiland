@@ -22,10 +22,12 @@ export default function Map(props) {
 
     function setupMapStyle() {
         let el = mapContentRef.current;
-        el.style.scale = controller.data.zoom;
+        const mapContentSize = controller.getMapContentSize();
+        el.style.width = `${mapContentSize.x}px`;
+        el.style.height = `${mapContentSize.y}px`;
         el.style.transform = `translate(
-            calc(${controller.data.position[0]}px),
-            calc(${controller.data.position[1]}px)
+            ${controller.data.position[0]}px,
+            ${controller.data.position[1]}px
         )`
     }
 
