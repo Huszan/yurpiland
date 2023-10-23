@@ -12,7 +12,7 @@ const initialSettingsTemp = {
         y: 1080,
     },
     zoomSpeed: 0.1,
-    zoomLimit: [0.8, 1.5],
+    zoomLimit: [0.2, 2],
 }
 
 export const useMapController = (
@@ -38,7 +38,6 @@ export const useMapController = (
     }
 
     function getMapContentSize() {
-        const content = refs.mapContentRef.current;
         const settingsRef = stateRef.current.settings;
         const controlsRef = stateRef.current.controls;
 
@@ -127,8 +126,8 @@ export const useMapController = (
         const controlsRef = stateRef.current.controls;
 
         setControls(prev => {
-            let newX = prev.position[0] + (pos[0] / controlsRef.zoom);
-            let newY = prev.position[1] + (pos[1] / controlsRef.zoom);
+            let newX = prev.position[0] + pos[0];
+            let newY = prev.position[1] + pos[1];
             const newPos = clampedPosition([newX, newY]);
 
             return {
