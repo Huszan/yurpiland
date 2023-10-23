@@ -55,7 +55,7 @@ export const useMapController = (
             x: -(contentSize.x - mapSize.x),
             y: -(contentSize.y - mapSize.y),
         }
-        
+
         return {
             x: {
                 min: (diff.x < 0 ? diff.x : 0) - (contentSize.x / 2),
@@ -65,6 +65,25 @@ export const useMapController = (
                 min: (diff.y < 0 ? diff.y : 0) - (contentSize.y / 2),
                 max: (diff.y > 0 ? diff.y : 0) + (contentSize.y / 2),
             },
+        }
+    }
+
+    function getCenterPos() {
+        const lim = getDragLimit();
+
+        return [
+            (lim.x.min + lim.x.max) / 2,
+            (lim.y.min + lim.y.max) / 2,
+        ]
+    }
+
+    function offsetFromCenter(offset) {
+        if (!offset) return null;
+        const size = getMapContentSize();
+
+        return {
+            x: -(offset.x - (size.x / 2)),
+            y: -(offset.y - (size.y / 2)),
         }
     }
 
@@ -119,11 +138,28 @@ export const useMapController = (
         })
     }
 
+    function center(position) {
+        let centerPos = getCenterPos();
+        setControls(prev => {
+            let offset = offsetFromCenter(position);
+            let newPos = clampedPosition([
+                centerPos[0] + (offset ? offset.x : 0),
+                centerPos[1] + (offset ? offset.y : 0),
+            ]);
+
+            return {
+                ...prev,
+                position: newPos,
+            }
+        })
+    }
+
     return {
         data: controls,
         zoomIn,
         zoomOut,
         drag,
         getMapContentSize,
+        center,
     }
 }

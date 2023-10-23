@@ -20,6 +20,15 @@ export default function Map(props) {
         setupMapStyle();
     }, [controller])
 
+    useEffect(() => {
+        const selectedElement = document.getElementsByClassName('selected')[0].parentNode;
+        const pos = {
+            x: selectedElement.offsetLeft,
+            y: selectedElement.offsetTop,
+        }
+        controller.center(pos);
+    }, [])
+
     function setupMapStyle() {
         let el = mapContentRef.current;
         const mapContentSize = controller.getMapContentSize();
@@ -92,14 +101,24 @@ export default function Map(props) {
         previousTouch = touch;
     }
 
+    function onMapElementClick(map) {
+        let size = controller.getMapContentSize();
+        let position = {
+            x: (map.position[0] / 100) * size.x,
+            y: (map.position[1] / 100) * size.y,
+        };
+        maps.set.selected(map.key);
+        controller.center(position);
+    }
+
     const mapElements = maps.data.map(map => {
         const isSelected = maps.get.selected === map.key;
         return (
             <button 
                 key={ map.key } 
                 className='map-element'
-                style={{left: map.position[0], top: map.position[1]}}
-                onClick={() => maps.set.selected(map.key)}
+                style={{left: `${map.position[0]}%`, top: `${map.position[1]}%`}}
+                onClick={ () => onMapElementClick(map) }
             >
                 <img className={isSelected ? 'selected' : ''} src={ isSelected ? map.iconSelected : map.icon } />
             </button>
