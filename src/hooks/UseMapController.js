@@ -16,11 +16,11 @@ const initialSettingsTemp = {
 }
 
 export const useMapController = (
-    refs,
+    mapRef,
     initialControls = initialControlsTemp, 
     initialSettings = initialSettingsTemp,
 ) => {
-    const [settings, setSettings] = useState(initialSettings);
+    const [settings] = useState(initialSettings);
     const [controls, setControls] = useState(initialControls);
     const stateRef = useRef();
     stateRef.current = {
@@ -29,7 +29,7 @@ export const useMapController = (
     }
 
     function getMapSize() {
-        const map = refs.mapRef.current;
+        const map = mapRef.current;
 
         return {
             x: map.offsetWidth,
@@ -123,8 +123,6 @@ export const useMapController = (
     }
 
     function drag(pos) {
-        const controlsRef = stateRef.current.controls;
-
         setControls(prev => {
             let newX = prev.position[0] + pos[0];
             let newY = prev.position[1] + pos[1];

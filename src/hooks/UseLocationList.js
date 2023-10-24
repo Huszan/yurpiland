@@ -1,11 +1,11 @@
-import { UseMap } from "./UseMap"
+import { UseLocation } from "./UseLocation"
 import CastlePng from "../resources/images/castle2.png"
 import CastleSelectedPng from "../resources/images/castle2_selected.png"
 import ForestPng from "../resources/images/forest.png"
 import ForestSelectedPng from "../resources/images/forest_selected.png"
 import { useState } from "react"
 
-const mapsInitial = [
+const locationsInitial = [
     {
         key: 'city square',
         desc: 'Send brave andventurers to assist helpless citizens in their daily tasks. Better prepare some ladders to get them kitties of the trees.',
@@ -52,12 +52,12 @@ const mapsInitial = [
     },
 ]
 
-export const useMapList = (ap, globalModifiers) => {
-    const mapList = mapsInitial.map(map => UseMap(map, ap, globalModifiers));
-    const [ selected, setSelected ] = useState(mapList[0].key);
+export const useLocationList = (ap, globalModifiers) => {
+    const locationList = locationsInitial.map(location => UseLocation(location, ap, globalModifiers));
+    const [ selected, setSelected ] = useState(locationList[0].key);
 
     return {
-        data: mapList,
+        data: locationList,
         get: {
             selected,
         },

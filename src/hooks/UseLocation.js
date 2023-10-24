@@ -1,27 +1,27 @@
 import { useState } from "react"
 
-export const UseMap = (initial, ap, globalModifiers) => {
-    const [map, setMap] = useState(initial);
+export const UseLocation = (initial, ap, globalModifiers) => {
+    const [location] = useState(initial);
 
     /**
      * @returns base time with modifiers in ms
      */
     function getAdventureTime() {
-        return map.baseTimeToFinish *
-        map.acceleration *
+        return location.baseTimeToFinish *
+        location.acceleration *
         globalModifiers.acceleration.time *
         globalModifiers.acceleration.adventure *
         1000;
     }
 
     function getDrop() {
-        return map.baseDrop.map(el => {
+        return location.baseDrop.map(el => {
             return {
                 ...el,
                 amount: (
                     el.amount *
                     (ap / 100) *
-                    map.multiplier *
+                    location.multiplier *
                     globalModifiers.multiplier.map *
                     globalModifiers.multiplier[el.key]
                 )
@@ -30,15 +30,15 @@ export const UseMap = (initial, ap, globalModifiers) => {
     }
 
     function getChanceToSuccess() {
-        let max = map.optimalAP.max - map.optimalAP.min;
-        let curr = ap - map.optimalAP.min;
+        let max = location.optimalAP.max - location.optimalAP.min;
+        let curr = ap - location.optimalAP.min;
         if (curr <= 0) return 0;
         let chance = curr / max;
         return chance;
     }
 
     return {
-        ...map,
+        ...location,
         getAdventureTime,
         getDrop,
         getChanceToSuccess,

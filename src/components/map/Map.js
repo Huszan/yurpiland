@@ -10,19 +10,20 @@ import ArrowLeftSvg from '../../resources/icons/arrow_left.svg';
 import ArrowRightSvg from '../../resources/icons/arrow_right.svg';
 import AdjustSvg from '../../resources/icons/adjust.svg';
 
-export default function Map(props) {
+export default function Map() {
     const mapRef = useRef();
     const mapContentRef = useRef();
 
-    const controller = useMapController({mapRef, mapContentRef});
+    const controller = useMapController(mapRef);
     const progress = useContext(ProgressionContext);
-    const maps = progress.get.maps;
+    const locations = progress.get.locations;
     let isDragging = false;
     let previousTouch;
     let clearPreviousTouchTimeout;
 
     useEffect(() => {
         setupMapStyle();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [controller])
 
     useEffect(() => {
@@ -32,6 +33,7 @@ export default function Map(props) {
             y: selectedElement.offsetTop,
         }
         controller.center(pos);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     function setupMapStyle() {
@@ -65,6 +67,7 @@ export default function Map(props) {
             refCaptured.removeEventListener('mousemove', mouseMoveListener);
             refCaptured.removeEventListener('touchmove', touchMoveListener);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     function onMouseDownOnMap() {
@@ -112,12 +115,12 @@ export default function Map(props) {
             x: (map.position[0] / 100) * size.x,
             y: (map.position[1] / 100) * size.y,
         };
-        maps.set.selected(map.key);
+        locations.set.selected(map.key);
         controller.center(position);
     }
 
-    const mapElements = maps.data.map(map => {
-        const isSelected = maps.get.selected === map.key;
+    const mapElements = locations.data.map(map => {
+        const isSelected = locations.get.selected === map.key;
         return (
             <button 
                 key={ map.key } 
@@ -125,7 +128,7 @@ export default function Map(props) {
                 style={{left: `${map.position[0]}%`, top: `${map.position[1]}%`}}
                 onClick={ () => onMapElementClick(map) }
             >
-                <img className={isSelected ? 'selected' : ''} src={ isSelected ? map.iconSelected : map.icon } />
+                <img className={isSelected ? 'selected' : ''} src={ isSelected ? map.iconSelected : map.icon } alt='' />
             </button>
         )
     })
@@ -138,27 +141,27 @@ export default function Map(props) {
         >
             <div className='zoom-controls'>
                 <button onClick={() => controller.zoomOut()}>
-                    <img className='icon-l' src={ZoomOutSvg} />
+                    <img className='icon-l' src={ZoomOutSvg} alt='' />
                 </button>
                 <button onClick={() => controller.zoomIn()}>
-                    <img className='icon-l' src={ZoomInSvg} />
+                    <img className='icon-l' src={ZoomInSvg} alt='' />
                 </button>
             </div>
             <div className='pos-controls'>
                 <button className='up' onClick={() => controller.drag([0, 100])}>
-                    <img className='icon-l' src={ArrowUpSvg} />
+                    <img className='icon-l' src={ArrowUpSvg} alt='' />
                 </button>
                 <button className='down' onClick={() => controller.drag([0, -100])}>
-                    <img className='icon-l' src={ArrowDownSvg} />
+                    <img className='icon-l' src={ArrowDownSvg} alt='' />
                 </button>
                 <button className='left' onClick={() => controller.drag([100, 0])}>
-                    <img className='icon-l' src={ArrowLeftSvg} />
+                    <img className='icon-l' src={ArrowLeftSvg} alt='' />
                 </button>
                 <button className='right' onClick={() => controller.drag([-100, 0])}>
-                    <img className='icon-l' src={ArrowRightSvg} />
+                    <img className='icon-l' src={ArrowRightSvg} alt='' />
                 </button>
                 <button className='center' onClick={() => controller.center()}>
-                    <img className='icon-l' src={AdjustSvg} />
+                    <img className='icon-l' src={AdjustSvg} alt='' />
                 </button>
             </div>
             <div 

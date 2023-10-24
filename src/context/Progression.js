@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 import { useAdventurers } from "../hooks/UseAdventurers";
-import { useMapList } from "../hooks/UseMapList";
+import { useLocationList } from "../hooks/UseLocationList";
 
 export const ProgressionContext = createContext();
 
@@ -19,7 +19,7 @@ export default function Progression(props) {
         },
     })
     const [yurpis, setYurpis] = useState(100);
-    const maps = useMapList(100, globalModifiers);
+    const locations = useLocationList(100, globalModifiers);
     const adventurers = useAdventurers(globalModifiers, [yurpis, setYurpis]);
 
     return (
@@ -28,7 +28,7 @@ export default function Progression(props) {
                 get: {
                     yurpis: yurpis,
                     globalModifiers: globalModifiers,
-                    maps,
+                    locations: locations,
                 },
                 set: {
                     yurpis: setYurpis,
