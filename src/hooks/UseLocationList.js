@@ -8,10 +8,10 @@ import { useState } from "react"
 const locationsInitial = [
     {
         key: 'city square',
-        desc: 'Send brave andventurers to assist helpless citizens in their daily tasks. Better prepare some ladders to get them kitties of the trees.',
+        desc: 'Send brave andventurers to assist helpless citizens in their daily tasks. Better prepare some ladders to get them kitties off the trees.',
         optimalAP: {
-            min: 100,
-            max: 100000,
+            min: Math.pow(10, 2),
+            max: Math.pow(10, 6),
         },
         baseTimeToFinish: 15, // seconds
         baseDrop: [
@@ -30,17 +30,21 @@ const locationsInitial = [
     },
     {
         key: 'forest',
-        desc: 'Send brave andventurers to assist helpless citizens in their daily tasks. Better prepare some ladders to get them kitties of the trees.',
+        desc: 'Small forest with a lot of potential for adventuring! We can collect resources here to expand our guild.',
         optimalAP: {
-            min: 100,
-            max: 100000,
+            min: Math.pow(10, 5),
+            max: Math.pow(10, 10),
         },
-        baseTimeToFinish: 15, // seconds
+        baseTimeToFinish: 30, // seconds
         baseDrop: [
             {
                 key: 'yurpis',
-                amount: 1,
-            }
+                amount: 0.2,
+            },
+            {
+                key: 'wood',
+                amount: 0.8,
+            },
         ],
         multiplier: 1,
         acceleration: 1,
@@ -54,7 +58,7 @@ const locationsInitial = [
 
 export const useLocationList = (ap, globalModifiers) => {
     const locationList = locationsInitial.map(location => UseLocation(location, ap, globalModifiers));
-    const [ selected, setSelected ] = useState(locationList[0].key);
+    const [ selected, setSelected ] = useState(locationList[0]);
 
     return {
         data: locationList,

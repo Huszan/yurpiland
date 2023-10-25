@@ -9,8 +9,8 @@ export const UseLocation = (initial, ap, globalModifiers) => {
     function getAdventureTime() {
         return location.baseTimeToFinish *
         location.acceleration *
-        globalModifiers.acceleration.time *
-        globalModifiers.acceleration.adventure *
+        globalModifiers.accelerator.time *
+        globalModifiers.accelerator.location *
         1000;
     }
 
@@ -29,11 +29,19 @@ export const UseLocation = (initial, ap, globalModifiers) => {
         })
     }
 
-    function getChanceToSuccess() {
+    const baseChance = 50;
+
+    function getBonusChance() {
         let max = location.optimalAP.max - location.optimalAP.min;
         let curr = ap - location.optimalAP.min;
         if (curr <= 0) return 0;
-        let chance = curr / max;
+        let chance = curr / max * (100 - baseChance);
+        return chance;
+    }
+
+    function getChanceToSuccess() {
+        if (ap < location.optimalAP.min) return 0;
+        const chance = baseChance + getBonusChance();
         return chance;
     }
 

@@ -9,12 +9,13 @@ export default function Progression(props) {
     const [globalModifiers, setGlboalModifiers] = useState({
         accelerator: {
             time: 1,
-            adventurer: 1,
+            location: 1,
             map: 1,
         },
         multiplier: {
-            yurpi: 1,
-            adventurer: 1,
+            yurpis: 1,
+            wood: 1,
+            location: 1,
             map: 1,
         },
     })

@@ -10,7 +10,9 @@ import ArrowLeftSvg from '../../resources/icons/arrow_left.svg';
 import ArrowRightSvg from '../../resources/icons/arrow_right.svg';
 import AdjustSvg from '../../resources/icons/adjust.svg';
 
-export default function Map() {
+export default function Map({
+    openDrawer
+}) {
     const mapRef = useRef();
     const mapContentRef = useRef();
 
@@ -118,12 +120,12 @@ export default function Map() {
             x: (map.position[0] / 100) * size.x,
             y: (map.position[1] / 100) * size.y,
         };
-        locations.set.selected(map.key);
+        locations.set.selected(map);
         controller.center(position);
     }
 
     const mapElements = locations.data.map(map => {
-        const isSelected = locations.get.selected === map.key;
+        const isSelected = locations.get.selected.key === map.key;
         return (
             <button 
                 key={ map.key } 

@@ -76,6 +76,26 @@
   }
 }
 
+p {
+  padding: 0 12px 0 12px;
+  font-size: 12px;
+
+  &.minor {
+    opacity: 80%;
+  }
+}
+
+.display-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  .icon {
+      border-radius: 2px;
+  }
+}
+
 .desktop .App {
   grid-template-columns: 200px 1fr;
 }

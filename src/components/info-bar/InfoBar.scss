@@ -8,15 +8,4 @@
     border-radius: 0 0 5px 5px;
     box-shadow: 5px 5px 10px #000000f1;
     box-sizing: border-box;
-
-    .display-block {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-
-        .icon {
-            border-radius: 2px;
-        }
-    }
 }
