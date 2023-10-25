@@ -48,6 +48,7 @@ export default function Map() {
     }
 
     function onMapScroll(event) {
+        event.preventDefault();
         if (event.deltaY < 0) controller.zoomIn();
         else controller.zoomOut();
     }
@@ -59,6 +60,7 @@ export default function Map() {
         const mouseLeaveListener = refCaptured.addEventListener('mouseleave', () => onMouseUpOnMap());
         const mouseMoveListener = refCaptured.addEventListener('mousemove', (e) => onMouseMoveOnMap(e));
         const touchMoveListener = refCaptured.addEventListener('touchmove', (e) => onTouchMoveOnMap(e), {passive: false});
+        const scrollListener = refCaptured.addEventListener('wheel', (e) => onMapScroll(e), {passive: false});
 
         return () => {
             refCaptured.removeEventListener('mousedown', mouseDownListener);
@@ -66,6 +68,7 @@ export default function Map() {
             refCaptured.removeEventListener('mouseleave', mouseLeaveListener);
             refCaptured.removeEventListener('mousemove', mouseMoveListener);
             refCaptured.removeEventListener('touchmove', touchMoveListener);
+            refCaptured.removeEventListener('wheel', scrollListener);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -136,7 +139,6 @@ export default function Map() {
     return (
         <section 
             id='map'
-            onWheel={(e) => onMapScroll(e)}
             ref={mapRef}
         >
             <div className='zoom-controls'>
