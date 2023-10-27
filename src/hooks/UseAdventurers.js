@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { UseAdventurer } from "./UseAdventurer";
 
 const adventurerTags = {
@@ -25,13 +26,16 @@ const adventurersInitial = [
         tags: [adventurerTags.melee],
         icon: undefined,
         level: 0,
-        initialCost: 100,
-        costIncrease: (currCost) => { return parseInt(currCost * 0.03 + 10)},
-        incPerSecPerLevel: 5,
+        initialCost: {
+            yurpis: 100,
+        },
+        costIncrease: (currCost) => { 
+            return {
+                yurpis: parseInt(currCost.yurpis + currCost.yurpis * 0.03 + 10)
+            }
+        },
+        AP: 5 * Math.pow(10, 2),
         multiplier: 1,
-        acceleration: 1,
-        duration: 5,
-        hasSendAuto: false,
         isUnlocked: true,
     },
     {
@@ -39,13 +43,16 @@ const adventurersInitial = [
         tags: [adventurerTags.ranged],
         icon: undefined,
         level: 0,
-        initialCost: 800,
-        costIncrease: (currCost) => { return parseInt(currCost * 0.04 + 80)},
-        incPerSecPerLevel: 40,
+        initialCost: {
+            yurpis: 800,
+        },
+        costIncrease: (currCost) => { 
+            return {
+                yurpis: parseInt(currCost.yurpis + currCost.yurpis * 0.04 + 80)
+            }
+        },
+        AP: 4 * Math.pow(10, 3),
         multiplier: 1,
-        acceleration: 1,
-        duration: 15,
-        hasSendAuto: false,
         isUnlocked: true,
     },
     {
@@ -53,13 +60,16 @@ const adventurersInitial = [
         tags: [adventurerTags.magic],
         icon: undefined,
         level: 0,
-        initialCost: 5000,
-        costIncrease: (currCost) => { return parseInt(currCost * 0.05 + 500)},
-        incPerSecPerLevel: 250,
+        initialCost: {
+            yurpis: 5000,
+        },
+        costIncrease: (currCost) => { 
+            return {
+                yurpis: parseInt(currCost.yurpis + currCost.yurpis * 0.05 + 500)
+            }
+        },
+        AP: 25 * Math.pow(10, 3),
         multiplier: 1,
-        acceleration: 1,
-        duration: 30,
-        hasSendAuto: false,
         isUnlocked: true,
     },
     {
@@ -67,13 +77,16 @@ const adventurersInitial = [
         tags: [adventurerTags.melee],
         icon: undefined,
         level: 0,
-        initialCost: 1000000,
-        costIncrease: (currCost) => { return parseInt(currCost * 0.05 + 100000)},
-        incPerSecPerLevel: 50000,
+        initialCost: {
+            yurpis: Math.pow(10, 6),
+        },
+        costIncrease: (currCost) => { 
+            return {
+                yurpis: parseInt(currCost.yurpis + currCost.yurpis * 0.05 + Math.pow(10, 5))
+            }
+        },
+        AP: 5 * Math.pow(10, 6),
         multiplier: 1,
-        acceleration: 1,
-        duration: 60,
-        hasSendAuto: false,
         isUnlocked: true,
     },
     {
@@ -84,13 +97,16 @@ const adventurersInitial = [
         ],
         icon: undefined,
         level: 0,
-        initialCost: 100000000,
-        costIncrease: (currCost) => { return parseInt(currCost * 0.05 + 10000000)},
-        incPerSecPerLevel: 5000000,
+        initialCost: {
+            yurpis: Math.pow(10, 8),
+        },
+        costIncrease: (currCost) => { 
+            return {
+                yurpis: parseInt(currCost.yurpis + currCost.yurpis * 0.05 + Math.pow(10, 6))
+            }
+        },
+        AP: 5 * Math.pow(10, 8),
         multiplier: 1,
-        acceleration: 1,
-        duration: 90,
-        hasSendAuto: false,
         isUnlocked: true,
     },
     {
@@ -101,24 +117,33 @@ const adventurersInitial = [
         ],
         icon: undefined,
         level: 0,
-        initialCost: 10000000000,
-        costIncrease: (currCost) => { return parseInt(currCost * 0.05 + 1000000000)},
-        incPerSecPerLevel: 500000000,
+        initialCost: {
+            yurpis: Math.pow(10, 10),
+        },
+        costIncrease: (currCost) => { 
+            return {
+                yurpis: parseInt(currCost.yurpis + currCost.yurpis * 0.05 + Math.pow(10, 8))
+            }
+        },
+        AP: 5 * Math.pow(10, 10),
         multiplier: 1,
-        acceleration: 1,
-        duration: 120,
-        hasSendAuto: false,
         isUnlocked: true,
     },
 ]
 
-export const useAdventurers = (globalModifiers, yurpisState) => {
-    const adventurers = adventurersInitial.map(el => UseAdventurer(el, globalModifiers, yurpisState));
+export const useAdventurers = (globalModifiers, resources) => {
+    const adventurers = adventurersInitial.map(el => UseAdventurer(el, globalModifiers, resources));
+    const state = useRef();
+    state.current = {
+        adventurers
+    }
 
     function getCumulatedAP() {
-        return adventurers.reduce(adventurer => {
-            return adventurer.getAP();
-        })
+        let ap = 0;
+        for (let adventurer of state.current.adventurers) {
+            ap += adventurer.getModifiedAP()
+        }
+        return ap;
     }
 
     return {

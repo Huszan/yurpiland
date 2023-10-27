@@ -1,7 +1,8 @@
 import { useState } from "react"
 
-export const UseLocation = (initial, ap, globalModifiers) => {
+export const UseLocation = (initial, adventurers, globalModifiers, resources) => {
     const [location] = useState(initial);
+    const getAP = adventurers.getCumulatedAP;
 
     /**
      * @returns base time with modifiers in ms
@@ -16,14 +17,15 @@ export const UseLocation = (initial, ap, globalModifiers) => {
 
     function getDrop() {
         return location.baseDrop.map(el => {
+            const rsc = resources.get.filter(resource => resource.key === el.key)[0];
             return {
                 ...el,
                 amount: (
                     el.amount *
-                    (ap / 100) *
+                    (getAP() ? (getAP() / 20) : 0) *
                     location.multiplier *
-                    globalModifiers.multiplier.map *
-                    globalModifiers.multiplier[el.key]
+                    globalModifiers.multiplier.location *
+                    rsc.multiplier
                 )
             }
         })
@@ -33,14 +35,14 @@ export const UseLocation = (initial, ap, globalModifiers) => {
 
     function getBonusChance() {
         let max = location.optimalAP.max - location.optimalAP.min;
-        let curr = ap - location.optimalAP.min;
+        let curr = getAP() - location.optimalAP.min;
         if (curr <= 0) return 0;
         let chance = curr / max * (100 - baseChance);
         return chance;
     }
 
     function getChanceToSuccess() {
-        if (ap < location.optimalAP.min) return 0;
+        if (getAP() < location.optimalAP.min) return 0;
         const chance = baseChance + getBonusChance();
         return chance;
     }

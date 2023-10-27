@@ -10,9 +10,7 @@ import ArrowLeftSvg from '../../resources/icons/arrow_left.svg';
 import ArrowRightSvg from '../../resources/icons/arrow_right.svg';
 import AdjustSvg from '../../resources/icons/adjust.svg';
 
-export default function Map({
-    openDrawer
-}) {
+export default function Map() {
     const mapRef = useRef();
     const mapContentRef = useRef();
 

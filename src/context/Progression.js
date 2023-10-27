@@ -1,6 +1,7 @@
 import { createContext, useState } from "react";
 import { useAdventurers } from "../hooks/UseAdventurers";
 import { useLocationList } from "../hooks/UseLocationList";
+import { useResources } from "../hooks/UseResources";
 
 export const ProgressionContext = createContext();
 
@@ -10,32 +11,28 @@ export default function Progression(props) {
         accelerator: {
             time: 1,
             location: 1,
-            map: 1,
         },
         multiplier: {
-            yurpis: 1,
-            wood: 1,
             location: 1,
-            map: 1,
+            AP: 1,
         },
     })
-    const [yurpis, setYurpis] = useState(100);
-    const locations = useLocationList(100, globalModifiers);
-    const adventurers = useAdventurers(globalModifiers, [yurpis, setYurpis]);
+    const resources = useResources();
+    const adventurers = useAdventurers(globalModifiers, resources);
+    const locations = useLocationList(adventurers, globalModifiers, resources);
 
     return (
         <ProgressionContext.Provider
             value = {{
                 get: {
-                    yurpis: yurpis,
                     globalModifiers: globalModifiers,
                     locations: locations,
                 },
                 set: {
-                    yurpis: setYurpis,
                     globalModifiers: setGlboalModifiers,
                 },
-                adventurers: adventurers.data,
+                resources,
+                adventurers: adventurers,
             }}
         >
             { children }

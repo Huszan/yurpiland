@@ -7,11 +7,11 @@ export default function AdventurersTab() {
     const progress = useContext(ProgressionContext);
     const adventurers = progress.adventurers;
 
-    const adventurerComponents = adventurers.map((adventurer) => {
-        if (adventurer.isUnlocked) {
+    const adventurerComponents = adventurers.data.map((adventurer) => {
+        if (adventurer.get.isUnlocked) {
             return (
                 <AdventurerBlock 
-                    key={ adventurer.key } 
+                    key={ adventurer.get.key } 
                     adventurer={ adventurer } 
                 />
             )

@@ -56,8 +56,8 @@ const locationsInitial = [
     },
 ]
 
-export const useLocationList = (ap, globalModifiers) => {
-    const locationList = locationsInitial.map(location => UseLocation(location, ap, globalModifiers));
+export const useLocationList = (adventurers, globalModifiers, resources) => {
+    const locationList = locationsInitial.map(location => UseLocation(location, adventurers, globalModifiers, resources));
     const [ selected, setSelected ] = useState(locationList[0]);
 
     return {
