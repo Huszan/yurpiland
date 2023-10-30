@@ -9,11 +9,13 @@ export default function MapTab() {
     const mapTabRef = useRef();
     const progress = useContext(ProgressionContext);
     const locations = progress.get.locations;
-    const [isInfoOpen, setIsInfoOpen] = useState(true);
+    const [isInfoOpen, setIsInfoOpen] = useState(false);
 
     return (
         <div id='map-tab' ref={mapTabRef}>
-            <MapProgress />
+            <MapProgress 
+                openInfo={() => setIsInfoOpen(true)}
+            />
             <MapInfo 
                 location={locations.get.selected} 
                 isOpen={isInfoOpen} 
