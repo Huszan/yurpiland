@@ -6,3 +6,19 @@ export function firstLetterToUpperCase(str) {
 export function clamp(num, min, max) {
     return Math.min(Math.max(num, min), max);
 }
+
+export function colorTransition(percent, hsl1, hsl2) {
+    let offsetHue = -((hsl1[0] - hsl2[0]) / 100) * percent;
+    let offsetSat = -((hsl1[1] - hsl2[1]) / 100) * percent;
+    let offsetLig = -((hsl1[2] - hsl2[2]) / 100) * percent;
+    let color = [
+        hsl1[0] + offsetHue,
+        hsl1[1] + offsetSat,
+        hsl1[2] + offsetLig,
+    ]
+    return `hsl(${color[0]},${color[1]}%,${color[2]}%)`
+}
+
+export function basicColorTransition(percent) {
+    return colorTransition(percent, [0, 100, 50], [120, 100, 50]);
+}

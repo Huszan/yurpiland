@@ -1,6 +1,6 @@
 import './MapInfo.scss';
 import CloseSvg from '../../resources/icons/close.svg';
-import { firstLetterToUpperCase } from '../../utils/HelperFunctions';
+import { basicColorTransition, firstLetterToUpperCase } from '../../utils/HelperFunctions';
 
 export default function MapInfo({ 
     location, 
@@ -8,6 +8,8 @@ export default function MapInfo({
     setIsOpen,
 }) {
     if (!isOpen) return;
+
+    const successChance = location.getChanceToSuccess().toFixed(1);
 
     function onClose() {
         setIsOpen(false);
@@ -22,6 +24,12 @@ export default function MapInfo({
         )
     });
 
+    function successChanceStyle(chance) {
+        return {
+            color: basicColorTransition(chance)
+        }
+    }
+
     return (
         <section id='map-info'>
             <button className='close-button' onClick={onClose}>
@@ -30,8 +38,8 @@ export default function MapInfo({
             <h1>{ firstLetterToUpperCase(location.key) }</h1>
             <p className='minor'>{ location.desc }</p>
             <p>Optimal AP: { location.optimalAP.min } - { location.optimalAP.max }</p>
-            <p>Time to finish: ~{ location.getAdventureTime() / 1000 }s</p>
-            <p>Success chance: ~{ location.getChanceToSuccess().toFixed(1) }%</p>
+            <p>Time to finish: { location.getAdventureTime() / 1000 }s</p>
+            <p>Success chance: <span style={successChanceStyle(successChance)}>{ successChance }%</span></p>
             <ul className='reward-list'>
                 {rewardElements}
             </ul>
