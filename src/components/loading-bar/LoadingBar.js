@@ -10,8 +10,11 @@ export default function LoadingBar({progress, config}) {
         if (config.barBgColor) barRef.current.style.backgroundColor = config.barBgColor;
         if (config.contentBg) contentRef.current.style.background = config.contentBg;
         if (config.contentBgColor) contentRef.current.style.backgroundColor = config.contentBgColor;
-        contentRef.current.style.width = `${progress}%`;
     }, [])
+
+    useEffect(() => {
+        contentRef.current.style.width = `${progress ? progress : 0}%`;
+    }, [progress])
 
     return (
         <div className='loading-bar' ref={barRef}>

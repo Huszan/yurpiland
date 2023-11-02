@@ -16,7 +16,7 @@ export default function Map() {
 
     const controller = useMapController(mapRef);
     const progress = useContext(ProgressionContext);
-    const locations = progress.get.locations;
+    const locations = progress.locations;
     let isDragging = false;
     let previousTouch;
     let clearPreviousTouchTimeout;

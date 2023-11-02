@@ -8,13 +8,15 @@ import { ProgressionContext } from '../../context/Progression';
 export default function MapTab() {
     const mapTabRef = useRef();
     const progress = useContext(ProgressionContext);
-    const locations = progress.get.locations;
+    const locations = progress.locations;
     const [isInfoOpen, setIsInfoOpen] = useState(false);
 
     return (
         <div id='map-tab' ref={mapTabRef}>
             <MapProgress 
                 openInfo={() => setIsInfoOpen(true)}
+                adventure={progress.adventure}
+                location={locations.get.selected}
             />
             <MapInfo 
                 location={locations.get.selected} 

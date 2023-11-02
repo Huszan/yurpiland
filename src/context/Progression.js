@@ -2,6 +2,7 @@ import { createContext, useState } from "react";
 import { useAdventurers } from "../hooks/UseAdventurers";
 import { useLocationList } from "../hooks/UseLocationList";
 import { useResources } from "../hooks/UseResources";
+import { useAdventure } from "../hooks/UseAdventure";
 
 export const ProgressionContext = createContext();
 
@@ -20,19 +21,21 @@ export default function Progression(props) {
     const resources = useResources();
     const adventurers = useAdventurers(globalModifiers, resources);
     const locations = useLocationList(adventurers, globalModifiers, resources);
+    const adventure = useAdventure(locations.get.selected, resources);
 
     return (
         <ProgressionContext.Provider
             value = {{
                 get: {
                     globalModifiers: globalModifiers,
-                    locations: locations,
                 },
                 set: {
                     globalModifiers: setGlboalModifiers,
                 },
                 resources,
-                adventurers: adventurers,
+                adventurers,
+                locations,
+                adventure,
             }}
         >
             { children }
