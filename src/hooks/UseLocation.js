@@ -16,9 +16,10 @@ export const UseLocation = (initial, adventurers, globalModifiers, resources) =>
     }
 
     function getDrop() {
-        return location.baseDrop.map(el => {
-            const rsc = resources.get.filter(resource => resource.key === el.key)[0];
-            return {
+        let drop = {};
+        Object.entries(location.baseDrop).forEach(([key, el]) => {
+            const rsc = resources.data[key];
+            drop[key] = {
                 ...el,
                 amount: (
                     el.amount *
@@ -29,6 +30,7 @@ export const UseLocation = (initial, adventurers, globalModifiers, resources) =>
                 )
             }
         })
+        return drop;
     }
 
     const baseChance = 50;

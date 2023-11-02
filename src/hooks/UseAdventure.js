@@ -11,7 +11,7 @@ export const useAdventure = (location, resources) => {
 
     function onFinished() {
         if (!location) throw new Error('Adventure finished without location present');
-        resources.increase(location.getDrop());
+        resources.change(location.getDrop(), 'inc');
     }
 
     function start() {

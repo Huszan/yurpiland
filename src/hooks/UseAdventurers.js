@@ -27,11 +27,15 @@ const adventurersInitial = [
         icon: undefined,
         level: 0,
         initialCost: {
-            yurpis: 100,
+            yurpis: {
+                amount: 100,
+            },
         },
         costIncrease: (currCost) => { 
             return {
-                yurpis: parseInt(currCost.yurpis + currCost.yurpis * 0.03 + 10)
+                yurpis: {
+                    amount: parseInt(currCost.yurpis.amount + currCost.yurpis.amount * 0.03 + 10)
+                }
             }
         },
         AP: 5 * Math.pow(10, 2),
@@ -44,11 +48,15 @@ const adventurersInitial = [
         icon: undefined,
         level: 0,
         initialCost: {
-            yurpis: 800,
+            yurpis: {
+                amount: 800,
+            },
         },
         costIncrease: (currCost) => { 
             return {
-                yurpis: parseInt(currCost.yurpis + currCost.yurpis * 0.04 + 80)
+                yurpis: {
+                    amount: parseInt(currCost.yurpis.amount + currCost.yurpis.amount * 0.04 + 80)
+                }
             }
         },
         AP: 4 * Math.pow(10, 3),
@@ -61,11 +69,15 @@ const adventurersInitial = [
         icon: undefined,
         level: 0,
         initialCost: {
-            yurpis: 5000,
+            yurpis: {
+                amount: 5000,
+            },
         },
         costIncrease: (currCost) => { 
             return {
-                yurpis: parseInt(currCost.yurpis + currCost.yurpis * 0.05 + 500)
+                yurpis: {
+                    amount: parseInt(currCost.yurpis.amount + currCost.yurpis.amount * 0.05 + 500)
+                }
             }
         },
         AP: 25 * Math.pow(10, 3),
@@ -78,11 +90,15 @@ const adventurersInitial = [
         icon: undefined,
         level: 0,
         initialCost: {
-            yurpis: Math.pow(10, 6),
+            yurpis: {
+                amount: Math.pow(10, 6),
+            },
         },
         costIncrease: (currCost) => { 
             return {
-                yurpis: parseInt(currCost.yurpis + currCost.yurpis * 0.05 + Math.pow(10, 5))
+                yurpis: {
+                    amount: parseInt(currCost.yurpis + currCost.yurpis * 0.05 + Math.pow(10, 5))
+                }
             }
         },
         AP: 5 * Math.pow(10, 6),
@@ -98,11 +114,15 @@ const adventurersInitial = [
         icon: undefined,
         level: 0,
         initialCost: {
-            yurpis: Math.pow(10, 8),
+            yurpis: {
+                amount: Math.pow(10, 8),
+            },
         },
         costIncrease: (currCost) => { 
             return {
-                yurpis: parseInt(currCost.yurpis + currCost.yurpis * 0.05 + Math.pow(10, 6))
+                yurpis: {
+                    amount: parseInt(currCost.yurpis + currCost.yurpis * 0.05 + Math.pow(10, 6))
+                }
             }
         },
         AP: 5 * Math.pow(10, 8),
@@ -118,11 +138,15 @@ const adventurersInitial = [
         icon: undefined,
         level: 0,
         initialCost: {
-            yurpis: Math.pow(10, 10),
+            yurpis: {
+                amount: Math.pow(10, 10),
+            },
         },
         costIncrease: (currCost) => { 
             return {
-                yurpis: parseInt(currCost.yurpis + currCost.yurpis * 0.05 + Math.pow(10, 8))
+                yurpis: {
+                    amount: parseInt(currCost.yurpis + currCost.yurpis * 0.05 + Math.pow(10, 8))
+                }
             }
         },
         AP: 5 * Math.pow(10, 10),

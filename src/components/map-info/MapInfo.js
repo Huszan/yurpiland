@@ -15,9 +15,9 @@ export default function MapInfo({
         setIsOpen(false);
     }
 
-    const rewardElements = location.getDrop().map(el => {
+    const rewardElements = Object.entries(location.getDrop()).map(([key, el]) => {
         return (
-            <li className='display-block' key={el.key}>
+            <li className='display-block' key={key}>
                 <img className='icon' alt='' />
                 <span>{el.amount}</span>
             </li>

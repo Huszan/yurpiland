@@ -1,28 +1,26 @@
 import { useState } from 'react';
 import YurpisIco from '../resources/images/yurpi.png';
 
-const initialResources = [
-    {
-        key: 'yurpis',
+const initialResources = {
+    yurpis: {
         amount: 100,
         multiplier: 1,
         icon: YurpisIco,
     },
-    {
-        key: 'wood',
+    wood: {
         amount: 0,
         multiplier: 1,
         icon: null,
     },
-]
+}
 
 export const useResources = () => {
     const [resources, setResources] = useState(initialResources);
 
     function isAffordable(cost) {
         let affordable = true;
-        Object.keys(cost).forEach(key => {
-            if (resources.find(el => el.key === key).amount < cost[key]) {
+        Object.entries(cost).forEach(([key, val]) => {
+            if (resources[key].amount < val.amount) {
                 affordable = false;
                 return;
             }
@@ -30,16 +28,13 @@ export const useResources = () => {
         return affordable;
     }
 
-    function reduct(cost) {
-        if (!isAffordable(cost)) return null;
+    function change(resources, type) {
+        if (!isAffordable(resources) && type === 'dec') return 0;
         setResources(prev => {
-            let resourcesClone = [...prev];
-            Object.keys(cost).forEach(key => {
-                resourcesClone.filter(el => {
-                    if (el.key === key) {
-                        el.amount -= cost[key];
-                    }
-                });
+            let resourcesClone = JSON.parse(JSON.stringify(prev));
+            Object.entries(resources).forEach(([key, val]) => {
+                if (type === 'inc') resourcesClone[key].amount += val.amount;
+                if (type === 'dec') resourcesClone[key].amount -= val.amount;
             })
             return resourcesClone;
         })
@@ -47,9 +42,8 @@ export const useResources = () => {
     }
 
     return {
-        get: resources,
-        set: setResources,
+        data: resources,
         isAffordable,
-        reduct,
+        change,
     }
 }

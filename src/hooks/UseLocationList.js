@@ -14,12 +14,11 @@ const locationsInitial = [
             max: Math.pow(10, 6),
         },
         baseTimeToFinish: 1, // seconds
-        baseDrop: [
-            {
-                key: 'yurpis',
+        baseDrop: {
+            yurpis: {
                 amount: 1,
-            }
-        ],
+            },
+        },
         multiplier: 1,
         acceleration: 1,
         position: [17, 27],
@@ -36,16 +35,14 @@ const locationsInitial = [
             max: Math.pow(10, 10),
         },
         baseTimeToFinish: 2, // seconds
-        baseDrop: [
-            {
-                key: 'yurpis',
+        baseDrop: {
+            yurpis: {
                 amount: 0.2,
             },
-            {
-                key: 'wood',
+            wood: {
                 amount: 0.8,
             },
-        ],
+        },
         multiplier: 1,
         acceleration: 1,
         position: [50, 50],
@@ -59,8 +56,6 @@ const locationsInitial = [
 export const useLocationList = (adventurers, globalModifiers, resources) => {
     const locationList = locationsInitial.map(location => UseLocation(location, adventurers, globalModifiers, resources));
     const [ selected, setSelected ] = useState(locationList[0]);
-
-    
 
     return {
         data: locationList,

@@ -1,5 +1,4 @@
 import './AdventurerBlock.scss';
-import IntervalBar from '../interval-bar/IntervalBar';
 import { useContext } from 'react';
 import { ProgressionContext } from '../../context/Progression';
 import { firstLetterToUpperCase } from '../../utils/HelperFunctions';
@@ -19,13 +18,12 @@ export default function AdventurerBlock({adventurer}) {
         )
     })
 
-    const cost = Object.keys(adventurer.getCost()).map(key => {
-        const cost = adventurer.getCost()[key];
-        const rsc = resources.get.find(el => el.key === key);
+    const cost = Object.entries(adventurer.getCost()).map(([key, cost]) => {
+        const rsc = resources.data[key];
         return (
-            <li key={rsc.key} className='display-block' style={{'justifyContent': 'start'}}>
+            <li key={key} className='display-block' style={{'justifyContent': 'start'}}>
                 <img src={rsc.icon ? rsc.icon : UndefinedIcon} className='icon' alt='' />
-                <span>{cost}</span>
+                <span>{cost.amount}</span>
             </li>
         )
     })

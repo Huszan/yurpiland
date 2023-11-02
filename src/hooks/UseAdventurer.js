@@ -28,7 +28,7 @@ export const UseAdventurer = (initial, globalModifiers, resources) => {
             throw new Error('Not enough yurpis to buy this');
         }
         else {
-            let success = resources.reduct(cost);
+            let success = resources.change(cost, 'dec');
             if (success) {
                 setAdventurer(prev => {
                     return {

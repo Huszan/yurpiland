@@ -16,9 +16,10 @@ export default function InfoBar(props) {
         setIsNavDrawerOpen(prev => !prev);
     }
 
-    const resourceElements = progress.resources.get.map(rsc => {
+    const resourceElements = Object.keys(progress.resources.data).map((key) => {
+        let rsc = progress.resources.data[key];
         return (
-            <li key={rsc.key} className='display-block'>
+            <li key={key} className='display-block'>
                 <img src={rsc.icon ? rsc.icon : UndefinedIcon} alt='' className='icon' />
                 { rsc.amount }
             </li>
