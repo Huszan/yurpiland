@@ -83,6 +83,7 @@ p {
 
 ul {
   all: unset;
+  list-style-type: none;
   display: block;
   margin: 5px 5px;
 
@@ -102,6 +103,12 @@ ul {
   .icon {
       border-radius: 2px;
   }
+}
+
+.center-abs {
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
 }
 
 .desktop .App {
