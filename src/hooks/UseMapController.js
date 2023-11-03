@@ -6,21 +6,11 @@ const initialControlsTemp = {
     position: [0, 0],
 }
 
-const initialSettingsTemp = {
-    initialContentSize: {
-        x: 1080,
-        y: 1080,
-    },
-    zoomSpeed: 0.1,
-    zoomLimit: [0.2, 2],
-}
-
 export const useMapController = (
     mapRef,
+    settings,
     initialControls = initialControlsTemp, 
-    initialSettings = initialSettingsTemp,
 ) => {
-    const [settings] = useState(initialSettings);
     const [controls, setControls] = useState(initialControls);
     const stateRef = useRef();
     stateRef.current = {

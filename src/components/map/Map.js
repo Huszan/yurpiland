@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { ProgressionContext } from '../../context/Progression'
 import { useMapController } from '../../hooks/UseMapController'
 import './Map.scss'
@@ -10,11 +10,28 @@ import ArrowLeftSvg from '../../resources/icons/arrow_left.svg';
 import ArrowRightSvg from '../../resources/icons/arrow_right.svg';
 import AdjustSvg from '../../resources/icons/adjust.svg';
 
+export const CENTER_ON_OPTION = {
+    LOCATION: 'location',
+    MAP: 'map',
+    NOTHING: 'nothing',
+}
+
+const initialSettingsTemp = {
+    initialContentSize: {
+        x: 1080,
+        y: 1080,
+    },
+    zoomSpeed: 0.1,
+    zoomLimit: [0.2, 2],
+    centerOn: CENTER_ON_OPTION.LOCATION,
+}
+
 export default function Map() {
     const mapRef = useRef();
     const mapContentRef = useRef();
 
-    const controller = useMapController(mapRef);
+    const [settings, setSettings] = useState(initialSettingsTemp);
+    const controller = useMapController(mapRef, settings);
     const progress = useContext(ProgressionContext);
     const locations = progress.locations;
     let isDragging = false;
@@ -27,14 +44,9 @@ export default function Map() {
     }, [controller])
 
     useEffect(() => {
-        const selectedElement = document.getElementsByClassName('selected')[0].parentNode;
-        const pos = {
-            x: selectedElement.offsetLeft,
-            y: selectedElement.offsetTop,
-        }
-        controller.center(pos);
+        onCenter();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [settings])
 
     function setupMapStyle() {
         let el = mapContentRef.current;
@@ -119,7 +131,27 @@ export default function Map() {
             y: (map.position[1] / 100) * size.y,
         };
         locations.set.selected(map);
-        controller.center(position);
+        if (settings.centerOn === CENTER_ON_OPTION.LOCATION) {
+            controller.center(position);
+        }
+    }
+
+    function onCenter() {
+        const selectedElement = document.getElementsByClassName('selected')[0].parentNode;
+        if (settings.centerOn === CENTER_ON_OPTION.LOCATION) {
+            centerOnLocation(selectedElement);
+        }
+        else if (settings.centerOn === CENTER_ON_OPTION.MAP) {
+            controller.center();
+        }
+    }
+
+    function centerOnLocation(element) {
+        const position = {
+            x: element.offsetLeft,
+            y: element.offsetTop,
+        }
+        controller.center(position)
     }
 
     const mapElements = locations.data.map(map => {
