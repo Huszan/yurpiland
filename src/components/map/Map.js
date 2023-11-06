@@ -23,7 +23,7 @@ const initialSettingsTemp = {
     },
     zoomSpeed: 0.1,
     zoomLimit: [0.2, 2],
-    centerOn: CENTER_ON_OPTION.LOCATION,
+    centerOn: CENTER_ON_OPTION.MAP,
 }
 
 export default function Map() {
