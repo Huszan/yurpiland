@@ -1,27 +1,35 @@
 import './MapTab.scss';
 import Map from '../map/Map';
 import MapInfo from '../map-info/MapInfo';
-import { useContext, useRef, useState } from 'react';
+import { useContext, useRef } from 'react';
 import MapProgress from '../map-progress/MapProgress';
 import { ProgressionContext } from '../../context/Progression';
+import { GlobalStatesContext } from '../../context/GlobalStates';
 
 export default function MapTab() {
     const mapTabRef = useRef();
     const progress = useContext(ProgressionContext);
+    const globalStates = useContext(GlobalStatesContext);
     const locations = progress.locations;
-    const [isInfoOpen, setIsInfoOpen] = useState(false);
+
+    function openInfo() {
+        globalStates.setModalData(prev => {
+            return {
+                ...prev,
+                content: <MapInfo 
+                    location={locations.get.selected} 
+                />,
+                isOpen: true,
+            }
+        })
+    }
 
     return (
         <div id='map-tab' ref={mapTabRef}>
             <MapProgress 
-                openInfo={() => setIsInfoOpen(true)}
+                openInfo={() => openInfo()}
                 adventure={progress.adventure}
                 location={locations.get.selected}
-            />
-            <MapInfo 
-                location={locations.get.selected} 
-                isOpen={isInfoOpen} 
-                setIsOpen={setIsInfoOpen}
             />
             <Map />
         </div>

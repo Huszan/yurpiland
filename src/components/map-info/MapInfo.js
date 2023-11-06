@@ -1,19 +1,10 @@
 import './MapInfo.scss';
-import CloseSvg from '../../resources/icons/close.svg';
 import { basicColorTransition, firstLetterToUpperCase } from '../../utils/HelperFunctions';
 
 export default function MapInfo({ 
-    location, 
-    isOpen, 
-    setIsOpen,
+    location,
 }) {
-    if (!isOpen) return;
-
     const successChance = location.getChanceToSuccess().toFixed(1);
-
-    function onClose() {
-        setIsOpen(false);
-    }
 
     const rewardElements = Object.entries(location.getDrop()).map(([key, el]) => {
         return (
@@ -32,9 +23,6 @@ export default function MapInfo({
 
     return (
         <section id='map-info'>
-            <button className='close-button' onClick={onClose}>
-                <img src={CloseSvg} className='icon' alt='' />
-            </button>
             <h1>{ firstLetterToUpperCase(location.key) }</h1>
             <p className='minor'>{ location.desc }</p>
             <p>Optimal AP: { location.optimalAP.min } - { location.optimalAP.max }</p>

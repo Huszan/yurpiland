@@ -2,7 +2,7 @@ import LoadingBar from '../loading-bar/LoadingBar';
 import './MapProgress.scss';
 import InfoSvg from '../../resources/icons/info.svg';
 
-export default function MapProgress({openInfo, location, adventure}) {
+export default function MapProgress({openInfo, adventure}) {
 
     const loadingBarConfig = {
         barBgColor: 'black',
