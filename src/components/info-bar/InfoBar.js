@@ -6,6 +6,7 @@ import { ProgressionContext } from '../../context/Progression';
 import { useWindowInfo } from '../../hooks/UseWindowInfo';
 import UndefinedIcon from '../../resources/images/placeholder.jpg';
 import YurpiPng from '../../resources/images/yurpi.png';
+import { abbreviateNumber } from '../../utils/HelperFunctions';
 
 export default function InfoBar(props) {
     const window = useWindowInfo();
@@ -21,7 +22,7 @@ export default function InfoBar(props) {
         return (
             <li key={key} className='display-block'>
                 <img src={rsc.icon ? rsc.icon : UndefinedIcon} alt='' className='icon' />
-                { rsc.amount }
+                { abbreviateNumber(rsc.amount) }
             </li>
         )
     })

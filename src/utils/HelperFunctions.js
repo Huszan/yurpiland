@@ -32,3 +32,10 @@ export function formatTime(ms) {
         ${m >= 1 ? Math.floor(m % 60) + 'm' : ''} 
         ${Math.floor(s % 60) + 's'}`;
 }
+
+export function abbreviateNumber(value) {
+    return Intl.NumberFormat('en-US', {
+        notation: "compact",
+        maximumFractionDigits: 1
+      }).format(value);
+}

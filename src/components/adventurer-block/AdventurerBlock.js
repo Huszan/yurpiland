@@ -1,7 +1,7 @@
 import './AdventurerBlock.scss';
 import { useContext } from 'react';
 import { ProgressionContext } from '../../context/Progression';
-import { firstLetterToUpperCase } from '../../utils/HelperFunctions';
+import { abbreviateNumber, firstLetterToUpperCase } from '../../utils/HelperFunctions';
 import UndefinedIcon from '../../resources/images/placeholder.jpg';
 
 export default function AdventurerBlock({adventurer}) {
@@ -23,7 +23,7 @@ export default function AdventurerBlock({adventurer}) {
         return (
             <li key={key} className='display-block' style={{'justifyContent': 'start'}}>
                 <img src={rsc.icon ? rsc.icon : UndefinedIcon} className='icon' alt='' />
-                <span>{cost.amount}</span>
+                <span>{abbreviateNumber(cost.amount)}</span>
             </li>
         )
     })
@@ -34,8 +34,8 @@ export default function AdventurerBlock({adventurer}) {
             <ul className='tags-wrapper'>
                 { tags }
             </ul>
-            <span>Level { adventurer.get.level }</span>
-            <span>AP: { adventurer.getModifiedAP() } (+{ adventurer.get.AP })</span>
+            <span>Level { abbreviateNumber(adventurer.get.level) }</span>
+            <span>AP: { abbreviateNumber(adventurer.getModifiedAP()) } (+{ adventurer.get.AP })</span>
             <ul>
                 { cost }
             </ul>
