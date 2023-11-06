@@ -34,5 +34,7 @@ export const useAdventure = (location, resources) => {
         stop,
         isInProgress: loader.isLoading(),
         progress: loader.data.progress,
+        bg: location.bg,
+        bgSelected: location.bgSelected,
     }
 }

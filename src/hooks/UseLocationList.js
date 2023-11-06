@@ -4,6 +4,8 @@ import CastleSelectedPng from "../resources/images/castle2_selected.png"
 import ForestPng from "../resources/images/forest.png"
 import ForestSelectedPng from "../resources/images/forest_selected.png"
 import { useState } from "react"
+import CitySeamlessImg from '../resources/images/sb-city-s.png';
+import CitySeamlessNCImg from '../resources/images/sb-city-nc-s.png';
 
 const locationsInitial = [
     {
@@ -26,6 +28,8 @@ const locationsInitial = [
         hasAutoSendOn: false,
         icon: CastlePng,
         iconSelected: CastleSelectedPng,
+        bg: CitySeamlessNCImg,
+        bgSelected: CitySeamlessImg,
     },
     {
         key: 'forest',

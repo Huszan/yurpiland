@@ -48,8 +48,8 @@
 
     &.basic, &.secondary {
       padding: 5px;
-      background-color: $primary-color-l;
-      color: #ffffff;
+      background-color: $primary-color-sl;
+      color: $primary-color-sl-text;
     }
 
     &:not(:disabled) {
