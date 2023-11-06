@@ -35,7 +35,7 @@ export default function AdventurerBlock({adventurer}) {
                 { tags }
             </ul>
             <span>Level { abbreviateNumber(adventurer.get.level) }</span>
-            <span>AP: { abbreviateNumber(adventurer.getModifiedAP()) } (+{ adventurer.get.AP })</span>
+            <span>AP: { abbreviateNumber(adventurer.getModifiedAP()) } (+{ abbreviateNumber(adventurer.get.AP) })</span>
             <ul>
                 { cost }
             </ul>
