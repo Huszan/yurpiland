@@ -4,35 +4,36 @@ import { useState } from "react";
 const initialLoaderData = {
     key: null,                  // it's used if you want to recognize last loader
     startTime: null,            // represents last time loader was started and should be reseted to null on finish
-    progress: null,             // should be constantly updated with percentage progress of current timer when on
     interval: 1000,             // how much time to load
     cb: () => { 
         console.log('Loader uses default callback function. Provide it with custom one.') 
     },
     currTimeout: null,
-    isStopped: true,
+    isLoading: false,           // set to true to start loading
     isLooped: false,            // will timer fire itself on finish
     isAutostart: false,         // will timer start as soon as initialized
 }
 
-export const useLoader = (data) => {
+export const useLoader = (config) => {
     const [loaderData, setLoaderData] = useState({
         ...initialLoaderData,
-        ...data,
+        ...config,
     });
+    const [progress, setProgress] = useState(0);
 
     let ref = useRef();
     ref.current = {
         loaderData: loaderData,
+        progress: progress,
     }
 
-    function update(data, cb) {
+    function update(data) {
         setLoaderData(prev => {
             return {
                 ...prev,
                 ...data,
             }
-        }, cb)
+        });
     }
 
     function start() {
@@ -40,26 +41,22 @@ export const useLoader = (data) => {
         if (startTime || currTimeout) return;
         let timeout = window.setTimeout(() => {
             cb();
-            if (!isLooped) stop();
-            else reset();
+            if (isLooped) reset();
+            else stop();
         }, interval);
-        update({startTime: new Date().getTime(), isStopped: false, currTimeout: timeout});
+        update({startTime: new Date().getTime(), currTimeout: timeout});
     }
 
     function stop() {
-        update({isStopped: true});
+        update({isLoading: false});
         reset();
     }
 
     function reset() {
         const { currTimeout } = ref.current.loaderData;
         window.clearTimeout(currTimeout);
-        update({startTime: null, progress: null, currTimeout: null});
-    }
-
-    function isLoading() {
-        const { startTime } = ref.current.loaderData;
-        return startTime !== null;
+        update({startTime: null, currTimeout: null});
+        setProgress(0);
     }
 
     function getTimePassed() {
@@ -77,33 +74,34 @@ export const useLoader = (data) => {
     }
 
     useEffect(() => {
-        if (ref.current.loaderData.isAutostart) update({isStopped: false});
+        if (loaderData.isAutostart) {
+            start();
+        }
     }, [])
 
     useEffect(() => {
-        if (!loaderData.isStopped) {
-            start();
-        }
+        const { isLoading } = ref.current.loaderData;
+        if (isLoading) start();
     }, [loaderData])
 
     useEffect(() => {
         const { startTime } = ref.current.loaderData;
         const progressInterval = window.setInterval(() => {
             if (startTime) {
-                update({progress: getProgress()});
+                setProgress(getProgress());
             }
         }, 10)
 
         return () => {
             window.clearInterval(progressInterval);
         }
-    }, [loaderData.startTime])
+    }, [loaderData])
 
     return {
         data: loaderData,
-        start: () => update({isStopped: false}),
+        progress,
+        start: () => update({isLoading: true}),
         stop,
         update,
-        isLoading,
     }
 }

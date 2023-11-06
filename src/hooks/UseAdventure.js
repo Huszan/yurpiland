@@ -5,8 +5,7 @@ export const useAdventure = (location, resources) => {
         key: location.key,
         interval: location.getAdventureTime(),
         cb: onFinished,
-        isLooped: true,
-        isAutostart: true,
+        isLooped: location.hasAutoSendOn,
     });
 
     function onFinished() {
@@ -16,10 +15,12 @@ export const useAdventure = (location, resources) => {
 
     function start() {
         if (loader.data.key !== location.key) {
+            loader.stop();
             loader.update({
                 key: location.key,
                 interval: location.getAdventureTime(),
                 cb: onFinished,
+                isLooped: location.hasAutoSendOn,
             })
         }
         loader.start();
@@ -32,9 +33,8 @@ export const useAdventure = (location, resources) => {
     return {
         start,
         stop,
-        isInProgress: loader.isLoading(),
-        progress: loader.data.progress,
-        bg: location.bg,
-        bgSelected: location.bgSelected,
+        currentLocationKey: loader.data.key,
+        isInProgress: loader.data.isLoading,
+        progress: loader.progress,
     }
 }

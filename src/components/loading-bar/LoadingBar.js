@@ -6,12 +6,11 @@ export default function LoadingBar({progress, config}) {
     const contentRef = useRef();
 
     useEffect(() => {
-        console.log(config.barBg);
-        if (config.barBg) barRef.current.style.backgroundImage = `url(${config.barBg})`;
-        if (config.barBgColor) barRef.current.style.backgroundColor = config.barBgColor;
-        if (config.barContentBg) contentRef.current.style.backgroundImage = `url(${config.barContentBg})`;
-        if (config.contentBgColor) contentRef.current.style.backgroundColor = config.contentBgColor;
-    }, [])
+        barRef.current.style.backgroundImage = config.barBg ? `url(${config.barBg})` : 'unset';
+        contentRef.current.style.backgroundImage = config.barContentBg ? `url(${config.barContentBg})` : 'unset';
+        barRef.current.style.backgroundColor = config.barBgColor ? config.barBgColor : 'unset'; 
+        contentRef.current.style.backgroundColor = config.contentBgColor ? config.contentBgColor : 'unset';
+    }, [config])
 
     useEffect(() => {
         contentRef.current.style.width = `${progress ? progress : 0}%`;

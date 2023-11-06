@@ -4,17 +4,13 @@ import InfoSvg from '../../resources/icons/info.svg';
 import StartSvg from '../../resources/icons/sprint.svg';
 import StopSvg from '../../resources/icons/front_hand.svg';
 
-export default function MapProgress({openInfo, adventure}) {
+export default function MapProgress({openInfo, adventure, location}) {
 
     let loadingBarConfig = {
-        barBgColor: '#ffffff',
-        contentBgColor: '#000000'
-    }
-    if (adventure.bg && adventure.bgSelected) {
-        loadingBarConfig = {
-            barBg: adventure.bg,
-            barContentBg: adventure.bgSelected,
-        }
+        barBgColor: location.bg ? null : '#ffffff',
+        contentBgColor: location.bgSelected ? null : '#000000',
+        barBg: location.bg ? location.bg : null,
+        barContentBg: location.bgSelected ? location.bgSelected : null,
     }
 
     function onStartClick() {
@@ -29,6 +25,21 @@ export default function MapProgress({openInfo, adventure}) {
         openInfo();
     }
 
+    // Not adventuring at this location
+    if (adventure.currentLocationKey !== location.key) {
+        return (
+            <section id='map-progress'>
+                <LoadingBar progress={0} config={loadingBarConfig} />
+                <button className='secondary' onClick={onStartClick}>
+                        <img src={StartSvg} className='icon-l' alt='' />
+                </button>
+                <button className='basic' onClick={onInfoClick}>
+                    <img src={InfoSvg} className='icon-l' alt='' />
+                </button>
+            </section>
+        )
+    }
+    // Adventuring at this location
     return (
         <section id='map-progress'>
             <LoadingBar progress={adventure.progress} config={loadingBarConfig} />
@@ -38,7 +49,7 @@ export default function MapProgress({openInfo, adventure}) {
                     <img src={StartSvg} className='icon-l' alt='' />
                 </button> :
                 <button className='secondary' onClick={onStopClick}>
-                    <img src={StopSvg} className='icon-l' alt='' />
+                    <img src={StopSvg} className='icon-l' alt='' disabled={location.hasAutoSendOn} />
                 </button>
             }
             <button className='basic' onClick={onInfoClick}>
