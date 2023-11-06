@@ -17,7 +17,8 @@ export default function MapTab() {
             return {
                 ...prev,
                 content: <MapInfo 
-                    location={locations.get.selected} 
+                    location={locations.get.selected}
+                    resources={progress.resources}
                 />,
                 isOpen: true,
             }

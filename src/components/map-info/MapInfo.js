@@ -1,15 +1,18 @@
 import './MapInfo.scss';
 import { abbreviateNumber, basicColorTransition, firstLetterToUpperCase, formatTime } from '../../utils/HelperFunctions';
+import PlaceholderImg from '../../resources/images/placeholder.jpg';
 
 export default function MapInfo({ 
     location,
+    resources,
 }) {
     const successChance = location.getChanceToSuccess().toFixed(1);
 
     const rewardElements = Object.entries(location.getDrop()).map(([key, el]) => {
+        let icon = resources.data[key].icon ? resources.data[key].icon : PlaceholderImg;
         return (
             <li className='display-block' key={key}>
-                <img className='icon' alt='' />
+                <img src={icon} className='icon' alt='' />
                 <span>{abbreviateNumber(el.amount)}</span>
             </li>
         )
