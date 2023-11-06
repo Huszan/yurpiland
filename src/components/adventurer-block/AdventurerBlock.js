@@ -1,17 +1,16 @@
 import './AdventurerBlock.scss';
-import IntervalBar from '../interval-bar/IntervalBar';
 import { useContext } from 'react';
 import { ProgressionContext } from '../../context/Progression';
 import { firstLetterToUpperCase } from '../../utils/HelperFunctions';
+import UndefinedIcon from '../../resources/images/placeholder.jpg';
 
-export default function AdventurerBlock(props) {
-    const { adventurer } = props;
+export default function AdventurerBlock({adventurer}) {
     const progress = useContext(ProgressionContext);
+    const resources = progress.resources;
 
-    const canAfford = adventurer.getCost() <= progress.get.yurpis;
-    const incPerSec = adventurer.getAdventureIncome() / adventurer.duration;
+    const canAfford = adventurer.canAfford();
 
-    const tags = adventurer.tags.map(tag => {
+    const tags = adventurer.get.tags.map(tag => {
         return (
             <li key={tag.name} className='tag' style={{backgroundColor: `${tag.color}`}}>
                 { tag.name }
@@ -19,24 +18,28 @@ export default function AdventurerBlock(props) {
         )
     })
 
+    const cost = Object.entries(adventurer.getCost()).map(([key, cost]) => {
+        const rsc = resources.data[key];
+        return (
+            <li key={key} className='display-block' style={{'justifyContent': 'start'}}>
+                <img src={rsc.icon ? rsc.icon : UndefinedIcon} className='icon' alt='' />
+                <span>{cost.amount}</span>
+            </li>
+        )
+    })
+
     return (
-        <div className='adventurer-block' key={ adventurer.key }>
-            <h3>{firstLetterToUpperCase(adventurer.key)}</h3>
+        <div className='adventurer-block' key={ adventurer.get.key }>
+            <h3>{firstLetterToUpperCase(adventurer.get.key)}</h3>
             <ul className='tags-wrapper'>
                 { tags }
             </ul>
-            <span>Level { adventurer.level }</span>
-            <span>Cost: { adventurer.getCost() }</span>
-            <span>Income: { adventurer.getAdventureIncome() } ({ incPerSec }/s)</span>
-            <button onClick={ () => adventurer.buy() } disabled={ !canAfford }>BUY</button>
-            {
-                0 < adventurer.level && !adventurer.hasSendAuto &&
-                <button onClick={ () => { adventurer.sendOnAdventure() }}>SEND ON ADVENTURE</button>
-            }
-            <IntervalBar 
-                timer={ adventurer.currentAdventureStartTime } 
-                duration={ adventurer.getAdventureDurationWithModifiers() }
-            />
+            <span>Level { adventurer.get.level }</span>
+            <span>AP: { adventurer.getModifiedAP() } (+{ adventurer.get.AP })</span>
+            <ul>
+                { cost }
+            </ul>
+            <button className='basic' onClick={ () => adventurer.buy() } disabled={ !canAfford }>BUY</button>
         </div>
     )
 }

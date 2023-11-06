@@ -1,16 +1,10 @@
+@import '../../styles/theme.scss';
+
 #info-bar {
     width: 100%;
-    min-height: 30px;
     padding: 5px;
-    background-color: #334c6e;
-    border-radius: 0 0 5px 5px;
-    box-shadow: 5px 5px 10px #000000f1;
+    background-color: $primary-color-l;
+    color: $primary-color-l-text;
+    box-shadow: 0 2px 5px #000000f1;
     box-sizing: border-box;
-
-    .display-block {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-    }
 }

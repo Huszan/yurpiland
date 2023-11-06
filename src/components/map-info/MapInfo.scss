@@ -1,0 +1,12 @@
+@import '../../styles/theme.scss';
+
+#map-info {
+    padding: 5px 25px 15px;
+
+    .reward-list {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0 12px;
+        gap: 6px;
+    }
+}

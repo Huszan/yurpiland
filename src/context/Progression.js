@@ -1,30 +1,41 @@
 import { createContext, useState } from "react";
 import { useAdventurers } from "../hooks/UseAdventurers";
+import { useLocationList } from "../hooks/UseLocationList";
+import { useResources } from "../hooks/UseResources";
+import { useAdventure } from "../hooks/UseAdventure";
 
 export const ProgressionContext = createContext();
 
 export default function Progression(props) {
     const { children } = props;
     const [globalModifiers, setGlboalModifiers] = useState({
-        timeAcceleration: 1,
-        yurpiMultiplier: 1,
-        adventurersMultiplier: 1,
+        accelerator: {
+            time: 1,
+            location: 1,
+        },
+        multiplier: {
+            location: 1,
+            AP: 1,
+        },
     })
-    const [yurpis, setYurpis] = useState(100);
-    const adventurers = useAdventurers(globalModifiers, [yurpis, setYurpis]);
+    const resources = useResources();
+    const adventurers = useAdventurers(globalModifiers, resources);
+    const locations = useLocationList(adventurers, globalModifiers, resources);
+    const adventure = useAdventure(locations.get.selected, resources);
 
     return (
         <ProgressionContext.Provider
             value = {{
                 get: {
-                    yurpis: yurpis,
                     globalModifiers: globalModifiers,
                 },
                 set: {
-                    yurpis: setYurpis,
                     globalModifiers: setGlboalModifiers,
                 },
-                adventurers
+                resources,
+                adventurers,
+                locations,
+                adventure,
             }}
         >
             { children }

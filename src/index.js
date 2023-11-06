@@ -1,14 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.scss';
-import App from './App';
+import GlobalStates from './context/GlobalStates';
+import Progression from './context/Progression';
 import reportWebVitals from './reportWebVitals';
 import Router from './Router';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Router />
+    <GlobalStates>
+      <Progression>
+        <Router />
+      </Progression>
+    </GlobalStates>
   </React.StrictMode>
 );
 

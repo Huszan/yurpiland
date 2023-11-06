@@ -1,3 +1,5 @@
+@import './styles/theme.scss';
+
 .App {
   display: grid;
   grid-template-columns: 1fr;
@@ -26,11 +28,87 @@
   main, nav {
     height: 100%;
     overflow: hidden auto;
+    display: flex;
+    flex-direction: column;
 
     h1 {
       text-align: center;
     }
+
+    .scroller {
+      overflow: auto;
+      flex-grow: 1;
+    }
   }
+
+  button {
+    background-color: unset;
+    border: unset;
+    transition: all .1s ease-in-out;
+
+    &.basic, &.secondary {
+      padding: 5px;
+      background-color: $primary-color-sl;
+      color: $primary-color-sl-text;
+    }
+
+    &:not(:disabled) {
+      cursor: pointer;
+      &:hover {
+        &.basic {
+          background-color: $accent-color-1;
+          color: $accent-color-1-text;
+        }
+        &.secondary {
+          background-color: $accent-color-2;
+          color: $accent-color-2-text;
+        }
+      }
+    }
+
+    &:disabled {
+      opacity: 50%;
+    }
+  }
+}
+
+p {
+  padding: 0 12px 0 12px;
+  font-size: 12px;
+
+  &.minor {
+    opacity: 80%;
+  }
+}
+
+ul {
+  all: unset;
+  list-style-type: none;
+  display: block;
+  margin: 5px 5px;
+
+  &.center {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.display-block {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 0 5px;
+
+  .icon {
+      border-radius: 2px;
+  }
+}
+
+.center-abs {
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
 }
 
 .desktop .App {
