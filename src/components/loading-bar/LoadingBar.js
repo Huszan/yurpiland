@@ -20,6 +20,7 @@ export default function LoadingBar({progress, timeLeft, config}) {
     return (
         <div className='loading-bar' ref={barRef}>
             <div className='content' ref={contentRef}></div>
+            <div className='progress-indicator'></div>
             <span className='time-left center-abs'><b>{formatTime(timeLeft())}</b></span>
         </div>
     )

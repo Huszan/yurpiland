@@ -2,21 +2,35 @@
     position: relative;
     width: 100%;
     height: 100%;
-    background-size: auto 100%;
+    background-size: auto auto;
     background-repeat: repeat-x;
+    background-position: 0 50%;
+    overflow: hidden;
 
     .time-left {
         position: absolute;
         color: white;
+        background-color: rgba($color: #000000, $alpha: 0.6);
+        padding: 5px;
     }
 
     .content {
-        position: absolute;
+        position: relative;
+        display: inline-block;
+        background-size: auto auto;
         background-repeat: repeat-x;
-        background-size: auto 100%;
-        background-position: 0;
+        background-position: 0 50%;
         height: 100%;
         left: 0;
         top: 0;
+    }
+
+    .progress-indicator {
+        display: inline-block;
+        height: 100%;
+        width: 4px;
+        transform: translateX(-4px);
+        background-color: rgba($color: #ffffff, $alpha: 0.8);
+        border-radius: 25px;
     }
 }
