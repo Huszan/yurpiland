@@ -7,8 +7,8 @@ import StopSvg from '../../resources/icons/front_hand.svg';
 export default function MapProgress({openInfo, adventure, location}) {
 
     let loadingBarConfig = {
-        barBgColor: location.bg ? null : '#ffffff',
-        contentBgColor: location.bgSelected ? null : '#000000',
+        barBgColor: location.bg ? null : '#545454',
+        contentBgColor: location.bgSelected ? null : '#32a852',
         barBg: location.bg ? location.bg : null,
         barContentBg: location.bgSelected ? location.bgSelected : null,
     }
@@ -25,11 +25,17 @@ export default function MapProgress({openInfo, adventure, location}) {
         openInfo();
     }
 
+    function getTimeLeft() {
+        let max = location.getAdventureTime();
+        let curr = max - (max * (adventure.progress / 100));
+        return curr;
+    }
+
     // Not adventuring at this location
     if (adventure.currentLocationKey !== location.key) {
         return (
             <section id='map-progress'>
-                <LoadingBar progress={0} config={loadingBarConfig} />
+                <LoadingBar progress={0} timeLeft={location.getAdventureTime} config={loadingBarConfig} />
                 <button className='secondary' onClick={onStartClick}>
                         <img src={StartSvg} className='icon-l' alt='' />
                 </button>
@@ -42,7 +48,7 @@ export default function MapProgress({openInfo, adventure, location}) {
     // Adventuring at this location
     return (
         <section id='map-progress'>
-            <LoadingBar progress={adventure.progress} config={loadingBarConfig} />
+            <LoadingBar progress={adventure.progress} timeLeft={getTimeLeft} config={loadingBarConfig} />
             {
                 !adventure.isInProgress ?
                 <button className='secondary' onClick={onStartClick}>

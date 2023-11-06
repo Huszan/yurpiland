@@ -15,7 +15,7 @@ const locationsInitial = [
             min: Math.pow(10, 2),
             max: Math.pow(10, 6),
         },
-        baseTimeToFinish: 1, // seconds
+        baseTimeToFinish: 15, // seconds
         baseDrop: {
             yurpis: {
                 amount: 1,
@@ -38,13 +38,13 @@ const locationsInitial = [
             min: Math.pow(10, 5),
             max: Math.pow(10, 10),
         },
-        baseTimeToFinish: 2, // seconds
+        baseTimeToFinish: 60, // seconds
         baseDrop: {
             yurpis: {
-                amount: 0.2,
+                amount: 0.8,
             },
             wood: {
-                amount: 0.8,
+                amount: 3.2,
             },
         },
         multiplier: 1,

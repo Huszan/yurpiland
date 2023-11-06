@@ -5,6 +5,11 @@
     background-size: auto 100%;
     background-repeat: repeat-x;
 
+    .time-left {
+        position: absolute;
+        color: white;
+    }
+
     .content {
         position: absolute;
         background-repeat: repeat-x;

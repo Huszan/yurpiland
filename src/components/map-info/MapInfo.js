@@ -1,5 +1,5 @@
 import './MapInfo.scss';
-import { basicColorTransition, firstLetterToUpperCase } from '../../utils/HelperFunctions';
+import { basicColorTransition, firstLetterToUpperCase, formatTime } from '../../utils/HelperFunctions';
 
 export default function MapInfo({ 
     location,
@@ -26,7 +26,7 @@ export default function MapInfo({
             <h1>{ firstLetterToUpperCase(location.key) }</h1>
             <p className='minor'>{ location.desc }</p>
             <p>Optimal AP: { location.optimalAP.min } - { location.optimalAP.max }</p>
-            <p>Time to finish: { location.getAdventureTime() / 1000 }s</p>
+            <p>Time to finish: { formatTime(location.getAdventureTime()) }</p>
             <p>Success chance: <span style={successChanceStyle(successChance)}>{ successChance }%</span></p>
             <ul className='reward-list'>
                 {rewardElements}

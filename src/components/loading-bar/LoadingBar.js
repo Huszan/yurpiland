@@ -1,7 +1,8 @@
 import { useRef, useEffect } from 'react';
+import { formatTime } from '../../utils/HelperFunctions';
 import './LoadingBar.scss';
 
-export default function LoadingBar({progress, config}) {
+export default function LoadingBar({progress, timeLeft, config}) {
     const barRef = useRef();
     const contentRef = useRef();
 
@@ -19,6 +20,7 @@ export default function LoadingBar({progress, config}) {
     return (
         <div className='loading-bar' ref={barRef}>
             <div className='content' ref={contentRef}></div>
+            <span className='time-left center-abs'><b>{formatTime(timeLeft())}</b></span>
         </div>
     )
 }

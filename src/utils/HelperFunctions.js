@@ -22,3 +22,13 @@ export function colorTransition(percent, hsl1, hsl2) {
 export function basicColorTransition(percent) {
     return colorTransition(percent, [0, 100, 50], [120, 100, 50]);
 }
+
+export function formatTime(ms) {
+    let s = ms / 1000;
+    let m = s / 60;
+    let h = m / 60;
+    return `
+        ${h >= 1 ? Math.floor(h % 60) + 'h' : ''} 
+        ${m >= 1 ? Math.floor(m % 60) + 'm' : ''} 
+        ${Math.floor(s % 60) + 's'}`;
+}
