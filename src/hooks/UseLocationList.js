@@ -4,8 +4,10 @@ import CastleSelectedPng from "../resources/images/castle2_selected.png"
 import ForestPng from "../resources/images/forest.png"
 import ForestSelectedPng from "../resources/images/forest_selected.png"
 import { useState } from "react"
-import CitySeamlessImg from '../resources/images/sb-city-s.png';
-import CitySeamlessNCImg from '../resources/images/sb-city-nc-s.png';
+import CityLandscapeImg from '../resources/images/city-landscape.png';
+import CityLandscapeNcImg from '../resources/images/city-landscape-nc.png';
+import ForestLandscapeImg from '../resources/images/forest-landscape-2.png';
+import ForestLandscapeNcImg from '../resources/images/forest-landscape-2-nc.png';
 
 const locationsInitial = [
     {
@@ -28,8 +30,8 @@ const locationsInitial = [
         hasAutoSendOn: false,
         icon: CastlePng,
         iconSelected: CastleSelectedPng,
-        bg: CitySeamlessNCImg,
-        bgSelected: CitySeamlessImg,
+        bg: CityLandscapeNcImg,
+        bgSelected: CityLandscapeImg,
     },
     {
         key: 'forest',
@@ -54,6 +56,8 @@ const locationsInitial = [
         hasAutoSendOn: false,
         icon: ForestPng,
         iconSelected: ForestSelectedPng,
+        bg: ForestLandscapeNcImg,
+        bgSelected: ForestLandscapeImg,
     },
 ]
 
