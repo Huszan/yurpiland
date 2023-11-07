@@ -114,3 +114,21 @@ ul {
 .desktop .App {
   grid-template-columns: 200px 1fr;
 }
+
+.wrap-flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.wrap-flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.wrap-flex-row, 
+.wrap-flex-col {
+  &.center {
+    justify-content: center;
+    align-items: center;
+  }
+}

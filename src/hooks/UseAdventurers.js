@@ -1,5 +1,14 @@
 import { useRef } from "react";
 import { UseAdventurer } from "./UseAdventurer";
+import SquireImg from '../resources/images/characters/squire.png';
+import HunterImg from '../resources/images/characters/hunter.png';
+import MageImg from '../resources/images/characters/mage.png';
+import KnightImg from '../resources/images/characters/knight.png';
+import RogueImg from '../resources/images/characters/rogue.png';
+import PriestImg from '../resources/images/characters/priest.png';
+import BerserkerImg from '../resources/images/characters/berserker.png';
+import BardImg from '../resources/images/characters/bard.png';
+import DruidImg from '../resources/images/characters/druid.png';
 
 const adventurerTags = {
     melee: {
@@ -24,7 +33,7 @@ const adventurersInitial = [
     {
         key: 'squire',
         tags: [adventurerTags.melee],
-        icon: undefined,
+        icon: SquireImg,
         level: 0,
         initialCost: {
             yurpis: {
@@ -45,7 +54,7 @@ const adventurersInitial = [
     {
         key: 'hunter',
         tags: [adventurerTags.ranged],
-        icon: undefined,
+        icon: HunterImg,
         level: 0,
         initialCost: {
             yurpis: {
@@ -66,7 +75,7 @@ const adventurersInitial = [
     {
         key: 'mage',
         tags: [adventurerTags.magic],
-        icon: undefined,
+        icon: MageImg,
         level: 0,
         initialCost: {
             yurpis: {
@@ -87,7 +96,7 @@ const adventurersInitial = [
     {
         key: 'knight',
         tags: [adventurerTags.melee],
-        icon: undefined,
+        icon: KnightImg,
         level: 0,
         initialCost: {
             yurpis: {
@@ -106,12 +115,12 @@ const adventurersInitial = [
         isUnlocked: true,
     },
     {
-        key: 'rouge',
+        key: 'rogue',
         tags: [
             adventurerTags.melee,
             adventurerTags.ranged,
         ],
-        icon: undefined,
+        icon: RogueImg,
         level: 0,
         initialCost: {
             yurpis: {
@@ -135,7 +144,7 @@ const adventurersInitial = [
             adventurerTags.magic,
             adventurerTags.support,
         ],
-        icon: undefined,
+        icon: PriestImg,
         level: 0,
         initialCost: {
             yurpis: {
@@ -150,6 +159,75 @@ const adventurersInitial = [
             }
         },
         AP: 5 * Math.pow(10, 10),
+        multiplier: 1,
+        isUnlocked: true,
+    },
+    {
+        key: 'berserker',
+        tags: [
+            adventurerTags.melee,
+        ],
+        icon: BerserkerImg,
+        level: 0,
+        initialCost: {
+            yurpis: {
+                amount: Math.pow(10, 14),
+            },
+        },
+        costIncrease: (currCost) => { 
+            return {
+                yurpis: {
+                    amount: parseInt(currCost.yurpis + currCost.yurpis * 0.05 + Math.pow(10, 12))
+                }
+            }
+        },
+        AP: 5 * Math.pow(10, 14),
+        multiplier: 1,
+        isUnlocked: true,
+    },
+    {
+        key: 'bard',
+        tags: [
+            adventurerTags.support,
+        ],
+        icon: BardImg,
+        level: 0,
+        initialCost: {
+            yurpis: {
+                amount: Math.pow(10, 18),
+            },
+        },
+        costIncrease: (currCost) => { 
+            return {
+                yurpis: {
+                    amount: parseInt(currCost.yurpis + currCost.yurpis * 0.05 + Math.pow(10, 16))
+                }
+            }
+        },
+        AP: 5 * Math.pow(10, 18),
+        multiplier: 1,
+        isUnlocked: true,
+    },
+    {
+        key: 'druid',
+        tags: [
+            adventurerTags.magic,
+        ],
+        icon: DruidImg,
+        level: 0,
+        initialCost: {
+            yurpis: {
+                amount: Math.pow(10, 24),
+            },
+        },
+        costIncrease: (currCost) => { 
+            return {
+                yurpis: {
+                    amount: parseInt(currCost.yurpis + currCost.yurpis * 0.05 + Math.pow(10, 22))
+                }
+            }
+        },
+        AP: 5 * Math.pow(10, 24),
         multiplier: 1,
         isUnlocked: true,
     },

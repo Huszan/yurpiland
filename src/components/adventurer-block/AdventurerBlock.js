@@ -30,15 +30,22 @@ export default function AdventurerBlock({adventurer}) {
 
     return (
         <div className='adventurer-block' key={ adventurer.get.key }>
-            <h3>{firstLetterToUpperCase(adventurer.get.key)}</h3>
-            <ul className='tags-wrapper'>
-                { tags }
-            </ul>
-            <span>Level { abbreviateNumber(adventurer.get.level) }</span>
-            <span>AP: { abbreviateNumber(adventurer.getModifiedAP()) } (+{ abbreviateNumber(adventurer.get.AP) })</span>
-            <ul>
-                { cost }
-            </ul>
+            <div className='wrap-flex-row'>
+                <img 
+                    className={`adventurer-icon ${adventurer.get.level === 0 ? 'not-bought' : ''}`} 
+                    src={ adventurer.get.icon ? adventurer.get.icon : UndefinedIcon }
+                ></img>
+                <div className='wrap-flex-col adventurer-info'>
+                    <h3>{firstLetterToUpperCase(adventurer.get.key)} lvl {adventurer.get.level}</h3>
+                    <ul className='tags-wrapper'>
+                        { tags }
+                    </ul>
+                    <div>AP: { abbreviateNumber(adventurer.getModifiedAP()) } (+{ abbreviateNumber(adventurer.get.AP) })</div>
+                    <ul>
+                        { cost }
+                    </ul>
+                </div>
+            </div>
             <button className='basic' onClick={ () => adventurer.buy() } disabled={ !canAfford }>BUY</button>
         </div>
     )
