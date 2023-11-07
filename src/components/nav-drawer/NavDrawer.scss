@@ -11,6 +11,16 @@ nav {
     padding: 5px;
     box-sizing: border-box;
 
+    .close-button {
+      position: absolute;
+      right: 0;
+    }
+
+    .logo {
+      height: 125px;
+      margin: 10px auto 20px;
+    }
+
     .link {
       display: flex;
       gap: 10px;

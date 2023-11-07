@@ -4,6 +4,7 @@ import './NavDrawer.scss';
 
 import CloseSvg from '../../resources/icons/close.svg';
 import PlaceholderImg from '../../resources/images/placeholder.jpg';
+import LogoImg from '../../resources/images/logo/logo.png';
 
 import { GlobalStatesContext } from '../../context/GlobalStates';
 import { useWindowInfo } from '../../hooks/UseWindowInfo';
@@ -45,8 +46,12 @@ export default function NavDrawer(props) {
 
     return (
         <nav id='nav-drawer'>
-            { !window.isDesktop && <img alt='' src={CloseSvg} onClick={close} className='icon interactable push-right' /> }
-            <h1>LOGO PLACEHOLDER</h1>
+            { !window.isDesktop && 
+                <button className='close-button' onClick={close}>
+                    <img alt='' src={CloseSvg} className='icon' /> 
+                </button>
+            }
+            <img className='logo' src={LogoImg} alt='' />
             { navElements }
         </nav>
     )
