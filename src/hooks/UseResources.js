@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import YurpisIco from '../resources/images/yurpi.png';
+import YurpisIco from '../resources/images/icons/yurpi-icon.png';
+import WoodIco from '../resources/images/icons/wood-icon.png';
 
 const initialResources = {
     yurpis: {
@@ -10,7 +11,7 @@ const initialResources = {
     wood: {
         amount: 0,
         multiplier: 1,
-        icon: null,
+        icon: WoodIco,
     },
 }
 

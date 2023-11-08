@@ -5,7 +5,6 @@ import { GlobalStatesContext } from '../../context/GlobalStates';
 import { ProgressionContext } from '../../context/Progression';
 import { useWindowInfo } from '../../hooks/UseWindowInfo';
 import UndefinedIcon from '../../resources/images/placeholder.jpg';
-import YurpiPng from '../../resources/images/yurpi.png';
 import { abbreviateNumber } from '../../utils/HelperFunctions';
 
 export default function InfoBar(props) {

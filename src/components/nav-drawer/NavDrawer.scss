@@ -8,7 +8,6 @@ nav {
     color: $primary-color-text;
     transition: all .15s ease-out;
     z-index: 1000;
-    padding: 5px;
     box-sizing: border-box;
 
     .close-button {
@@ -19,6 +18,10 @@ nav {
     .logo {
       height: 125px;
       margin: 10px auto 20px;
+    }
+
+    ul {
+      margin: 0;
     }
 
     .nav-list {
@@ -32,7 +35,9 @@ nav {
         margin-bottom: 2px;
   
         .icon {
+          padding: 1px;
           border-radius: 5px;
+          background-color: $primary-color-sl;
         }
       }
     }

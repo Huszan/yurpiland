@@ -1,3 +1,5 @@
+@import './styles/theme.scss';
+
 body {
   margin: 0;
   font-family: 'Lato', sans-serif;
@@ -38,11 +40,7 @@ a {
   }
 
   &.active {
-    color: #72f57d;
-    .icon {
-      border: #72f57d 2px solid;
-      box-sizing: border-box;
-    }
+    background-color: $primary-color-sl;
   }
 }
 

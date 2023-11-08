@@ -33,10 +33,9 @@ export default function NavDrawer(props) {
 
     const navElements = routes.map(route => {
         return (
-            <li>
+            <li key={route.key} >
                 <Link 
                     to={route.path} 
-                    key={route.key} 
                     className={`link ${location.pathname === route.path && 'active'}`} 
                     onClick={close}
                 >
