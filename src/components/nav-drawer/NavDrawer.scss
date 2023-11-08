@@ -21,15 +21,19 @@ nav {
       margin: 10px auto 20px;
     }
 
-    .link {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      transition: background-color .1s ease-out;
-      margin-bottom: 2px;
+    .nav-list {
+      margin-top: 24px;
 
-      .icon {
-        border-radius: 5px;
+      .link {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        transition: background-color .1s ease-out;
+        margin-bottom: 2px;
+  
+        .icon {
+          border-radius: 5px;
+        }
       }
     }
 }

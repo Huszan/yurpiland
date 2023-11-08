@@ -10,25 +10,12 @@ import { GlobalStatesContext } from '../../context/GlobalStates';
 import { useWindowInfo } from '../../hooks/UseWindowInfo';
 import { routes } from '../../utils/Routes';
 import { firstLetterToUpperCase } from '../../utils/HelperFunctions';
+import ApCounter from '../ap-counter/ApCounter';
 
 export default function NavDrawer(props) {
     const window = useWindowInfo();
     const location = useLocation();
     const { isNavDrawerOpen, setIsNavDrawerOpen } = useContext(GlobalStatesContext);
-
-    const navElements = routes.map(route => {
-        return (
-            <Link 
-                to={route.path} 
-                key={route.key} 
-                className={`link ${location.pathname === route.path && 'active'}`} 
-                onClick={close}
-            >
-                <img alt='' src={route.icon ? route.icon : PlaceholderImg} className='icon'></img>
-                {firstLetterToUpperCase(route.key)}
-            </Link>
-        )
-    });
 
     useEffect(() => {
         const nav = document.getElementById('nav-drawer');
@@ -44,6 +31,22 @@ export default function NavDrawer(props) {
         setIsNavDrawerOpen(false);
     }
 
+    const navElements = routes.map(route => {
+        return (
+            <li>
+                <Link 
+                    to={route.path} 
+                    key={route.key} 
+                    className={`link ${location.pathname === route.path && 'active'}`} 
+                    onClick={close}
+                >
+                    <img alt='' src={route.icon ? route.icon : PlaceholderImg} className='icon'></img>
+                    {firstLetterToUpperCase(route.key)}
+                </Link>
+            </li>
+        )
+    });
+
     return (
         <nav id='nav-drawer'>
             { !window.isDesktop && 
@@ -52,7 +55,10 @@ export default function NavDrawer(props) {
                 </button>
             }
             <img className='logo' src={LogoImg} alt='' />
-            { navElements }
+            <ApCounter />
+            <ul className='nav-list'>
+                { navElements }
+            </ul>
         </nav>
     )
 }
