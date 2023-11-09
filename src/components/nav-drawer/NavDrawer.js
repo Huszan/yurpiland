@@ -7,15 +7,14 @@ import PlaceholderImg from '../../resources/images/placeholder.jpg';
 import LogoImg from '../../resources/images/logo/logo.png';
 
 import { GlobalStatesContext } from '../../context/GlobalStates';
-import { useWindowInfo } from '../../hooks/UseWindowInfo';
 import { routes } from '../../utils/Routes';
 import { firstLetterToUpperCase } from '../../utils/HelperFunctions';
 import ApCounter from '../ap-counter/ApCounter';
 
-export default function NavDrawer(props) {
-    const window = useWindowInfo();
+export default function NavDrawer() {
     const location = useLocation();
-    const { isNavDrawerOpen, setIsNavDrawerOpen } = useContext(GlobalStatesContext);
+    const { isNavDrawerOpen, setIsNavDrawerOpen, windowInfo } = useContext(GlobalStatesContext);
+    const window = windowInfo;
 
     useEffect(() => {
         const nav = document.getElementById('nav-drawer');

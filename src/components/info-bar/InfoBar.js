@@ -3,13 +3,12 @@ import MenuSvg from '../../resources/icons/menu.svg';
 import { useContext } from 'react';
 import { GlobalStatesContext } from '../../context/GlobalStates';
 import { ProgressionContext } from '../../context/Progression';
-import { useWindowInfo } from '../../hooks/UseWindowInfo';
 import UndefinedIcon from '../../resources/images/placeholder.jpg';
 import { abbreviateNumber } from '../../utils/HelperFunctions';
 
-export default function InfoBar(props) {
-    const window = useWindowInfo();
+export default function InfoBar() {
     const progress = useContext(ProgressionContext);
+    const window = useContext(GlobalStatesContext).windowInfo;
     const {setIsNavDrawerOpen} = useContext(GlobalStatesContext);
 
     function toggleDrawer() {

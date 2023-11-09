@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import { useWindowInfo } from "../hooks/UseWindowInfo";
 import { settingsMap } from "../utils/DataSettings";
 
 const initialMapControls = {
@@ -19,6 +20,7 @@ export default function GlobalStates(props) {
         map: settingsMap,
     })
     const [mapControls, setMapControls] = useState(initialMapControls);
+    const windowInfo = useWindowInfo();
 
 
     return (
@@ -32,6 +34,7 @@ export default function GlobalStates(props) {
                 setSettings,
                 mapControls,
                 setMapControls,
+                windowInfo,
             }}
         >
             { children }
