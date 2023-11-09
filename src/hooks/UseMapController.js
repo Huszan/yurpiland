@@ -1,17 +1,12 @@
-import { useState, useRef } from "react"
+import { useRef } from "react"
 import { clamp } from "../utils/HelperFunctions";
-
-const initialControlsTemp = {
-    zoom: 1,
-    position: [0, 0],
-}
 
 export const useMapController = (
     mapRef,
     settings,
-    initialControls = initialControlsTemp, 
+    mapControlsState, 
 ) => {
-    const [controls, setControls] = useState(initialControls);
+    const [controls, setControls] = mapControlsState;
     const stateRef = useRef();
     stateRef.current = {
         settings,
@@ -32,8 +27,8 @@ export const useMapController = (
         const controlsRef = stateRef.current.controls;
 
         return {
-            x: settingsRef.initialContentSize.x * controlsRef.zoom,
-            y: settingsRef.initialContentSize.y * controlsRef.zoom,
+            x: settingsRef.contentSize.x * controlsRef.zoom,
+            y: settingsRef.contentSize.y * controlsRef.zoom,
         }
     }
 

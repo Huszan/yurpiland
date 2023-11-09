@@ -1,4 +1,10 @@
 import { createContext, useState } from "react";
+import { settingsMap } from "../utils/DataSettings";
+
+const initialMapControls = {
+    zoom: 1,
+    position: [0, 0],
+}
 
 export const GlobalStatesContext = createContext();
 
@@ -9,6 +15,10 @@ export default function GlobalStates(props) {
         content: null,
         isOpen: false,
     });
+    const [settings, setSettings] = useState({
+        map: settingsMap,
+    })
+    const [mapControls, setMapControls] = useState(initialMapControls);
 
 
     return (
@@ -18,6 +28,10 @@ export default function GlobalStates(props) {
                 setIsNavDrawerOpen,
                 modalData,
                 setModalData,
+                settings,
+                setSettings,
+                mapControls,
+                setMapControls,
             }}
         >
             { children }

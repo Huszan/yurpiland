@@ -9,30 +9,21 @@ import ArrowDownSvg from '../../resources/icons/arrow_down.svg';
 import ArrowLeftSvg from '../../resources/icons/arrow_left.svg';
 import ArrowRightSvg from '../../resources/icons/arrow_right.svg';
 import AdjustSvg from '../../resources/icons/adjust.svg';
-
-export const CENTER_ON_OPTION = {
-    LOCATION: 'location',
-    MAP: 'map',
-    NOTHING: 'nothing',
-}
-
-const initialSettingsTemp = {
-    initialContentSize: {
-        x: 1080,
-        y: 1080,
-    },
-    zoomSpeed: 0.1,
-    zoomLimit: [0.2, 2],
-    centerOn: CENTER_ON_OPTION.MAP,
-}
+import { GlobalStatesContext } from '../../context/GlobalStates';
+import { CENTER_ON_OPTION } from '../../utils/DataSettings';
 
 export default function Map() {
     const mapRef = useRef();
     const mapContentRef = useRef();
-
-    const [settings, setSettings] = useState(initialSettingsTemp);
-    const controller = useMapController(mapRef, settings);
     const progress = useContext(ProgressionContext);
+    const { settings, setSettings, mapControls, setMapControls} = useContext(GlobalStatesContext);
+    const mapControlsState = [mapControls, setMapControls];
+    const controller = useMapController(
+        mapRef, 
+        settings.map, 
+        mapControlsState,
+    );
+
     const locations = progress.locations;
     let isDragging = false;
     let previousTouch;
@@ -44,9 +35,24 @@ export default function Map() {
     }, [controller])
 
     useEffect(() => {
-        onCenter();
+        if (!settings.map.isInitialized) {
+            initializeMap();
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [settings])
+    }, [])
+
+    function initializeMap() {
+        onCenter();
+        setSettings(prev => {
+            return {
+                ...prev,
+                map: {
+                    ...prev.map,
+                    isInitialized: true,
+                }
+            }
+        })
+    }
 
     function setupMapStyle() {
         let el = mapContentRef.current;
@@ -131,17 +137,17 @@ export default function Map() {
             y: (map.position[1] / 100) * size.y,
         };
         locations.set.selected(map);
-        if (settings.centerOn === CENTER_ON_OPTION.LOCATION) {
+        if (settings.map.centerOn === CENTER_ON_OPTION.LOCATION) {
             controller.center(position);
         }
     }
 
     function onCenter() {
         const selectedElement = document.getElementsByClassName('selected')[0].parentNode;
-        if (settings.centerOn === CENTER_ON_OPTION.LOCATION) {
+        if (settings.map.centerOn === CENTER_ON_OPTION.LOCATION) {
             centerOnLocation(selectedElement);
         }
-        else if (settings.centerOn === CENTER_ON_OPTION.MAP) {
+        else if (settings.map.centerOn === CENTER_ON_OPTION.MAP) {
             controller.center();
         }
     }
