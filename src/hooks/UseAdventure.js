@@ -1,29 +1,32 @@
 import { useLoader } from "./UseLoader"
 
-export const useAdventure = (location, resources) => {
+export const useAdventure = (selectedLocation, resources) => {
     const loader = useLoader({
-        key: location.key,
-        interval: location.getAdventureTime(),
-        cb: onFinished,
-        isLooped: location.hasAutoSendOn,
+        key: selectedLocation.key,
+        interval: selectedLocation.getAdventureTime(),
+        cb: () => onFinished(selectedLocation),
+        isLooped: selectedLocation.hasAutoSendOn,
     });
 
-    function onFinished() {
+    function onFinished(location) {
         if (!location) throw new Error('Adventure finished without location present');
         resources.change(location.getDrop(), 'inc');
     }
 
-    function start() {
+    function start(overrideLocation, extractTime) {
+        const location = overrideLocation ? overrideLocation : selectedLocation;
         if (loader.data.key !== location.key) {
             loader.stop();
             loader.update({
                 key: location.key,
                 interval: location.getAdventureTime(),
-                cb: onFinished,
+                cb: () => onFinished(location),
                 isLooped: location.hasAutoSendOn,
             })
         }
-        loader.start();
+        loader.start({
+            extractTime: extractTime ? extractTime : 0,
+        });
     }
 
     function stop() {
@@ -36,5 +39,6 @@ export const useAdventure = (location, resources) => {
         currentLocationKey: loader.data.key,
         isInProgress: loader.data.isLoading,
         progress: loader.progress,
+        loader,
     }
 }

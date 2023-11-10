@@ -5,9 +5,13 @@ import { Outlet } from 'react-router-dom';
 import Modal from './components/modal/modal';
 import { useContext } from 'react';
 import { GlobalStatesContext } from './context/GlobalStates';
+import { SaveManagerContext } from './context/SaveManager';
+import { useAppLoader } from './hooks/UseAppLoader';
 
 function App() {
   const globalStates = useContext(GlobalStatesContext);
+  const saveManager = useContext(SaveManagerContext);
+  const appInitializer = useAppLoader(saveManager);
 
   function closeModal() {
     globalStates.setModalData(prev => {

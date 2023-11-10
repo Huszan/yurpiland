@@ -5,13 +5,16 @@ import GlobalStates from './context/GlobalStates';
 import Progression from './context/Progression';
 import reportWebVitals from './reportWebVitals';
 import Router from './Router';
+import { SaveManager } from './context/SaveManager';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <GlobalStates>
       <Progression>
-        <Router />
+        <SaveManager>
+          <Router />
+        </SaveManager>
       </Progression>
     </GlobalStates>
   </React.StrictMode>
