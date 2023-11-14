@@ -6,6 +6,7 @@ export function useAppLoader(saveManager) {
     useEffect(() => {
         saveManager.loadGame();
         setIsLoaded(true);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return {

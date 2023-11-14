@@ -45,7 +45,6 @@ export function SaveManager(props) {
             return {
                 level: el.get.level,
                 multiplier: el.get.multiplier,
-                isUnlocked: el.get.isUnlocked,
             }
         });
         return data;
@@ -158,6 +157,7 @@ export function SaveManager(props) {
             if (ref.current.isLoaded === false) return;
             saveGame();
         }, 1000)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

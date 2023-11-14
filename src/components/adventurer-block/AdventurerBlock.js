@@ -34,6 +34,7 @@ export default function AdventurerBlock({adventurer}) {
                 <img 
                     className={`adventurer-icon ${adventurer.get.level === 0 ? 'not-bought' : ''}`} 
                     src={ adventurer.get.icon ? adventurer.get.icon : UndefinedIcon }
+                    alt=''
                 ></img>
                 <div className='wrap-flex-col adventurer-info'>
                     <h3>{firstLetterToUpperCase(adventurer.get.key)} lvl {adventurer.get.level}</h3>

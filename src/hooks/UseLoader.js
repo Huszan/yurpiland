@@ -78,11 +78,13 @@ export const useLoader = (config) => {
         if (loaderData.isAutostart) {
             start();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
         const { isLoading } = ref.current.loaderData;
         if (isLoading) start();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loaderData])
 
     useEffect(() => {
@@ -96,6 +98,7 @@ export const useLoader = (config) => {
         return () => {
             window.clearInterval(progressInterval);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loaderData])
 
     return {
