@@ -23,20 +23,22 @@ export default function Progression(props) {
     const locations = useLocationList(adventurers, globalModifiers, resources);
     const adventure = useAdventure(locations.get.selected, resources);
 
+    const progress = {
+        get: {
+            globalModifiers: globalModifiers,
+        },
+        set: {
+            globalModifiers: setGlboalModifiers,
+        },
+        resources,
+        adventurers,
+        locations,
+        adventure,
+    }
+
     return (
         <ProgressionContext.Provider
-            value = {{
-                get: {
-                    globalModifiers: globalModifiers,
-                },
-                set: {
-                    globalModifiers: setGlboalModifiers,
-                },
-                resources,
-                adventurers,
-                locations,
-                adventure,
-            }}
+            value = {progress}
         >
             { children }
         </ProgressionContext.Provider>

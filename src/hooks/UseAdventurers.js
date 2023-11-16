@@ -49,7 +49,6 @@ const adventurersInitial = [
         },
         AP: 5 * Math.pow(10, 2),
         multiplier: 1,
-        isUnlocked: true,
     },
     {
         key: 'hunter',
@@ -70,7 +69,6 @@ const adventurersInitial = [
         },
         AP: 4 * Math.pow(10, 3),
         multiplier: 1,
-        isUnlocked: true,
     },
     {
         key: 'mage',
@@ -91,7 +89,6 @@ const adventurersInitial = [
         },
         AP: 25 * Math.pow(10, 3),
         multiplier: 1,
-        isUnlocked: true,
     },
     {
         key: 'knight',
@@ -112,7 +109,6 @@ const adventurersInitial = [
         },
         AP: 5 * Math.pow(10, 6),
         multiplier: 1,
-        isUnlocked: true,
     },
     {
         key: 'rogue',
@@ -136,7 +132,6 @@ const adventurersInitial = [
         },
         AP: 5 * Math.pow(10, 8),
         multiplier: 1,
-        isUnlocked: true,
     },
     {
         key: 'priest',
@@ -160,7 +155,6 @@ const adventurersInitial = [
         },
         AP: 5 * Math.pow(10, 10),
         multiplier: 1,
-        isUnlocked: true,
     },
     {
         key: 'berserker',
@@ -183,7 +177,6 @@ const adventurersInitial = [
         },
         AP: 5 * Math.pow(10, 14),
         multiplier: 1,
-        isUnlocked: true,
     },
     {
         key: 'bard',
@@ -206,7 +199,6 @@ const adventurersInitial = [
         },
         AP: 5 * Math.pow(10, 18),
         multiplier: 1,
-        isUnlocked: true,
     },
     {
         key: 'druid',
@@ -229,7 +221,6 @@ const adventurersInitial = [
         },
         AP: 5 * Math.pow(10, 24),
         multiplier: 1,
-        isUnlocked: true,
     },
 ]
 

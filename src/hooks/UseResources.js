@@ -44,6 +44,7 @@ export const useResources = () => {
 
     return {
         data: resources,
+        setData: setResources,
         isAffordable,
         change,
     }

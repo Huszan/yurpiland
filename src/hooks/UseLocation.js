@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 export const UseLocation = (initial, adventurers, globalModifiers, resources) => {
-    const [location] = useState(initial);
+    const [location, setLocation] = useState(initial);
     const getAP = adventurers.getCumulatedAP;
 
     /**
@@ -51,6 +51,7 @@ export const UseLocation = (initial, adventurers, globalModifiers, resources) =>
 
     return {
         ...location,
+        setLocation,
         getAdventureTime,
         getDrop,
         getChanceToSuccess,

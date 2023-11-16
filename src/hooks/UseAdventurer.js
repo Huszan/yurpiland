@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
 export const UseAdventurer = (initial, globalModifiers, resources) => {
     const [adventurer, setAdventurer] = useState(initial);

@@ -5,9 +5,18 @@ import { Outlet } from 'react-router-dom';
 import Modal from './components/modal/modal';
 import { useContext } from 'react';
 import { GlobalStatesContext } from './context/GlobalStates';
+import { SaveManagerContext } from './context/SaveManager';
+import { useAppLoader } from './hooks/UseAppLoader';
+import LoadingScreen from './components/loading-screen/LoadingScreen';
 
 function App() {
   const globalStates = useContext(GlobalStatesContext);
+  const saveManager = useContext(SaveManagerContext);
+  const appLoader = useAppLoader(saveManager);
+
+  if (!appLoader.isLoaded) {
+    return <LoadingScreen />
+  }
 
   function closeModal() {
     globalStates.setModalData(prev => {

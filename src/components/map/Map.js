@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import { ProgressionContext } from '../../context/Progression'
 import { useMapController } from '../../hooks/UseMapController'
 import './Map.scss'
