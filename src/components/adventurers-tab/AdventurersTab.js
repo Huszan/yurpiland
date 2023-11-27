@@ -10,7 +10,7 @@ export default function AdventurersTab() {
     const adventurerComponents = adventurers.data.map((adventurer) => {
         return (
             <AdventurerBlock 
-                key={ adventurer.get.key } 
+                key={ adventurer.key } 
                 adventurer={ adventurer } 
             />
         )

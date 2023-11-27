@@ -8,9 +8,7 @@ export default function AdventurerBlock({adventurer}) {
     const progress = useContext(ProgressionContext);
     const resources = progress.resources;
 
-    const canAfford = adventurer.canAfford();
-
-    const tags = adventurer.get.tags.map(tag => {
+    const tagElements = adventurer.tags.map(tag => {
         return (
             <li key={tag.name} className='tag' style={{backgroundColor: `${tag.color}`}}>
                 { tag.name }
@@ -18,7 +16,7 @@ export default function AdventurerBlock({adventurer}) {
         )
     })
 
-    const cost = Object.entries(adventurer.getCost()).map(([key, cost]) => {
+    const costElements = Object.entries(adventurer.cost).map(([key, cost]) => {
         const rsc = resources.data[key];
         return (
             <li key={key} className='display-block' style={{'justifyContent': 'start'}}>
@@ -29,25 +27,25 @@ export default function AdventurerBlock({adventurer}) {
     })
 
     return (
-        <div className='adventurer-block' key={ adventurer.get.key }>
+        <div className='adventurer-block' key={ adventurer.key }>
             <div className='wrap-flex-row'>
                 <img 
-                    className={`adventurer-icon ${adventurer.get.level === 0 ? 'not-bought' : ''}`} 
-                    src={ adventurer.get.icon ? adventurer.get.icon : UndefinedIcon }
+                    className={`adventurer-icon ${adventurer.level === 0 ? 'not-bought' : ''}`} 
+                    src={ adventurer.icon ? adventurer.icon : UndefinedIcon }
                     alt=''
                 ></img>
                 <div className='wrap-flex-col adventurer-info'>
-                    <h3>{firstLetterToUpperCase(adventurer.get.key)} lvl {adventurer.get.level}</h3>
+                    <h3>{firstLetterToUpperCase(adventurer.key)} lvl {adventurer.level}</h3>
                     <ul className='tags-wrapper'>
-                        { tags }
+                        { tagElements }
                     </ul>
-                    <div>AP: { abbreviateNumber(adventurer.getModifiedAP()) } (+{ abbreviateNumber(adventurer.get.AP) })</div>
+                    <div>AP: { abbreviateNumber(adventurer.modifiedAP) } (+{ abbreviateNumber(adventurer.AP) })</div>
                     <ul>
-                        { cost }
+                        { costElements }
                     </ul>
                 </div>
             </div>
-            <button className='basic' onClick={ () => adventurer.buy() } disabled={ !canAfford }>BUY</button>
+            <button className='basic' onClick={ () => adventurer.buy() } disabled={ !adventurer.canAfford }>BUY</button>
         </div>
     )
 }

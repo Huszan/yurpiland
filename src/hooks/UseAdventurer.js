@@ -40,12 +40,18 @@ export const UseAdventurer = (initial, globalModifiers, resources) => {
         }
     }
 
-    return {
-        get: adventurer,
-        set: setAdventurer,
-        getModifiedAP,
-        getCost,
-        canAfford,
+    const adventurerFunctions = {
+        modifiedAP: getModifiedAP(),
+        cost: getCost(),
+        canAfford: canAfford(),
         buy,
+        set: setAdventurer,
     }
+
+    const bindedAdventurer = {
+        ...adventurer,
+        ...adventurerFunctions,
+    }
+
+    return bindedAdventurer;
 }

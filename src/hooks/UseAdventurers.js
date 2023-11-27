@@ -234,7 +234,7 @@ export const useAdventurers = (globalModifiers, resources) => {
     function getCumulatedAP() {
         let ap = 0;
         for (let adventurer of state.current.adventurers) {
-            ap += adventurer.getModifiedAP()
+            ap += adventurer.modifiedAP;
         }
         return ap;
     }

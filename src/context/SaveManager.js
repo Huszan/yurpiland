@@ -43,8 +43,8 @@ export function SaveManager(props) {
         let adventurers = ref.current.progress.adventurers;
         let data = adventurers.data.map(el => {
             return {
-                level: el.get.level,
-                multiplier: el.get.multiplier,
+                level: el.level,
+                multiplier: el.multiplier,
             }
         });
         return data;
