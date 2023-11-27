@@ -8,9 +8,8 @@ export default function MapProgress({openInfo, adventure, location}) {
 
     let loadingBarConfig = {
         barBgColor: location.bg ? null : '#545454',
-        contentBgColor: location.bgSelected ? null : '#32a852',
-        barBg: location.bg ? location.bg : null,
-        barContentBg: location.bgSelected ? location.bgSelected : null,
+        fillBgColor: location.bg ? null : '#32a852',
+        barBg: location.bg,
     }
 
     function onStartClick() {
