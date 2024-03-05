@@ -19,8 +19,17 @@
         letter-spacing: 3px;
     }
     .display {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         color: white;
         font-size: 32px;
         text-align: center;
+        font-family: fantasy !important;
+
+        .odometer {
+            transform: translateY(3%);
+            font-family: fantasy !important;
+        }
     }
 }

@@ -33,9 +33,15 @@ export function formatTime(ms) {
         ${Math.floor(s % 60) + 's'}`;
 }
 
+/** Returns [val, symbol] */
 export function abbreviateNumber(value) {
-    return Intl.NumberFormat('en-US', {
+    if (value < 1000) return [value, null];
+    const abr =  Intl.NumberFormat('en-US', {
         notation: "compact",
         maximumFractionDigits: 1
       }).format(value);
+    return [
+        Number(abr.slice(0, abr.length - 1).split(',').join('')),
+        abr.slice(abr.length - 1, abr.length)
+    ]
 }

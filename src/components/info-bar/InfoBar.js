@@ -20,7 +20,7 @@ export default function InfoBar() {
         return (
             <li key={key} className='display-block'>
                 <img src={rsc.icon ? rsc.icon : UndefinedIcon} alt='' className='icon' />
-                { abbreviateNumber(rsc.amount) }
+                { abbreviateNumber(rsc.amount)}
             </li>
         )
     })
