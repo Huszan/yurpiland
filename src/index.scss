@@ -1,50 +1,50 @@
-@import './styles/theme.scss';
+@use "./styles/theme.scss" as *;
 
 body {
-  margin: 0;
-  font-family: 'Lato', sans-serif;
-  box-sizing: border-box;
+    margin: 0;
+    font-family: "Lato", sans-serif;
+    box-sizing: border-box;
 }
 
 img {
-  &.icon {
-    width: 24px;
-    height: 24px;
-  }
-  &.icon-l {
-    width: 36px;
-    height: 36px;
-  }
-  &.icon-xl {
-    width: 48px;
-    height: 48px;
-  }
-  &.interactable {
-    cursor: pointer;
-    &:hover {
-      opacity: 80%;
+    &.icon {
+        width: 24px;
+        height: 24px;
     }
-  }
+    &.icon-l {
+        width: 36px;
+        height: 36px;
+    }
+    &.icon-xl {
+        width: 48px;
+        height: 48px;
+    }
+    &.interactable {
+        cursor: pointer;
+        &:hover {
+            opacity: 80%;
+        }
+    }
 }
 
 a {
-  all: unset;
-  display: block;
-  cursor: pointer;
-  padding: 5px;
-  width: 100%;
-  box-sizing: border-box;
+    all: unset;
+    display: block;
+    cursor: pointer;
+    padding: 5px;
+    width: 100%;
+    box-sizing: border-box;
 
-  &:hover {
-    background-color: #3e4a5e;
-  }
+    &:hover {
+        background-color: #3e4a5e;
+    }
 
-  &.active {
-    background-color: $primary-color-sl;
-  }
+    &.active {
+        background-color: $primary-color-sl;
+    }
 }
 
 .push-right {
-  margin-left: 100%;
-  transform: translateX(-100%);
+    margin-left: 100%;
+    transform: translateX(-100%);
 }

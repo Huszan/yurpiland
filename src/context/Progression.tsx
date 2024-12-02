@@ -17,7 +17,7 @@ export default function Progression(props) {
             location: 1,
             AP: 1,
         },
-    })
+    });
     const resources = useResources();
     const adventurers = useAdventurers(globalModifiers, resources);
     const locations = useLocationList(adventurers, globalModifiers, resources);
@@ -34,13 +34,11 @@ export default function Progression(props) {
         adventurers,
         locations,
         adventure,
-    }
+    };
 
     return (
-        <ProgressionContext.Provider
-            value = {progress}
-        >
-            { children }
+        <ProgressionContext.Provider value={progress}>
+            {children}
         </ProgressionContext.Provider>
-    )
+    );
 }

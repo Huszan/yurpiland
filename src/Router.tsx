@@ -1,11 +1,14 @@
-import { RouterProvider, createBrowserRouter, Navigate } from 'react-router-dom';
-import MainContent from './components/main-content/MainContent';
-import AdventurersTab from './components/adventurers-tab/AdventurersTab';
-import App from './App';
-import MapTab from './components/map-tab/MapTab';
+import {
+    RouterProvider,
+    createBrowserRouter,
+    Navigate,
+} from "react-router-dom";
+import MainContent from "./components/main-content/MainContent";
+import AdventurersTab from "./components/adventurers-tab/AdventurersTab";
+import App from "./App";
+import MapTab from "./components/map-tab/MapTab";
 
-export default function Router(props) {
-
+export default function Router() {
     const router = createBrowserRouter([
         {
             element: <App />,
@@ -45,13 +48,11 @@ export default function Router(props) {
                 },
                 {
                     path: "*",
-                    element: <Navigate to="/map" />
-                }
-            ]
-        }
-    ])
+                    element: <Navigate to="/map" />,
+                },
+            ],
+        },
+    ]);
 
-    return (
-        <RouterProvider router={ router } />
-    )
+    return <RouterProvider router={router} />;
 }

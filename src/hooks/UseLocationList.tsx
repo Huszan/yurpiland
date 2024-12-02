@@ -1,16 +1,16 @@
-import { UseLocation } from "./UseLocation"
-import CastlePng from "../resources/images/castle2.png"
-import CastleSelectedPng from "../resources/images/castle2_selected.png"
-import ForestPng from "../resources/images/forest.png"
-import ForestSelectedPng from "../resources/images/forest_selected.png"
-import { useState } from "react"
-import CityLandscapeImg from '../resources/images/city-landscape.png';
-import ForestLandscapeImg from '../resources/images/forest-landscape-2.png';
+import { UseLocation } from "./UseLocation";
+import CastlePng from "../resources/images/castle2.png";
+import CastleSelectedPng from "../resources/images/castle2_selected.png";
+import ForestPng from "../resources/images/forest.png";
+import ForestSelectedPng from "../resources/images/forest_selected.png";
+import { useState } from "react";
+import CityLandscapeImg from "../resources/images/city-landscape.png";
+import ForestLandscapeImg from "../resources/images/forest-landscape-2.png";
 
 const locationsInitial = [
     {
-        key: 'city square',
-        desc: 'Send brave andventurers to assist helpless citizens in their daily tasks. Better prepare some ladders to get them kitties off the trees.',
+        key: "city square",
+        desc: "Send brave andventurers to assist helpless citizens in their daily tasks. Better prepare some ladders to get them kitties off the trees.",
         optimalAP: {
             min: Math.pow(10, 2),
             max: Math.pow(10, 6),
@@ -31,8 +31,8 @@ const locationsInitial = [
         bg: CityLandscapeImg,
     },
     {
-        key: 'forest',
-        desc: 'Small forest with a lot of potential for adventuring! We can collect resources here to expand our guild.',
+        key: "forest",
+        desc: "Small forest with a lot of potential for adventuring! We can collect resources here to expand our guild.",
         optimalAP: {
             min: Math.pow(10, 5),
             max: Math.pow(10, 10),
@@ -55,11 +55,13 @@ const locationsInitial = [
         iconSelected: ForestSelectedPng,
         bg: ForestLandscapeImg,
     },
-]
+];
 
 export const useLocationList = (adventurers, globalModifiers, resources) => {
-    const locationList = locationsInitial.map(location => UseLocation(location, adventurers, globalModifiers, resources));
-    const [ selected, setSelected ] = useState(locationList[0]);
+    const locationList = locationsInitial.map((location) =>
+        UseLocation(location, adventurers, globalModifiers, resources)
+    );
+    const [selected, setSelected] = useState(locationList[0]);
 
     return {
         data: locationList,
@@ -68,6 +70,6 @@ export const useLocationList = (adventurers, globalModifiers, resources) => {
         },
         set: {
             selected: setSelected,
-        }
+        },
     };
-}
+};
