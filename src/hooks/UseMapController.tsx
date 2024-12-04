@@ -1,11 +1,23 @@
 import { useRef } from "react";
 import { clamp } from "../utils/HelperFunctions";
+import { MapConfig } from "../types/MapConfig";
+import { MapControls } from "../context/GlobalStates";
 
-export const useMapController = (mapRef, settings, mapControlsState) => {
+export const useMapController = (
+    mapRef: React.MutableRefObject<HTMLElement | null>,
+    mapConfig: MapConfig,
+    mapControlsState: [
+        MapControls,
+        React.Dispatch<React.SetStateAction<MapControls>>
+    ]
+) => {
     const [controls, setControls] = mapControlsState;
-    const stateRef = useRef();
+    const stateRef = useRef<
+        undefined | { config: MapConfig; controls: MapControls }
+    >();
+
     stateRef.current = {
-        settings,
+        config: mapConfig,
         controls,
     };
 
@@ -13,25 +25,31 @@ export const useMapController = (mapRef, settings, mapControlsState) => {
         const map = mapRef.current;
 
         return {
-            x: map.offsetWidth,
-            y: map.offsetHeight,
+            x: map?.offsetWidth || 0,
+            y: map?.offsetHeight || 0,
         };
     }
 
     function getMapContentSize() {
-        const settingsRef = stateRef.current.settings;
-        const controlsRef = stateRef.current.controls;
+        const configRef = stateRef.current?.config;
+        const controlsRef = stateRef.current?.controls;
+
+        if (!configRef || !controlsRef)
+            return {
+                x: 0,
+                y: 0,
+            };
 
         return {
-            x: settingsRef.contentSize.x * controlsRef.zoom,
-            y: settingsRef.contentSize.y * controlsRef.zoom,
+            x: configRef.contentSize.x * controlsRef.zoom,
+            y: configRef.contentSize.y * controlsRef.zoom,
         };
     }
 
     function getDragLimit() {
-        let mapSize = getMapSize();
-        let contentSize = getMapContentSize();
-        let diff = {
+        const mapSize = getMapSize();
+        const contentSize = getMapContentSize();
+        const diff = {
             x: -(contentSize.x - mapSize.x),
             y: -(contentSize.y - mapSize.y),
         };
@@ -54,7 +72,7 @@ export const useMapController = (mapRef, settings, mapControlsState) => {
         return [(lim.x.min + lim.x.max) / 2, (lim.y.min + lim.y.max) / 2];
     }
 
-    function offsetFromCenter(offset) {
+    function offsetFromCenter(offset: { x: number; y: number }) {
         if (!offset) return null;
         const size = getMapContentSize();
 
@@ -64,7 +82,7 @@ export const useMapController = (mapRef, settings, mapControlsState) => {
         };
     }
 
-    function clampedPosition(pos) {
+    function clampedPosition(pos: [number, number]) {
         const lim = getDragLimit();
         const clampedPos = [
             clamp(pos[0], lim.x.min, lim.x.max),
@@ -76,56 +94,56 @@ export const useMapController = (mapRef, settings, mapControlsState) => {
 
     function zoomIn() {
         setControls((prev) => {
-            let newZoom = prev.zoom + prev.zoom * settings.zoomSpeed;
+            let newZoom = prev.zoom + prev.zoom * mapConfig.zoomSpeed;
             newZoom = clamp(
                 newZoom,
-                settings.zoomLimit[0],
-                settings.zoomLimit[1]
+                mapConfig.zoomLimit[0],
+                mapConfig.zoomLimit[1]
             );
 
             return {
                 ...prev,
                 position: clampedPosition(prev.position),
                 zoom: newZoom,
-            };
+            } as MapControls;
         });
     }
 
     function zoomOut() {
         setControls((prev) => {
-            let newZoom = prev.zoom - prev.zoom * settings.zoomSpeed;
+            let newZoom = prev.zoom - prev.zoom * mapConfig.zoomSpeed;
             newZoom = clamp(
                 newZoom,
-                settings.zoomLimit[0],
-                settings.zoomLimit[1]
+                mapConfig.zoomLimit[0],
+                mapConfig.zoomLimit[1]
             );
 
             return {
                 ...prev,
                 position: clampedPosition(prev.position),
                 zoom: newZoom,
-            };
+            } as MapControls;
         });
     }
 
-    function drag(pos) {
+    function drag(pos: [number, number]) {
         setControls((prev) => {
-            let newX = prev.position[0] + pos[0];
-            let newY = prev.position[1] + pos[1];
+            const newX = prev.position[0] + pos[0];
+            const newY = prev.position[1] + pos[1];
             const newPos = clampedPosition([newX, newY]);
 
             return {
                 ...prev,
                 position: newPos,
-            };
+            } as MapControls;
         });
     }
 
-    function center(position) {
-        let centerPos = getCenterPos();
+    function center(pos?: { x: number; y: number }) {
+        const centerPos = getCenterPos();
         setControls((prev) => {
-            let offset = offsetFromCenter(position);
-            let newPos = clampedPosition([
+            const offset = pos ? offsetFromCenter(pos) : null;
+            const newPos = clampedPosition([
                 centerPos[0] + (offset ? offset.x : 0),
                 centerPos[1] + (offset ? offset.y : 0),
             ]);
@@ -133,7 +151,7 @@ export const useMapController = (mapRef, settings, mapControlsState) => {
             return {
                 ...prev,
                 position: newPos,
-            };
+            } as MapControls;
         });
     }
 

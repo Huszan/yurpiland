@@ -1,6 +1,6 @@
 import CryptoJS from "crypto-js";
 
-export function encrypt(data, key) {
+export function encrypt(data: unknown, key: string) {
     const cipher = CryptoJS.AES.encrypt(
         JSON.stringify(data),
         key ? key : import.meta.env.VITE_API_ENCRYPT_KEY
@@ -8,15 +8,11 @@ export function encrypt(data, key) {
     return cipher;
 }
 
-export function decrypt(cipher, key) {
+export function decrypt(cipher: string, key: string) {
     const bytes = CryptoJS.AES.decrypt(
         cipher,
         key ? key : import.meta.env.VITE_API_ENCRYPT_KEY
     );
-    try {
-        const data = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-        return data;
-    } catch (e) {
-        return null;
-    }
+    const data = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    return data;
 }

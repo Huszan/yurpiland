@@ -1,10 +1,6 @@
-export const CENTER_ON_OPTION = {
-    LOCATION: 'location',
-    MAP: 'map',
-    NOTHING: 'nothing',
-}
+import { MapConfig } from "../types/MapConfig";
 
-export const settingsMap = {
+export const mapConfig: MapConfig = {
     contentSize: {
         x: 1080,
         y: 1080,
@@ -12,5 +8,5 @@ export const settingsMap = {
     isInitialized: false,
     zoomSpeed: 0.1,
     zoomLimit: [0.2, 2],
-    centerOn: CENTER_ON_OPTION.MAP,
-}
+    centerOn: "map",
+};
