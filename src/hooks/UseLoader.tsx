@@ -1,36 +1,44 @@
 import { useEffect, useRef } from "react";
 import { useState } from "react";
+import { Loader } from "../types/Loader";
 
-const initialLoaderData = {
-    key: null, // it's used if you want to recognize last loader
-    startTime: null, // represents last time loader was started and should be reseted to null on finish
+const initialLoaderData: Loader = {
+    key: "default", // it's used if you want to recognize last loader
     interval: 1000, // how much time to load
     extractTime: 0,
+    isLoading: false, // set to true to start loading
+    isLooped: false, // will timer fire itself on finish
+    isAutostart: false, // will timer start as soon as initialized
     cb: () => {
         console.log(
             "Loader uses default callback function. Provide it with custom one."
         );
     },
-    currTimeout: null,
-    isLoading: false, // set to true to start loading
-    isLooped: false, // will timer fire itself on finish
-    isAutostart: false, // will timer start as soon as initialized
 };
 
-export const useLoader = (config) => {
-    const [loaderData, setLoaderData] = useState({
+export type LoaderHookData = {
+    data: Loader;
+    progress: number;
+    start: () => void;
+    stop: () => void;
+    update: (data: Partial<Loader>) => void;
+    getTimePassed: () => void;
+};
+
+export const useLoader = (config: Partial<Loader>): LoaderHookData => {
+    const [loaderData, setLoaderData] = useState<Loader>({
         ...initialLoaderData,
         ...config,
     });
     const [progress, setProgress] = useState(0);
 
-    let ref = useRef();
+    const ref = useRef<undefined | { loaderData: Loader; progress: number }>();
     ref.current = {
         loaderData: loaderData,
         progress: progress,
     };
 
-    function update(data) {
+    function update(data: Partial<Loader>) {
         setLoaderData((prev) => {
             return {
                 ...prev,
@@ -40,10 +48,11 @@ export const useLoader = (config) => {
     }
 
     function start() {
+        if (!ref.current) return;
         const { startTime, interval, isLooped, cb, currTimeout, extractTime } =
             ref.current.loaderData;
         if (startTime || currTimeout) return;
-        let timeout = window.setTimeout(() => {
+        const timeout = window.setTimeout(() => {
             cb();
             if (isLooped) reset();
             else stop();
@@ -60,23 +69,29 @@ export const useLoader = (config) => {
     }
 
     function reset() {
+        if (!ref.current) return;
         const { currTimeout } = ref.current.loaderData;
         window.clearTimeout(currTimeout);
-        update({ startTime: null, currTimeout: null });
+        update({ startTime: undefined, currTimeout: undefined });
         setProgress(0);
     }
 
     function getTimePassed() {
+        if (!ref.current) return;
         const { startTime } = ref.current.loaderData;
         if (!startTime) return 0;
-        let passed = new Date().getTime() - startTime;
+        const passed = new Date().getTime() - startTime;
         return passed;
     }
 
     function getProgress() {
+        if (!ref.current) return;
         const { startTime, interval } = ref.current.loaderData;
         if (!startTime) return 0;
-        let percent = Math.min((getTimePassed() / interval) * 100, 100);
+        const percent = Math.min(
+            ((getTimePassed() || 0) / interval) * 100,
+            100
+        );
         return percent;
     }
 
@@ -88,16 +103,18 @@ export const useLoader = (config) => {
     }, []);
 
     useEffect(() => {
+        if (!ref.current) return;
         const { isLoading } = ref.current.loaderData;
         if (isLoading) start();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loaderData]);
 
     useEffect(() => {
+        if (!ref.current) return;
         const { startTime } = ref.current.loaderData;
         const progressInterval = window.setInterval(() => {
             if (startTime) {
-                setProgress(getProgress());
+                setProgress(getProgress() || 0);
             }
         }, 10);
 
@@ -110,7 +127,7 @@ export const useLoader = (config) => {
     return {
         data: loaderData,
         progress,
-        start: (data) => update({ isLoading: true, ...data }),
+        start: () => update({ isLoading: true }),
         stop,
         update,
         getTimePassed,
