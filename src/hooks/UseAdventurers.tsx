@@ -1,37 +1,39 @@
 import { useRef } from "react";
-import { UseAdventurer } from "./UseAdventurer";
-import SquireImg from '../resources/images/characters/squire.png';
-import HunterImg from '../resources/images/characters/hunter.png';
-import MageImg from '../resources/images/characters/mage.png';
-import KnightImg from '../resources/images/characters/knight.png';
-import RogueImg from '../resources/images/characters/rogue.png';
-import PriestImg from '../resources/images/characters/priest.png';
-import BerserkerImg from '../resources/images/characters/berserker.png';
-import BardImg from '../resources/images/characters/bard.png';
-import DruidImg from '../resources/images/characters/druid.png';
+import { AdventurerHookData, UseAdventurer } from "./UseAdventurer";
+import SquireImg from "../resources/images/characters/squire.png";
+import HunterImg from "../resources/images/characters/hunter.png";
+import MageImg from "../resources/images/characters/mage.png";
+import KnightImg from "../resources/images/characters/knight.png";
+import RogueImg from "../resources/images/characters/rogue.png";
+import PriestImg from "../resources/images/characters/priest.png";
+import BerserkerImg from "../resources/images/characters/berserker.png";
+import BardImg from "../resources/images/characters/bard.png";
+import DruidImg from "../resources/images/characters/druid.png";
+import { Adventurer } from "../types/Adventurer.types";
+import { ResourcesHookData } from "./UseResources";
 
 const adventurerTags = {
     melee: {
-        name: 'melee',
-        color: '#baa761',
+        name: "melee",
+        color: "#baa761",
     },
     ranged: {
-        name: 'ranged',
-        color: '#8fd16b',
+        name: "ranged",
+        color: "#8fd16b",
     },
     magic: {
-        name: 'magic',
-        color: '#55a5d4',
+        name: "magic",
+        color: "#55a5d4",
     },
     support: {
-        name: 'support',
-        color: '#c4689b',
+        name: "support",
+        color: "#c4689b",
     },
-}
+};
 
-const adventurersInitial = [
+const adventurersInitial: Adventurer[] = [
     {
-        key: 'squire',
+        key: "squire",
         tags: [adventurerTags.melee],
         icon: SquireImg,
         level: 0,
@@ -40,18 +42,22 @@ const adventurersInitial = [
                 amount: 100,
             },
         },
-        costIncrease: (currCost) => { 
+        costIncrease: (currCost) => {
             return {
                 yurpis: {
-                    amount: parseInt(currCost.yurpis.amount + currCost.yurpis.amount * 0.03 + 10)
-                }
-            }
+                    amount: Math.floor(
+                        currCost.yurpis!.amount +
+                            currCost.yurpis!.amount * 0.03 +
+                            10
+                    ),
+                },
+            };
         },
         AP: 5 * Math.pow(10, 2),
         multiplier: 1,
     },
     {
-        key: 'hunter',
+        key: "hunter",
         tags: [adventurerTags.ranged],
         icon: HunterImg,
         level: 0,
@@ -60,18 +66,22 @@ const adventurersInitial = [
                 amount: 800,
             },
         },
-        costIncrease: (currCost) => { 
+        costIncrease: (currCost) => {
             return {
                 yurpis: {
-                    amount: parseInt(currCost.yurpis.amount + currCost.yurpis.amount * 0.04 + 80)
-                }
-            }
+                    amount: Math.floor(
+                        currCost.yurpis!.amount +
+                            currCost.yurpis!.amount * 0.04 +
+                            80
+                    ),
+                },
+            };
         },
         AP: 4 * Math.pow(10, 3),
         multiplier: 1,
     },
     {
-        key: 'mage',
+        key: "mage",
         tags: [adventurerTags.magic],
         icon: MageImg,
         level: 0,
@@ -80,18 +90,22 @@ const adventurersInitial = [
                 amount: 5000,
             },
         },
-        costIncrease: (currCost) => { 
+        costIncrease: (currCost) => {
             return {
                 yurpis: {
-                    amount: parseInt(currCost.yurpis.amount + currCost.yurpis.amount * 0.05 + 500)
-                }
-            }
+                    amount: Math.floor(
+                        currCost.yurpis!.amount +
+                            currCost.yurpis!.amount * 0.05 +
+                            500
+                    ),
+                },
+            };
         },
         AP: 25 * Math.pow(10, 3),
         multiplier: 1,
     },
     {
-        key: 'knight',
+        key: "knight",
         tags: [adventurerTags.melee],
         icon: KnightImg,
         level: 0,
@@ -100,22 +114,23 @@ const adventurersInitial = [
                 amount: Math.pow(10, 6),
             },
         },
-        costIncrease: (currCost) => { 
+        costIncrease: (currCost) => {
             return {
                 yurpis: {
-                    amount: parseInt(currCost.yurpis + currCost.yurpis * 0.05 + Math.pow(10, 5))
-                }
-            }
+                    amount: Math.floor(
+                        currCost.yurpis!.amount +
+                            currCost.yurpis!.amount * 0.05 +
+                            Math.pow(10, 5)
+                    ),
+                },
+            };
         },
         AP: 5 * Math.pow(10, 6),
         multiplier: 1,
     },
     {
-        key: 'rogue',
-        tags: [
-            adventurerTags.melee,
-            adventurerTags.ranged,
-        ],
+        key: "rogue",
+        tags: [adventurerTags.melee, adventurerTags.ranged],
         icon: RogueImg,
         level: 0,
         initialCost: {
@@ -123,22 +138,23 @@ const adventurersInitial = [
                 amount: Math.pow(10, 8),
             },
         },
-        costIncrease: (currCost) => { 
+        costIncrease: (currCost) => {
             return {
                 yurpis: {
-                    amount: parseInt(currCost.yurpis + currCost.yurpis * 0.05 + Math.pow(10, 6))
-                }
-            }
+                    amount: Math.floor(
+                        currCost.yurpis!.amount +
+                            currCost.yurpis!.amount * 0.05 +
+                            Math.pow(10, 6)
+                    ),
+                },
+            };
         },
         AP: 5 * Math.pow(10, 8),
         multiplier: 1,
     },
     {
-        key: 'priest',
-        tags: [
-            adventurerTags.magic,
-            adventurerTags.support,
-        ],
+        key: "priest",
+        tags: [adventurerTags.magic, adventurerTags.support],
         icon: PriestImg,
         level: 0,
         initialCost: {
@@ -146,21 +162,23 @@ const adventurersInitial = [
                 amount: Math.pow(10, 10),
             },
         },
-        costIncrease: (currCost) => { 
+        costIncrease: (currCost) => {
             return {
                 yurpis: {
-                    amount: parseInt(currCost.yurpis + currCost.yurpis * 0.05 + Math.pow(10, 8))
-                }
-            }
+                    amount: Math.floor(
+                        currCost.yurpis!.amount +
+                            currCost.yurpis!.amount * 0.05 +
+                            Math.pow(10, 8)
+                    ),
+                },
+            };
         },
         AP: 5 * Math.pow(10, 10),
         multiplier: 1,
     },
     {
-        key: 'berserker',
-        tags: [
-            adventurerTags.melee,
-        ],
+        key: "berserker",
+        tags: [adventurerTags.melee],
         icon: BerserkerImg,
         level: 0,
         initialCost: {
@@ -168,21 +186,23 @@ const adventurersInitial = [
                 amount: Math.pow(10, 14),
             },
         },
-        costIncrease: (currCost) => { 
+        costIncrease: (currCost) => {
             return {
                 yurpis: {
-                    amount: parseInt(currCost.yurpis + currCost.yurpis * 0.05 + Math.pow(10, 12))
-                }
-            }
+                    amount: Math.floor(
+                        currCost.yurpis!.amount +
+                            currCost.yurpis!.amount * 0.05 +
+                            Math.pow(10, 12)
+                    ),
+                },
+            };
         },
         AP: 5 * Math.pow(10, 14),
         multiplier: 1,
     },
     {
-        key: 'bard',
-        tags: [
-            adventurerTags.support,
-        ],
+        key: "bard",
+        tags: [adventurerTags.support],
         icon: BardImg,
         level: 0,
         initialCost: {
@@ -190,21 +210,23 @@ const adventurersInitial = [
                 amount: Math.pow(10, 18),
             },
         },
-        costIncrease: (currCost) => { 
+        costIncrease: (currCost) => {
             return {
                 yurpis: {
-                    amount: parseInt(currCost.yurpis + currCost.yurpis * 0.05 + Math.pow(10, 16))
-                }
-            }
+                    amount: Math.floor(
+                        currCost.yurpis!.amount +
+                            currCost.yurpis!.amount * 0.05 +
+                            Math.pow(10, 16)
+                    ),
+                },
+            };
         },
         AP: 5 * Math.pow(10, 18),
         multiplier: 1,
     },
     {
-        key: 'druid',
-        tags: [
-            adventurerTags.magic,
-        ],
+        key: "druid",
+        tags: [adventurerTags.magic],
         icon: DruidImg,
         level: 0,
         initialCost: {
@@ -212,28 +234,43 @@ const adventurersInitial = [
                 amount: Math.pow(10, 24),
             },
         },
-        costIncrease: (currCost) => { 
+        costIncrease: (currCost) => {
             return {
                 yurpis: {
-                    amount: parseInt(currCost.yurpis + currCost.yurpis * 0.05 + Math.pow(10, 22))
-                }
-            }
+                    amount: Math.floor(
+                        currCost.yurpis!.amount +
+                            currCost.yurpis!.amount * 0.05 +
+                            Math.pow(10, 22)
+                    ),
+                },
+            };
         },
         AP: 5 * Math.pow(10, 24),
         multiplier: 1,
     },
-]
+];
 
-export const useAdventurers = (globalModifiers, resources) => {
-    const adventurers = adventurersInitial.map(el => UseAdventurer(el, globalModifiers, resources));
-    const state = useRef();
+export type AdventurersHookData = {
+    data: AdventurerHookData[];
+    getCumulatedAP: () => number;
+};
+
+export const useAdventurers = (
+    globalModifiers,
+    resources: ResourcesHookData
+): AdventurersHookData => {
+    const adventurers = adventurersInitial.map((el) =>
+        UseAdventurer(el, globalModifiers, resources)
+    );
+    const state = useRef<undefined | { adventurers: AdventurerHookData[] }>();
     state.current = {
-        adventurers
-    }
+        adventurers,
+    };
 
     function getCumulatedAP() {
+        if (!state.current) return 0;
         let ap = 0;
-        for (let adventurer of state.current.adventurers) {
+        for (const adventurer of state.current.adventurers) {
             ap += adventurer.modifiedAP;
         }
         return ap;
@@ -243,4 +280,4 @@ export const useAdventurers = (globalModifiers, resources) => {
         data: adventurers,
         getCumulatedAP,
     };
-}
+};

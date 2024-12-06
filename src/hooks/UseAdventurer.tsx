@@ -1,9 +1,24 @@
-import { useState } from "react"
+import { useState } from "react";
+import { Adventurer } from "../types/Adventurer.types";
+import { ResourcesHookData } from "./UseResources";
+import { ResourceCollection } from "../types/Resource.types";
 
-export const UseAdventurer = (initial, globalModifiers, resources) => {
-    const [adventurer, setAdventurer] = useState(initial);
+export type AdventurerHookData = Adventurer & {
+    modifiedAP: number;
+    cost: Partial<ResourceCollection>;
+    canAfford: boolean;
+    buy: () => void;
+    set: React.Dispatch<React.SetStateAction<Adventurer>>;
+};
 
-    function getCost() {
+export const UseAdventurer = (
+    initial: Adventurer,
+    globalModifiers,
+    resources: ResourcesHookData
+): AdventurerHookData => {
+    const [adventurer, setAdventurer] = useState<Adventurer>(initial);
+
+    function getCost(): Partial<ResourceCollection> {
         let cost = adventurer.initialCost;
         for (let i = 0; i < adventurer.level; i++) {
             cost = adventurer.costIncrease(cost);
@@ -12,46 +27,39 @@ export const UseAdventurer = (initial, globalModifiers, resources) => {
     }
 
     function getModifiedAP() {
-        return adventurer.level
-        * adventurer.AP 
-        * adventurer.multiplier 
-        * globalModifiers.multiplier.AP
+        return (
+            adventurer.level *
+            adventurer.AP *
+            adventurer.multiplier *
+            globalModifiers.multiplier.AP
+        );
     }
 
-    function canAfford(cost) {
-        return resources.isAffordable(cost ? cost : getCost());
+    function canAfford() {
+        return resources.isAffordable(getCost());
     }
 
     function buy() {
-        let cost = getCost();
-        if (!adventurer || !canAfford(cost)) {
-            throw new Error('Not enough yurpis to buy this');
-        }
-        else {
-            let success = resources.change(cost, 'dec');
-            if (success) {
-                setAdventurer(prev => {
-                    return {
-                        ...prev,
-                        level: prev.level + 1,
-                    }
-                })
-            }
+        const cost = getCost();
+        if (!adventurer || !canAfford()) {
+            throw new Error("Not enough yurpis to buy this");
+        } else {
+            resources.change(cost, "dec");
+            setAdventurer((prev) => {
+                return {
+                    ...prev,
+                    level: prev.level + 1,
+                };
+            });
         }
     }
 
-    const adventurerFunctions = {
+    return {
+        ...adventurer,
         modifiedAP: getModifiedAP(),
         cost: getCost(),
         canAfford: canAfford(),
         buy,
         set: setAdventurer,
-    }
-
-    const bindedAdventurer = {
-        ...adventurer,
-        ...adventurerFunctions,
-    }
-
-    return bindedAdventurer;
-}
+    };
+};

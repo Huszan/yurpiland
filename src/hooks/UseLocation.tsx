@@ -3,12 +3,19 @@ import { ResourceCollection } from "../types/Resource.types";
 import { Location } from "../types/Location.types";
 import { ResourcesHookData } from "./UseResources";
 
+export type LocationHookData = Location & {
+    setLocation: React.Dispatch<React.SetStateAction<Location>>;
+    getAdventureTime: () => number;
+    getDrop: () => ResourceCollection;
+    getChanceToSuccess: () => number;
+};
+
 export const UseLocation = (
     initial: Location,
     adventurers,
     globalModifiers,
     resources: ResourcesHookData
-) => {
+): LocationHookData => {
     const [location, setLocation] = useState<Location>(initial);
     const getAP = adventurers.getCumulatedAP;
 
