@@ -11,6 +11,7 @@ import BardImg from "../resources/images/characters/bard.png";
 import DruidImg from "../resources/images/characters/druid.png";
 import { Adventurer } from "../types/Adventurer.types";
 import { ResourcesHookData } from "./UseResources";
+import { GlobalModifiers } from "../types/Progress.types";
 
 const adventurerTags = {
     melee: {
@@ -256,7 +257,7 @@ export type AdventurersHookData = {
 };
 
 export const useAdventurers = (
-    globalModifiers,
+    globalModifiers: GlobalModifiers,
     resources: ResourcesHookData
 ): AdventurersHookData => {
     const adventurers = adventurersInitial.map((el) =>

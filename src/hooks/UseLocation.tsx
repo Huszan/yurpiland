@@ -2,6 +2,8 @@ import { useState } from "react";
 import { ResourceCollection } from "../types/Resource.types";
 import { Location } from "../types/Location.types";
 import { ResourcesHookData } from "./UseResources";
+import { AdventurersHookData } from "./UseAdventurers";
+import { GlobalModifiers } from "../types/Progress.types";
 
 export type LocationHookData = Location & {
     setLocation: React.Dispatch<React.SetStateAction<Location>>;
@@ -12,8 +14,8 @@ export type LocationHookData = Location & {
 
 export const UseLocation = (
     initial: Location,
-    adventurers,
-    globalModifiers,
+    adventurers: AdventurersHookData,
+    globalModifiers: GlobalModifiers,
     resources: ResourcesHookData
 ): LocationHookData => {
     const [location, setLocation] = useState<Location>(initial);

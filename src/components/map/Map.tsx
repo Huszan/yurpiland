@@ -1,5 +1,4 @@
-import { useContext, useEffect, useRef } from "react";
-import { ProgressionContext } from "../../context/Progression";
+import { useEffect, useRef } from "react";
 import { useMapController } from "../../hooks/UseMapController";
 import "./Map.scss";
 import ZoomInSvg from "../../resources/icons/zoom_in.svg";
@@ -11,11 +10,12 @@ import ArrowRightSvg from "../../resources/icons/arrow_right.svg";
 import AdjustSvg from "../../resources/icons/adjust.svg";
 import { useGlobalStates } from "../../hooks/UseGlobalStates";
 import { MapControls } from "../../context/GlobalStates";
+import { useProgression } from "../../hooks/UseProgression";
 
 export default function Map() {
     const mapRef = useRef<HTMLElement | null>(null);
     const mapContentRef = useRef<HTMLDivElement | null>(null);
-    const progress = useContext(ProgressionContext);
+    const progress = useProgression();
     const { settings, setSettings, mapControls, setMapControls } =
         useGlobalStates();
     const mapControlsState = [mapControls, setMapControls] as [

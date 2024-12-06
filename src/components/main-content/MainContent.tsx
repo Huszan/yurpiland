@@ -1,15 +1,14 @@
 import "./MainContent.scss";
 import { Outlet } from "react-router-dom";
 import InfoBar from "../info-bar/InfoBar";
-import { useContext } from "react";
-import { ProgressionContext } from "../../context/Progression";
 import MapInfo from "../map-info/MapInfo";
 import MapProgress from "../map-progress/MapProgress";
 import { useGlobalStates } from "../../hooks/UseGlobalStates";
+import { useProgression } from "../../hooks/UseProgression";
 
 export default function MainContent() {
     const { setModalData } = useGlobalStates();
-    const { locations, resources, adventure } = useContext(ProgressionContext);
+    const { locations, resources, adventure } = useProgression();
 
     function openAdventureInfo() {
         setModalData((prev) => {

@@ -1,14 +1,14 @@
 import "./AdventurerBlock.scss";
 import { useContext } from "react";
-import { ProgressionContext } from "../../context/Progression";
 import {
     abbreviateNumber,
     firstLetterToUpperCase,
 } from "../../utils/HelperFunctions.utils";
 import UndefinedIcon from "../../resources/images/placeholder.jpg";
+import { useProgression } from "../../hooks/UseProgression";
 
 export default function AdventurerBlock({ adventurer }) {
-    const progress = useContext(ProgressionContext);
+    const progress = useProgression();
     const resources = progress.resources;
 
     const tagElements = adventurer.tags.map((tag) => {

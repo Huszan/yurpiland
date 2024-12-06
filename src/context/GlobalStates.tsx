@@ -3,7 +3,7 @@ import { useWindowInfo } from "../hooks/UseWindowInfo";
 import { mapConfig } from "../utils/DataSettings.utils";
 import { MapConfig } from "../types/Map.types";
 import { ModalData } from "../types/ModalData.types";
-import { GlobalStatesContext } from "./GlobalStatesContext";
+import { GlobalStatesContext } from "./GlobalStates.context";
 
 export type MapControls = {
     zoom: number;

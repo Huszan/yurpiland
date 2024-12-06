@@ -1,4 +1,4 @@
-import { UseLocation } from "./UseLocation";
+import { LocationHookData, UseLocation } from "./UseLocation";
 import CastlePng from "../resources/images/castle2.png";
 import CastleSelectedPng from "../resources/images/castle2_selected.png";
 import ForestPng from "../resources/images/forest.png";
@@ -8,6 +8,8 @@ import CityLandscapeImg from "../resources/images/city-landscape.png";
 import ForestLandscapeImg from "../resources/images/forest-landscape-2.png";
 import { Location } from "../types/Location.types";
 import { ResourcesHookData } from "./UseResources";
+import { AdventurersHookData } from "./UseAdventurers";
+import { GlobalModifiers } from "../types/Progress.types";
 
 const locationsInitial: Location[] = [
     {
@@ -59,11 +61,21 @@ const locationsInitial: Location[] = [
     },
 ];
 
+export type LocationListHookData = {
+    data: LocationHookData[];
+    get: {
+        selected: LocationHookData;
+    };
+    set: {
+        selected: React.Dispatch<React.SetStateAction<LocationHookData>>;
+    };
+};
+
 export const useLocationList = (
-    adventurers,
-    globalModifiers,
+    adventurers: AdventurersHookData,
+    globalModifiers: GlobalModifiers,
     resources: ResourcesHookData
-) => {
+): LocationListHookData => {
     const locationList = locationsInitial.map((location) =>
         UseLocation(location, adventurers, globalModifiers, resources)
     );

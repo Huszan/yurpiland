@@ -1,22 +1,30 @@
-import { useContext, createContext, useEffect, useRef, useState } from "react";
+import { PropsWithChildren, useEffect, useRef, useState } from "react";
 import { encrypt, decrypt } from "../utils/Encryption.utils";
-import { ProgressionContext } from "./Progression";
+import { useProgression } from "../hooks/UseProgression";
+import { ProgressionContextValue } from "./Progression.context";
+import { ResourceCollection } from "../types/Resource.types";
+import { SaveManagerContext } from "./SaveManager.context";
+import { AdventurersHookData } from "../hooks/UseAdventurers";
+import { GlobalModifiers } from "../types/Progress.types";
+import { Save } from "../types/Save.types";
 
-export const SaveManagerContext = createContext();
-
-export function SaveManager(props) {
+export function SaveManager(props: PropsWithChildren) {
     const { children } = props;
     const [isLoaded, setIsLoaded] = useState(false);
-    const progress = useContext(ProgressionContext);
-    const ref = useRef();
+    const progress = useProgression();
+    const ref = useRef<null | {
+        progress: ProgressionContextValue;
+        isLoaded: boolean;
+    }>();
     ref.current = {
         progress,
         isLoaded,
     };
 
-    function getResourcesData() {
-        let resources = ref.current.progress.resources.data;
-        let data = {};
+    function getResourcesData(): Partial<ResourceCollection> {
+        if (!ref.current?.progress) throw new Error(`Couldn't load resources`);
+        const resources = ref.current.progress.resources.data;
+        const data: Partial<ResourceCollection> = {};
         Object.entries(resources).forEach(([key, val]) => {
             data[key] = {
                 amount: val.amount,
@@ -26,9 +34,9 @@ export function SaveManager(props) {
         return data;
     }
 
-    function injectResources(data) {
+    function injectResources(data: Partial<ResourceCollection>) {
         progress.resources.setData((prev) => {
-            let newResources = {};
+            const newResources: ResourceCollection = {};
             Object.entries(prev).forEach(([key, val]) => {
                 newResources[key] = {
                     ...val,
@@ -39,18 +47,20 @@ export function SaveManager(props) {
         });
     }
 
-    function getAdventurersData() {
-        let adventurers = ref.current.progress.adventurers;
-        let data = adventurers.data.map((el) => {
+    function getAdventurersData(): Partial<AdventurersHookData>[] {
+        if (!ref.current?.progress) throw new Error(`Couldn't load progress`);
+        const adventurers = ref.current.progress.adventurers;
+        const data = adventurers.data.map((el) => {
             return {
                 level: el.level,
                 multiplier: el.multiplier,
-            };
+            } as Partial<AdventurersHookData>;
         });
         return data;
     }
 
-    function injectAdventurers(data) {
+    function injectAdventurers(data: Partial<AdventurersHookData>[]) {
+        if (!ref.current?.progress) throw new Error(`Couldn't load progress`);
         ref.current.progress.adventurers.data.forEach((adventurer, i) => {
             adventurer.set((prev) => {
                 return {
@@ -62,27 +72,31 @@ export function SaveManager(props) {
     }
 
     function getGlobalModifiersData() {
-        let globalModifiers = ref.current.progress.get.globalModifiers;
+        if (!ref.current?.progress) throw new Error(`Couldn't load progress`);
+        const globalModifiers = ref.current.progress.get.globalModifiers;
         return globalModifiers;
     }
 
-    function injectGlobalModifiers(data) {
+    function injectGlobalModifiers(data: GlobalModifiers) {
+        if (!ref.current?.progress) throw new Error(`Couldn't load progress`);
         ref.current.progress.set.globalModifiers(data);
     }
 
-    function getLocationsData() {
-        let locations = ref.current.progress.locations.data.map((el) => {
+    function getLocationsData(): Partial<Location>[] {
+        if (!ref.current?.progress) throw new Error(`Couldn't load progress`);
+        const locations = ref.current.progress.locations.data.map((el) => {
             return {
                 multiplier: el.multiplier,
                 acceleration: el.acceleration,
                 hasAutoSendBought: el.hasAutoSendBought,
                 hasAutoSendOn: el.hasAutoSendOn,
-            };
+            } as Partial<Location>;
         });
         return locations;
     }
 
-    function injectLocations(data) {
+    function injectLocations(data: Partial<Location>[]) {
+        if (!ref.current?.progress) throw new Error(`Couldn't load progress`);
         ref.current.progress.locations.data.forEach((el, i) => {
             el.setLocation((prev) => {
                 return {
@@ -95,8 +109,13 @@ export function SaveManager(props) {
 
     // TODO: For adventure we need to create something that will
     // simulate passed time between play sessions
-    function getAdventureData() {
-        let adventure = ref.current.progress.adventure;
+    function getAdventureData(): {
+        locationKey: string;
+        timePassed: number;
+    } | null {
+        if (!ref.current?.progress) throw new Error(`Couldn't load progress`);
+
+        const adventure = ref.current.progress.adventure;
         if (!adventure.isInProgress) return null;
         return {
             locationKey: adventure.currentLocationKey,
@@ -104,15 +123,19 @@ export function SaveManager(props) {
         };
     }
 
-    function injectAdventure(data) {
-        let adventure = ref.current.progress.adventure;
-        let location = ref.current.progress.locations.data.find(
+    function injectAdventure(data: {
+        locationKey: string;
+        timePassed: number;
+    }) {
+        if (!ref.current?.progress) throw new Error(`Couldn't load progress`);
+        const adventure = ref.current.progress.adventure;
+        const location = ref.current.progress.locations.data.find(
             (el) => el.key === data.locationKey
         );
         adventure.start(location, data.timePassed);
     }
 
-    function getSaveData() {
+    function getSaveData(): Save {
         return {
             resources: getResourcesData(),
             adventurers: getAdventurersData(),
@@ -122,7 +145,7 @@ export function SaveManager(props) {
         };
     }
 
-    function injectDataToProgress(saveData) {
+    function injectDataToProgress(saveData: Save) {
         try {
             if (saveData.resources) injectResources(saveData.resources);
             if (saveData.adventurers) injectAdventurers(saveData.adventurers);
@@ -136,18 +159,18 @@ export function SaveManager(props) {
     }
 
     function saveGame() {
-        let saveData = getSaveData();
-        let saveString = encrypt(saveData);
+        const saveData = getSaveData();
+        const saveString = encrypt(saveData);
         localStorage.setItem("saveString", saveString);
     }
 
     function loadGame() {
-        let saveString = localStorage.getItem("saveString");
+        const saveString = localStorage.getItem("saveString");
         if (!saveString) {
             setIsLoaded(true);
             return false;
         }
-        let saveData = decrypt(saveString);
+        const saveData = decrypt(saveString);
         injectDataToProgress(saveData);
         setIsLoaded(true);
         return true;
@@ -155,6 +178,7 @@ export function SaveManager(props) {
 
     useEffect(() => {
         setInterval(() => {
+            if (!ref.current) throw new Error(`Couldn't load isLoaded`);
             if (ref.current.isLoaded === false) return;
             saveGame();
         }, 1000);

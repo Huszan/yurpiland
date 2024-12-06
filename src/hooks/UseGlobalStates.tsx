@@ -2,7 +2,7 @@ import { useContext } from "react";
 import {
     GlobalStatesContext,
     GlobalStatesContextValue,
-} from "../context/GlobalStatesContext";
+} from "../context/GlobalStates.context";
 
 export function useGlobalStates() {
     const context = useContext<GlobalStatesContextValue>(GlobalStatesContext);

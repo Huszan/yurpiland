@@ -22,7 +22,7 @@ export type LoaderHookData = {
     start: () => void;
     stop: () => void;
     update: (data: Partial<Loader>) => void;
-    getTimePassed: () => void;
+    getTimePassed: () => number;
 };
 
 export const useLoader = (config: Partial<Loader>): LoaderHookData => {
@@ -76,8 +76,8 @@ export const useLoader = (config: Partial<Loader>): LoaderHookData => {
         setProgress(0);
     }
 
-    function getTimePassed() {
-        if (!ref.current) return;
+    function getTimePassed(): number {
+        if (!ref.current) return 0;
         const { startTime } = ref.current.loaderData;
         if (!startTime) return 0;
         const passed = new Date().getTime() - startTime;

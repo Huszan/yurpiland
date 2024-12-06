@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Adventurer } from "../types/Adventurer.types";
 import { ResourcesHookData } from "./UseResources";
 import { ResourceCollection } from "../types/Resource.types";
+import { GlobalModifiers } from "../types/Progress.types";
 
 export type AdventurerHookData = Adventurer & {
     modifiedAP: number;
@@ -13,7 +14,7 @@ export type AdventurerHookData = Adventurer & {
 
 export const UseAdventurer = (
     initial: Adventurer,
-    globalModifiers,
+    globalModifiers: GlobalModifiers,
     resources: ResourcesHookData
 ): AdventurerHookData => {
     const [adventurer, setAdventurer] = useState<Adventurer>(initial);
