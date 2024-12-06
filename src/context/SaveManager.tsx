@@ -1,5 +1,5 @@
 import { useContext, createContext, useEffect, useRef, useState } from "react";
-import { encrypt, decrypt } from '../utils/Encryption';
+import { encrypt, decrypt } from "../utils/Encryption.utils";
 import { ProgressionContext } from "./Progression";
 
 export const SaveManagerContext = createContext();
@@ -12,7 +12,7 @@ export function SaveManager(props) {
     ref.current = {
         progress,
         isLoaded,
-    }
+    };
 
     function getResourcesData() {
         let resources = ref.current.progress.resources.data;
@@ -21,44 +21,44 @@ export function SaveManager(props) {
             data[key] = {
                 amount: val.amount,
                 multiplier: val.multiplier,
-            }
-        })
+            };
+        });
         return data;
     }
 
     function injectResources(data) {
-        progress.resources.setData(prev => {
+        progress.resources.setData((prev) => {
             let newResources = {};
             Object.entries(prev).forEach(([key, val]) => {
                 newResources[key] = {
                     ...val,
                     ...data[key],
-                }
-            })
+                };
+            });
             return newResources;
-        })
+        });
     }
 
     function getAdventurersData() {
         let adventurers = ref.current.progress.adventurers;
-        let data = adventurers.data.map(el => {
+        let data = adventurers.data.map((el) => {
             return {
                 level: el.level,
                 multiplier: el.multiplier,
-            }
+            };
         });
         return data;
     }
 
     function injectAdventurers(data) {
         ref.current.progress.adventurers.data.forEach((adventurer, i) => {
-            adventurer.set(prev => {
+            adventurer.set((prev) => {
                 return {
                     ...prev,
-                    ...data[i]
-                }
-            })
-        })
+                    ...data[i],
+                };
+            });
+        });
     }
 
     function getGlobalModifiersData() {
@@ -71,26 +71,26 @@ export function SaveManager(props) {
     }
 
     function getLocationsData() {
-        let locations = ref.current.progress.locations.data.map(el => {
+        let locations = ref.current.progress.locations.data.map((el) => {
             return {
                 multiplier: el.multiplier,
                 acceleration: el.acceleration,
                 hasAutoSendBought: el.hasAutoSendBought,
                 hasAutoSendOn: el.hasAutoSendOn,
-            }
-        })
+            };
+        });
         return locations;
     }
 
     function injectLocations(data) {
         ref.current.progress.locations.data.forEach((el, i) => {
-            el.setLocation(prev => {
+            el.setLocation((prev) => {
                 return {
                     ...prev,
                     ...data[i],
-                }
-            })
-        })
+                };
+            });
+        });
     }
 
     // TODO: For adventure we need to create something that will
@@ -101,7 +101,7 @@ export function SaveManager(props) {
         return {
             locationKey: adventure.currentLocationKey,
             timePassed: adventure.loader.getTimePassed(),
-        }
+        };
     }
 
     function injectAdventure(data) {
@@ -119,17 +119,18 @@ export function SaveManager(props) {
             globalModifiers: getGlobalModifiersData(),
             locations: getLocationsData(),
             adventure: getAdventureData(),
-        }
+        };
     }
 
     function injectDataToProgress(saveData) {
         try {
             if (saveData.resources) injectResources(saveData.resources);
             if (saveData.adventurers) injectAdventurers(saveData.adventurers);
-            if (saveData.globalModifiers) injectGlobalModifiers(saveData.globalModifiers);
+            if (saveData.globalModifiers)
+                injectGlobalModifiers(saveData.globalModifiers);
             if (saveData.locations) injectLocations(saveData.locations);
             if (saveData.adventure) injectAdventure(saveData.adventure);
-        } catch(e) {
+        } catch (e) {
             console.error(e);
         }
     }
@@ -137,11 +138,11 @@ export function SaveManager(props) {
     function saveGame() {
         let saveData = getSaveData();
         let saveString = encrypt(saveData);
-        localStorage.setItem('saveString', saveString);
+        localStorage.setItem("saveString", saveString);
     }
 
     function loadGame() {
-        let saveString = localStorage.getItem('saveString');
+        let saveString = localStorage.getItem("saveString");
         if (!saveString) {
             setIsLoaded(true);
             return false;
@@ -156,20 +157,20 @@ export function SaveManager(props) {
         setInterval(() => {
             if (ref.current.isLoaded === false) return;
             saveGame();
-        }, 1000)
+        }, 1000);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, []);
 
     return (
         <SaveManagerContext.Provider
-            value = {{        
+            value={{
                 saveGame,
                 loadGame,
-                isLoaded, 
+                isLoaded,
                 setIsLoaded,
             }}
         >
-            { children }
+            {children}
         </SaveManagerContext.Provider>
-    )
+    );
 }

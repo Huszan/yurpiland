@@ -1,6 +1,6 @@
 import { useRef } from "react";
-import { clamp } from "../utils/HelperFunctions";
-import { MapConfig } from "../types/MapConfig";
+import { clamp } from "../utils/HelperFunctions.utils";
+import { MapConfig } from "../types/Map.types";
 import { MapControls } from "../context/GlobalStates";
 
 export const useMapController = (

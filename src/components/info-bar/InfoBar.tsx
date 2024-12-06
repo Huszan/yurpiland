@@ -3,7 +3,7 @@ import MenuSvg from "../../resources/icons/menu.svg";
 import { useContext } from "react";
 import { ProgressionContext } from "../../context/Progression";
 import UndefinedIcon from "../../resources/images/placeholder.jpg";
-import { abbreviateNumber } from "../../utils/HelperFunctions";
+import { abbreviateNumber } from "../../utils/HelperFunctions.utils";
 import { useGlobalStates } from "../../hooks/UseGlobalStates";
 
 export default function InfoBar() {

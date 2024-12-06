@@ -1,5 +1,4 @@
-import { AbbreviateArray } from "../types/AbbreviateArray";
-import { HslArray } from "../types/HslArray";
+import { AbbreviateArray, HslArray } from "../types/Math.types";
 
 export function firstLetterToUpperCase(str: string) {
     if (!str || str.length === 0) return "";

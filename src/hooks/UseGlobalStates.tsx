@@ -1,8 +1,11 @@
 import { useContext } from "react";
-import { GlobalStatesContext } from "../context/GlobalStatesContext";
+import {
+    GlobalStatesContext,
+    GlobalStatesContextValue,
+} from "../context/GlobalStatesContext";
 
 export function useGlobalStates() {
-    const context = useContext(GlobalStatesContext);
+    const context = useContext<GlobalStatesContextValue>(GlobalStatesContext);
 
     if (!context) {
         throw new Error(

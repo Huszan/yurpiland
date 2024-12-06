@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import Odometer from "react-odometerjs";
 import { ProgressionContext } from "../../context/Progression";
-import { abbreviateNumber } from "../../utils/HelperFunctions";
+import { abbreviateNumber } from "../../utils/HelperFunctions.utils";
 import "./ApCounter.scss";
 import "odometer/themes/odometer-theme-default.css";
 

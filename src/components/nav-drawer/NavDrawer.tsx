@@ -5,7 +5,7 @@ import "./NavDrawer.scss";
 import CloseSvg from "../../resources/icons/close.svg";
 import PlaceholderImg from "../../resources/images/placeholder.jpg";
 import LogoImg from "../../resources/images/logo/logo.png";
-import { firstLetterToUpperCase } from "../../utils/HelperFunctions";
+import { firstLetterToUpperCase } from "../../utils/HelperFunctions.utils";
 import ApCounter from "../ap-counter/ApCounter";
 import { routes } from "../../Routes";
 import { useGlobalStates } from "../../hooks/UseGlobalStates";

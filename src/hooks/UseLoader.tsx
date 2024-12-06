@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useState } from "react";
-import { Loader } from "../types/Loader";
+import { Loader } from "../types/Loader.types";
 
 const initialLoaderData: Loader = {
     key: "default", // it's used if you want to recognize last loader

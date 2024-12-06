@@ -1,7 +1,7 @@
 import { useState } from "react";
 import YurpisIco from "../resources/images/icons/yurpi-icon.png";
 import WoodIco from "../resources/images/icons/wood-icon.png";
-import { ResourceCollection } from "../types/ResourceCollection";
+import { ResourceCollection } from "../types/Resource.types";
 
 const initialResources: ResourceCollection = {
     yurpis: {
@@ -16,8 +16,16 @@ const initialResources: ResourceCollection = {
     },
 };
 
-export const useResources = () => {
-    const [resources, setResources] = useState(initialResources);
+export type ResourcesHookData = {
+    data: ResourceCollection;
+    setData: React.Dispatch<React.SetStateAction<ResourceCollection>>;
+    isAffordable: (cost: ResourceCollection) => boolean;
+    change: (change: ResourceCollection, type: "dec" | "inc") => void;
+};
+
+export const useResources = (): ResourcesHookData => {
+    const [resources, setResources] =
+        useState<ResourceCollection>(initialResources);
 
     function isAffordable(resourceCosts: ResourceCollection) {
         let affordable = true;

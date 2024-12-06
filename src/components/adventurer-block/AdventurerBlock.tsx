@@ -4,7 +4,7 @@ import { ProgressionContext } from "../../context/Progression";
 import {
     abbreviateNumber,
     firstLetterToUpperCase,
-} from "../../utils/HelperFunctions";
+} from "../../utils/HelperFunctions.utils";
 import UndefinedIcon from "../../resources/images/placeholder.jpg";
 
 export default function AdventurerBlock({ adventurer }) {

@@ -6,8 +6,10 @@ import ForestSelectedPng from "../resources/images/forest_selected.png";
 import { useState } from "react";
 import CityLandscapeImg from "../resources/images/city-landscape.png";
 import ForestLandscapeImg from "../resources/images/forest-landscape-2.png";
+import { Location } from "../types/Location.types";
+import { ResourcesHookData } from "./UseResources";
 
-const locationsInitial = [
+const locationsInitial: Location[] = [
     {
         key: "city square",
         desc: "Send brave andventurers to assist helpless citizens in their daily tasks. Better prepare some ladders to get them kitties off the trees.",
@@ -15,7 +17,7 @@ const locationsInitial = [
             min: Math.pow(10, 2),
             max: Math.pow(10, 6),
         },
-        baseTimeToFinish: 15, // seconds
+        baseTimeToFinish: 15,
         baseDrop: {
             yurpis: {
                 amount: 1,
@@ -37,7 +39,7 @@ const locationsInitial = [
             min: Math.pow(10, 5),
             max: Math.pow(10, 10),
         },
-        baseTimeToFinish: 60, // seconds
+        baseTimeToFinish: 60,
         baseDrop: {
             yurpis: {
                 amount: 0.8,
@@ -57,7 +59,11 @@ const locationsInitial = [
     },
 ];
 
-export const useLocationList = (adventurers, globalModifiers, resources) => {
+export const useLocationList = (
+    adventurers,
+    globalModifiers,
+    resources: ResourcesHookData
+) => {
     const locationList = locationsInitial.map((location) =>
         UseLocation(location, adventurers, globalModifiers, resources)
     );

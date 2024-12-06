@@ -1,12 +1,15 @@
 import { useState } from "react";
+import { ResourceCollection } from "../types/Resource.types";
+import { Location } from "../types/Location.types";
+import { ResourcesHookData } from "./UseResources";
 
 export const UseLocation = (
-    initial,
+    initial: Location,
     adventurers,
     globalModifiers,
-    resources
+    resources: ResourcesHookData
 ) => {
-    const [location, setLocation] = useState(initial);
+    const [location, setLocation] = useState<Location>(initial);
     const getAP = adventurers.getCumulatedAP;
 
     /**
@@ -23,7 +26,7 @@ export const UseLocation = (
     }
 
     function getDrop() {
-        let drop = {};
+        const drop: ResourceCollection = {};
         Object.entries(location.baseDrop).forEach(([key, el]) => {
             const rsc = resources.data[key];
             drop[key] = {
@@ -33,7 +36,7 @@ export const UseLocation = (
                     (getAP() ? getAP() / 20 : 0) *
                     location.multiplier *
                     globalModifiers.multiplier.location *
-                    rsc.multiplier,
+                    rsc.multiplier!,
             };
         });
         return drop;
@@ -42,10 +45,10 @@ export const UseLocation = (
     const baseChance = 50;
 
     function getBonusChance() {
-        let max = location.optimalAP.max - location.optimalAP.min;
-        let curr = getAP() - location.optimalAP.min;
+        const max = location.optimalAP.max - location.optimalAP.min;
+        const curr = getAP() - location.optimalAP.min;
         if (curr <= 0) return 0;
-        let chance = (curr / max) * (100 - baseChance);
+        const chance = (curr / max) * (100 - baseChance);
         return chance;
     }
 

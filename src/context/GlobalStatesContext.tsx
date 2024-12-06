@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { ModalData } from "../types/ModalData";
+import { ModalData } from "../types/ModalData.types";
 import { GlobalSettings, MapControls } from "./GlobalStates";
 import { WindowInfo } from "../hooks/UseWindowInfo";
 

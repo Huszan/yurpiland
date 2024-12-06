@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useWindowInfo } from "../hooks/UseWindowInfo";
-import { mapConfig } from "../utils/DataSettings";
-import { MapConfig } from "../types/MapConfig";
-import { ModalData } from "../types/ModalData";
+import { mapConfig } from "../utils/DataSettings.utils";
+import { MapConfig } from "../types/Map.types";
+import { ModalData } from "../types/ModalData.types";
 import { GlobalStatesContext } from "./GlobalStatesContext";
 
 export type MapControls = {

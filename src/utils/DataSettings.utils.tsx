@@ -1,4 +1,4 @@
-import { MapConfig } from "../types/MapConfig";
+import { MapConfig } from "../types/Map.types";
 
 export const mapConfig: MapConfig = {
     contentSize: {
