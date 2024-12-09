@@ -37,7 +37,7 @@ export const useAdventure = (
                 interval: location.getAdventureTime(),
                 cb: () => onFinished(location),
                 isLooped: location.hasAutoSendOn,
-                extractTime: extractTime,
+                extractTime: extractTime || 0,
             });
         }
         loader.start();
