@@ -7,13 +7,14 @@ This is my first multi page project using React.js. I'm developing it to learn m
 
 ## Setup
 
-To run this project you must: 
-* clone repository
-* install dependencies 
-* run it using react-scripts
+To run this project you must:
+
+-   clone repository
+-   install dependencies
+-   run it using react-scripts
 
 ```
 > cd ../yurpiland
 > npm install
-> npm start
+> npm run dev
 ```

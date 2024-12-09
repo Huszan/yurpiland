@@ -1,4 +1,4 @@
-@import '../../styles/theme.scss';
+@use "../../styles/theme.scss" as *;
 
 #loading-screen {
     display: flex;
@@ -9,7 +9,7 @@
     background-color: $primary-color;
     z-index: 1000;
 
-    .loading-animation-balls {     
+    .loading-animation-balls {
         .b {
             display: inline-block;
             width: 40px;

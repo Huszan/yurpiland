@@ -1,4 +1,4 @@
-@import '../../styles/theme.scss';
+@use "../../styles/theme.scss" as *;
 
 .adventurer-block {
     display: flex;
@@ -8,7 +8,7 @@
     background-color: $primary-color;
     margin: 10px;
     box-sizing: content-box;
-    box-shadow: 2px 2px 4px 2px rgba($color: #000000, $alpha: 1.0);
+    box-shadow: 2px 2px 4px 2px rgba($color: #000000, $alpha: 1);
 
     .adventurer-icon {
         max-width: 160px;
@@ -28,7 +28,7 @@
     .tags-wrapper {
         margin: 0 0 10px 0;
         padding: unset;
-        
+
         .tag {
             display: inline-block;
             margin-left: 5px;
