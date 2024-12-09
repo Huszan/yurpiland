@@ -1,13 +1,18 @@
 import "./AdventurerBlock.scss";
-import { useContext } from "react";
 import {
     abbreviateNumber,
     firstLetterToUpperCase,
 } from "../../utils/HelperFunctions.utils";
 import UndefinedIcon from "../../resources/images/placeholder.jpg";
 import { useProgression } from "../../hooks/UseProgression";
+import { AdventurerHookData } from "../../hooks/UseAdventurer";
 
-export default function AdventurerBlock({ adventurer }) {
+type AdventurerBlockComponentProps = {
+    adventurer: AdventurerHookData;
+};
+
+export default function AdventurerBlock(props: AdventurerBlockComponentProps) {
+    const { adventurer } = props;
     const progress = useProgression();
     const resources = progress.resources;
 
@@ -36,7 +41,7 @@ export default function AdventurerBlock({ adventurer }) {
                     className="icon"
                     alt=""
                 />
-                <span>{abbreviateNumber(cost.amount)}</span>
+                <span>{abbreviateNumber(cost!.amount)}</span>
             </li>
         );
     });

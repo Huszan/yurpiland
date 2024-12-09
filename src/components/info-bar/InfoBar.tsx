@@ -14,7 +14,7 @@ export default function InfoBar() {
     }
 
     const resourceElements = Object.keys(progress.resources.data).map((key) => {
-        let rsc = progress.resources.data[key];
+        const rsc = progress.resources.data[key];
         return (
             <li key={key} className="display-block">
                 <img

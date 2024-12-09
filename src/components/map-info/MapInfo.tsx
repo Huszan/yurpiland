@@ -6,13 +6,21 @@ import {
     formatTime,
 } from "../../utils/HelperFunctions.utils";
 import PlaceholderImg from "../../resources/images/placeholder.jpg";
+import { LocationHookData } from "../../hooks/UseLocation";
+import { ResourcesHookData } from "../../hooks/UseResources";
 
-export default function MapInfo({ location, resources }) {
-    const successChance = location.getChanceToSuccess().toFixed(1);
+type MapInfoComponentProps = {
+    location: LocationHookData;
+    resources: ResourcesHookData;
+};
+
+export default function MapInfo(props: MapInfoComponentProps) {
+    const { location, resources } = props;
+    const successChance = location.getChanceToSuccess();
 
     const rewardElements = Object.entries(location.getDrop()).map(
         ([key, el]) => {
-            let icon = resources.data[key].icon
+            const icon = resources.data[key].icon
                 ? resources.data[key].icon
                 : PlaceholderImg;
             return (
@@ -24,7 +32,7 @@ export default function MapInfo({ location, resources }) {
         }
     );
 
-    function successChanceStyle(chance) {
+    function successChanceStyle(chance: number): React.CSSProperties {
         return {
             color: basicColorTransition(chance),
         };
@@ -42,7 +50,7 @@ export default function MapInfo({ location, resources }) {
             <p>
                 Success chance:{" "}
                 <span style={successChanceStyle(successChance)}>
-                    {successChance}%
+                    {successChance.toFixed(0)}%
                 </span>
             </p>
             <ul className="reward-list">{rewardElements}</ul>

@@ -11,6 +11,7 @@ import AdjustSvg from "../../resources/icons/adjust.svg";
 import { useGlobalStates } from "../../hooks/UseGlobalStates";
 import { MapControls } from "../../context/GlobalStates";
 import { useProgression } from "../../hooks/UseProgression";
+import { LocationHookData } from "../../hooks/UseLocation";
 
 export default function Map() {
     const mapRef = useRef<HTMLElement | null>(null);
@@ -136,7 +137,7 @@ export default function Map() {
         previousTouch = touch;
     }
 
-    function onMapElementClick(map: MapControls) {
+    function onMapElementClick(map: LocationHookData) {
         const size = controller.getMapContentSize();
         const position = {
             x: (map.position[0] / 100) * size.x,
@@ -166,21 +167,21 @@ export default function Map() {
         controller.center(position);
     }
 
-    const mapElements = locations.data.map((map) => {
-        const isSelected = locations.get.selected.key === map.key;
+    const mapElements = locations.data.map((location) => {
+        const isSelected = locations.get.selected.key === location.key;
         return (
             <button
-                key={map.key}
+                key={location.key}
                 className="map-element"
                 style={{
-                    left: `${map.position[0]}%`,
-                    top: `${map.position[1]}%`,
+                    left: `${location.position[0]}%`,
+                    top: `${location.position[1]}%`,
                 }}
-                onClick={() => onMapElementClick(map)}
+                onClick={() => onMapElementClick(location)}
             >
                 <img
                     className={isSelected ? "selected" : ""}
-                    src={isSelected ? map.iconSelected : map.icon}
+                    src={isSelected ? location.iconSelected : location.icon}
                     alt=""
                 />
             </button>

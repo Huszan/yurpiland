@@ -4,6 +4,7 @@ import { Location } from "../types/Location.types";
 import { ResourcesHookData } from "./UseResources";
 import { AdventurersHookData } from "./UseAdventurers";
 import { GlobalModifiers } from "../types/Progress.types";
+import { clamp } from "../utils/HelperFunctions.utils";
 
 export type LocationHookData = Location & {
     setLocation: React.Dispatch<React.SetStateAction<Location>>;
@@ -64,7 +65,7 @@ export const UseLocation = (
     function getChanceToSuccess() {
         if (getAP() < location.optimalAP.min) return 0;
         const chance = baseChance + getBonusChance();
-        return chance;
+        return clamp(0, 100, chance);
     }
 
     return {

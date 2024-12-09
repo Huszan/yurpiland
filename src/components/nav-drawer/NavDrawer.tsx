@@ -18,6 +18,10 @@ export default function NavDrawer() {
 
     useEffect(() => {
         const nav = document.getElementById("nav-drawer");
+        if (!nav)
+            throw new Error(
+                "#nav-drawer should be assigned to use NavDrawer component!"
+            );
         if (isNavDrawerOpen || window.isDesktop) {
             nav.style.transform = "translateX(0)";
         } else {
