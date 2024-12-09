@@ -2,7 +2,7 @@ import "./modal.scss";
 import CloseSvg from "../../resources/icons/close.svg";
 
 type ModalComponentProps = {
-    content: JSX.Element;
+    content: JSX.Element | null;
     onClose: () => void;
 };
 
