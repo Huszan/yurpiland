@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 export type WindowInfo = {
     size: {
@@ -13,28 +13,30 @@ const useWindowInfo = (): WindowInfo => {
         width: window.innerWidth,
         height: window.innerHeight,
     });
-    const [isDesktop, setIsDesktop] = useState(window.innerWidth > 600);
+
+    const isDesktop = useMemo(() => {
+        const res = size.width > 600;
+        setRootWindowStyle();
+        return res;
+    }, [size]);
 
     function setRootWindowStyle() {
-        if (window.innerWidth > 600)
+        if (size.width > 600)
             document.getElementById("root")!.classList.add("desktop");
         else document.getElementById("root")!.classList.remove("desktop");
     }
 
     useEffect(() => {
-        function init() {
+        const onResize = () => {
             setSize({
                 width: window.innerWidth,
                 height: window.innerHeight,
             });
-            setIsDesktop(window.innerWidth > 600);
-            setRootWindowStyle();
-        }
+        };
 
-        init();
-        window.addEventListener("resize", init);
+        window.addEventListener("resize", onResize);
         return () => {
-            window.removeEventListener("resize", init);
+            window.removeEventListener("resize", onResize);
         };
     }, []);
 
