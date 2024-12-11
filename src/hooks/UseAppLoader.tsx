@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { SaveManagerContextValue } from "../context/SaveManager.context";
 
+let isLoaded = false;
+
 export function useAppLoader(saveManager: SaveManagerContextValue) {
-    const [isLoaded, setIsLoaded] = useState(false);
+    if (!saveManager) throw new Error("Save manager not found");
 
     useEffect(() => {
-        saveManager!.loadGame();
-        setIsLoaded(true);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        if (isLoaded === false) {
+            saveManager.loadGame();
+            isLoaded = true;
+        }
     }, []);
 
     return {
