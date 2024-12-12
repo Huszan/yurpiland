@@ -3,9 +3,10 @@ import {
     abbreviateNumber,
     firstLetterToUpperCase,
 } from "../../utils/HelperFunctions.utils";
-import UndefinedIcon from "../../resources/images/placeholder.jpg";
+import UndefinedIcon from "../../resources/images/placeholder.webp";
 import { useProgression } from "../../hooks/UseProgression";
 import { AdventurerHookData } from "../../hooks/UseAdventurer";
+import ImageLoader from "../image-loader/ImageLoader";
 
 type AdventurerBlockComponentProps = {
     adventurer: AdventurerHookData;
@@ -36,11 +37,7 @@ export default function AdventurerBlock(props: AdventurerBlockComponentProps) {
                 className="display-block"
                 style={{ justifyContent: "start" }}
             >
-                <img
-                    src={rsc.icon ? rsc.icon : UndefinedIcon}
-                    className="icon"
-                    alt=""
-                />
+                <ImageLoader src={rsc.icon} wrapperClass="img-imit icon" />
                 <span>{abbreviateNumber(cost!.amount)}</span>
             </li>
         );
@@ -49,13 +46,13 @@ export default function AdventurerBlock(props: AdventurerBlockComponentProps) {
     return (
         <div className="adventurer-block" key={adventurer.key}>
             <div className="wrap-flex-row">
-                <img
+                <div
                     className={`adventurer-icon ${
                         adventurer.level === 0 ? "not-bought" : ""
                     }`}
-                    src={adventurer.icon ? adventurer.icon : UndefinedIcon}
-                    alt=""
-                ></img>
+                >
+                    <ImageLoader src={adventurer.icon}></ImageLoader>
+                </div>
                 <div className="wrap-flex-col adventurer-info">
                     <h3>
                         {firstLetterToUpperCase(adventurer.key)} lvl{" "}

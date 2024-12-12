@@ -3,12 +3,12 @@ import { Link, useLocation } from "react-router-dom";
 import "./NavDrawer.scss";
 
 import CloseSvg from "../../resources/icons/close.svg";
-import PlaceholderImg from "../../resources/images/placeholder.jpg";
-import LogoImg from "../../resources/images/logo/logo.png";
+import LogoImg from "../../resources/images/logo/logo_240.webp";
 import { firstLetterToUpperCase } from "../../utils/HelperFunctions.utils";
 import ApCounter from "../ap-counter/ApCounter";
 import { routes } from "../../Routes";
 import { useGlobalStates } from "../../hooks/UseGlobalStates";
+import ImageLoader from "../image-loader/ImageLoader";
 
 export default function NavDrawer() {
     const location = useLocation();
@@ -43,11 +43,10 @@ export default function NavDrawer() {
                     }`}
                     onClick={close}
                 >
-                    <img
-                        alt=""
-                        src={route.icon ? route.icon : PlaceholderImg}
-                        className="icon"
-                    ></img>
+                    <ImageLoader
+                        src={route.icon}
+                        wrapperClass="img-imit icon"
+                    />
                     {firstLetterToUpperCase(route.key)}
                 </Link>
             </li>
@@ -61,7 +60,9 @@ export default function NavDrawer() {
                     <img alt="" src={CloseSvg} className="icon" />
                 </button>
             )}
-            <img className="logo" src={LogoImg} alt="" />
+            <div className="logo">
+                <ImageLoader src={LogoImg}></ImageLoader>
+            </div>
             <ApCounter />
             <ul className="nav-list">{navElements}</ul>
         </nav>

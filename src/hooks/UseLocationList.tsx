@@ -1,11 +1,11 @@
 import { LocationHookData, UseLocation } from "./UseLocation";
-import CastlePng from "../resources/images/castle2.png";
-import CastleSelectedPng from "../resources/images/castle2_selected.png";
-import ForestPng from "../resources/images/forest.png";
-import ForestSelectedPng from "../resources/images/forest_selected.png";
+import CastlePng from "../resources/images/castle2.webp";
+import CastleSelectedPng from "../resources/images/castle2_selected.webp";
+import ForestPng from "../resources/images/forest.webp";
+import ForestSelectedPng from "../resources/images/forest_selected.webp";
 import { useState } from "react";
-import CityLandscapeImg from "../resources/images/city-landscape.png";
-import ForestLandscapeImg from "../resources/images/forest-landscape-2.png";
+import CityLandscapeImg from "../resources/images/city-landscape.webp";
+import ForestLandscapeImg from "../resources/images/forest-landscape-2.webp";
 import { Location } from "../types/Location.types";
 import { ResourcesHookData } from "./UseResources";
 import { AdventurersHookData } from "./UseAdventurers";

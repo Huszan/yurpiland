@@ -17,29 +17,39 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         grid-template-rows: repeat(3, 1fr);
-        grid-template-areas: 
-        '. up .'
-        'left center right'
-        '. down .';
+        grid-template-areas:
+            ". up ."
+            "left center right"
+            ". down .";
         bottom: 0;
         right: 0;
         z-index: 1;
 
-        .up { grid-area: up; }
-        .down { grid-area: down; }
-        .left { grid-area: left; }
-        .right { grid-area: right; }
-        .center { grid-area: center; }
+        .up {
+            grid-area: up;
+        }
+        .down {
+            grid-area: down;
+        }
+        .left {
+            grid-area: left;
+        }
+        .right {
+            grid-area: right;
+        }
+        .center {
+            grid-area: center;
+        }
     }
 
     .map-content {
         position: absolute;
         overflow: hidden;
-        background: url(../../resources/images/yurpiland_map.png) no-repeat;
+        background: url(../../resources/images/yurpiland_map.webp) no-repeat;
         background-size: cover;
         -webkit-transform-origin-x: 0;
         -webkit-transform-origin-y: 0;
-        transition: all .1s ease-out;
+        transition: all 0.1s ease-out;
 
         .map-element {
             position: absolute;
@@ -48,7 +58,7 @@
             transform: translate(-50%, -50%);
 
             img {
-                transition: scale .1s ease-in;
+                transition: scale 0.1s ease-in;
                 width: 100%;
 
                 &.selected {

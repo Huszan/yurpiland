@@ -5,9 +5,10 @@ import {
     firstLetterToUpperCase,
     formatTime,
 } from "../../utils/HelperFunctions.utils";
-import PlaceholderImg from "../../resources/images/placeholder.jpg";
+import PlaceholderImg from "../../resources/images/placeholder.webp";
 import { LocationHookData } from "../../hooks/UseLocation";
 import { ResourcesHookData } from "../../hooks/UseResources";
+import ImageLoader from "../image-loader/ImageLoader";
 
 type MapInfoComponentProps = {
     location: LocationHookData;
@@ -20,12 +21,10 @@ export default function MapInfo(props: MapInfoComponentProps) {
 
     const rewardElements = Object.entries(location.getDrop()).map(
         ([key, el]) => {
-            const icon = resources.data[key].icon
-                ? resources.data[key].icon
-                : PlaceholderImg;
+            const icon = resources.data[key].icon;
             return (
                 <li className="display-block" key={key}>
-                    <img src={icon} className="icon" alt="" />
+                    <ImageLoader src={icon} wrapperClass="img-imit icon" />
                     <span>{abbreviateNumber(el.amount)}</span>
                 </li>
             );

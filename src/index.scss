@@ -2,11 +2,14 @@
 
 body {
     margin: 0;
-    font-family: "Lato", sans-serif;
     box-sizing: border-box;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-style: normal;
+    font-weight: 400;
 }
 
-img {
+img,
+.img-imit {
     &.icon {
         width: 24px;
         height: 24px;
