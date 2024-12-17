@@ -1,9 +1,9 @@
 import "./InfoBar.scss";
 import MenuSvg from "../../resources/icons/menu.svg";
 import UndefinedIcon from "../../resources/images/placeholder.webp";
-import { abbreviateNumber } from "../../utils/HelperFunctions.utils";
 import { useGlobalStates } from "../../hooks/UseGlobalStates";
 import { useProgression } from "../../hooks/UseProgression";
+import { formatBigNumber } from "../../utils/Math.utils";
 
 export default function InfoBar() {
     const progress = useProgression();
@@ -22,7 +22,7 @@ export default function InfoBar() {
                     alt=""
                     className="icon"
                 />
-                {abbreviateNumber(rsc.amount)}
+                {formatBigNumber(rsc.amount)}
             </li>
         );
     });

@@ -1,12 +1,9 @@
 import "./AdventurerBlock.scss";
-import {
-    abbreviateNumber,
-    firstLetterToUpperCase,
-} from "../../utils/HelperFunctions.utils";
-import UndefinedIcon from "../../resources/images/placeholder.webp";
+import { firstLetterToUpperCase } from "../../utils/HelperFunctions.utils";
 import { useProgression } from "../../hooks/UseProgression";
 import { AdventurerHookData } from "../../hooks/UseAdventurer";
 import ImageLoader from "../image-loader/ImageLoader";
+import { formatBigNumber } from "../../utils/Math.utils";
 
 type AdventurerBlockComponentProps = {
     adventurer: AdventurerHookData;
@@ -38,7 +35,7 @@ export default function AdventurerBlock(props: AdventurerBlockComponentProps) {
                 style={{ justifyContent: "start" }}
             >
                 <ImageLoader src={rsc.icon} wrapperClass="img-imit icon" />
-                <span>{abbreviateNumber(cost!.amount)}</span>
+                <span>{formatBigNumber(cost!.amount)}</span>
             </li>
         );
     });
@@ -60,8 +57,8 @@ export default function AdventurerBlock(props: AdventurerBlockComponentProps) {
                     </h3>
                     <ul className="tags-wrapper">{tagElements}</ul>
                     <div>
-                        AP: {abbreviateNumber(adventurer.modifiedAP)} (+
-                        {abbreviateNumber(adventurer.AP)})
+                        AP: {formatBigNumber(adventurer.modifiedAP)} (+
+                        {formatBigNumber(adventurer.AP)})
                     </div>
                     <ul>{costElements}</ul>
                 </div>
