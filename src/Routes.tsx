@@ -50,5 +50,13 @@ const routes: Route[] = [
     },
 ];
 
+if (import.meta.env.DEV) {
+    routes.push({
+        key: "development",
+        path: "/dev",
+        icon: "",
+    });
+}
+
 export { routes };
 export type { Route };

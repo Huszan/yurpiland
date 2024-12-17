@@ -7,6 +7,7 @@ import MainContent from "./components/main-content/MainContent";
 import AdventurersTab from "./components/adventurers-tab/AdventurersTab";
 import App from "./App";
 import MapTab from "./components/map-tab/MapTab";
+import { DevTab } from "./components/dev-tab/DevTab";
 
 export default function Router() {
     const router = createBrowserRouter([
@@ -43,6 +44,10 @@ export default function Router() {
                         {
                             path: "/settings",
                             element: <h1>Not implemented yet</h1>,
+                        },
+                        {
+                            path: "/dev",
+                            element: <DevTab></DevTab>,
                         },
                     ],
                 },

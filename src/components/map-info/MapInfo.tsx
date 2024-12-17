@@ -5,7 +5,6 @@ import {
     firstLetterToUpperCase,
     formatTime,
 } from "../../utils/HelperFunctions.utils";
-import PlaceholderImg from "../../resources/images/placeholder.webp";
 import { LocationHookData } from "../../hooks/UseLocation";
 import { ResourcesHookData } from "../../hooks/UseResources";
 import ImageLoader from "../image-loader/ImageLoader";
