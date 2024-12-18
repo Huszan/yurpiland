@@ -5,13 +5,17 @@ import GlobalStates from "./context/GlobalStates.tsx";
 import Progression from "./context/Progression.tsx";
 import { SaveManager } from "./context/SaveManager.tsx";
 import Router from "./Router.tsx";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
         <GlobalStates>
             <Progression>
                 <SaveManager>
-                    <Router />
+                    <DndProvider backend={HTML5Backend}>
+                        <Router />
+                    </DndProvider>
                 </SaveManager>
             </Progression>
         </GlobalStates>
