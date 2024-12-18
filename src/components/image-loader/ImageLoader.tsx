@@ -34,7 +34,7 @@ export default function ImageLoader(props: ImageLoaderProps) {
         } else {
             setLoadedImage(src);
         }
-    }, []);
+    }, [src]);
 
     const skeletonStyle: React.CSSProperties = {
         lineHeight: "unset",
